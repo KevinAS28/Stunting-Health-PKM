@@ -9,6 +9,7 @@ urlpatterns = [
     path('reminder', views.stunt_reminder),
     path('trace', views.stunting_trace),
     path('maps', views.stunt_maps),
+    path('maps_admin', views.stunt_maps_admin),
     path('article', views.article),
     path('profile_admin', views.profile_admin)
 ]

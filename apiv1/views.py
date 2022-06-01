@@ -1,9 +1,7 @@
 import json, datetime, requests, re, os
-from lib2to3.pgen2 import token
 
 from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseNotFound
-from django.shortcuts import render
 from django.core.handlers.wsgi import WSGIRequest
 from stunting_backend import secret_settings 
 
@@ -19,8 +17,13 @@ def test(user: ta_models.UserAuthentication, request: WSGIRequest):
 
 @token_auth(roles=['admin'])
 def profile_admin(request: WSGIRequest):
+    data = json.loads(request.body)
     if request.method=='GET':
-        return JsonResponse({'all_users': [model_to_dict(i) for i in models.UserProfile.objects.all()]})    
+        if data['get_type']=='all':
+            return JsonResponse({'all_users': [model_to_dict(i) for i in models.UserProfile.objects.all()]})    
+        elif data['get_type']=='filter':
+            return JsonResponse({'all_users': [model_to_dict(i) for i in models.UserProfile.objects.filter(name__contains=data['name'])]})    
+        return HttpResponseNotFound()
 
 @token_auth(roles=['user', 'admin'], get_user=True)
 def user_profile(user: ta_models.UserAuthentication, request: WSGIRequest):
@@ -90,18 +93,21 @@ def stunt_reminder(user: ta_models.UserAuthentication, request: WSGIRequest):
 
 @token_auth(roles=['user', 'admin'], get_user=True)
 def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
-    profile = models.UserProfile.objects.get(authentication=user)
+    
     if request.method=='GET':
+        profile = models.UserProfile.objects.get(authentication=user)
         return JsonResponse({'all_traces': [model_to_dict(i) for i in models.StuntingTrace.objects.filter(user=profile)]})
     elif request.method=='POST':
         data = json.loads(request.body)
         saved_traces = []
         for trace in data['all_traces']:
+            profile = models.UserProfile.objects.get(authentication=user)
             trace_object = models.StuntingTrace(user=profile, week=trace['week'], height=trace['height'], weight=trace['weight'])
             trace_object.save()
             saved_traces.append(model_to_dict(trace_object))
         return JsonResponse({'saved_traces': saved_traces})
     elif request.method=='PATCH':
+        profile = models.UserProfile.objects.get(authentication=user)
         data = json.loads(request.body)
         saved_traces = []
         for trace in data['all_traces']:
@@ -111,20 +117,83 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
             trace_object.save()
             saved_traces.append(model_to_dict(trace_object))
         return JsonResponse({'updated': saved_traces})
+    elif request.method=='DELETE':
+        data = json.loads(request.body)
+        deleted_traces = []
+        for trace_id in data['to_delete_ids']:
+            trace = models.StuntingTrace.objects.filter(id=trace_id)
+            if len(trace)==0:
+                continue
+            trace = trace[0]
+            trace.delete()
+            deleted_traces.append(model_to_dict(trace))
+        return JsonResponse({'deleted': deleted_traces})
     return HttpResponseNotFound()
+
+@token_auth(roles=['admin'])
+def stunt_maps_admin(request: WSGIRequest):
+    data = json.loads(request.body)
+    if request.method=='GET':
+        if data['get_type']=='unregistered':
+            SEARCH_PLACE_API = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
+            search_place_parameters = {
+                'key': secret_settings.MAP_API_KEY,
+                'query': data['place_query']
+            }
+            all_places = json.loads(requests.get(SEARCH_PLACE_API, params=search_place_parameters).text)
+            return JsonResponse({'all_places': all_places})
+        elif data['get_type']=='registered_all':
+            return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.all()]})
+        elif data['get_type']=='registered_filter':
+            return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.filter(place_name__contains=data['place_name'])]})
+        else:
+            return HttpResponseNotFound()
+
+    elif request.method=='POST':
+        saved_places = []
+        for place in data['all_places']:
+            place_obj = models.StuntPlace(
+                location_lat=place['location_lat'],
+                location_lng=place['location_lng'],
+                place_name=place['name'],
+                gmap_place_id=place['gmap_place_id']
+            )
+            place_obj.save()
+            saved_places.append(place)
+        return JsonResponse({'saved': saved_places})
+
+    elif request.method=='DELETE':
+        deleted_places = []
+        for place_id in data['to_delete_ids']:
+            place = models.StuntPlace.objects.filter(id=place_id)
+            if len(place)==0:
+                continue
+            place = place[0]
+            place.delete()
+            deleted_places.append(model_to_dict(place))
+        return JsonResponse({'deleted': deleted_places})
+    else:
+        return HttpResponseNotFound()
 
 @token_auth(roles=['user', 'admin'])
 def stunt_maps(request: WSGIRequest):
     data = json.loads(request.body)
-    NEARBY_PLACE_API = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
-    nearby_place_parameters = {
-        'key': secret_settings.MAP_API_KEY,
-        'location': data['location'], #format: lat,long
-        'keyword': data['keyword'],
-        'radius': data['radius'] if 'radius' in data else 50000,
-        'types': '|'.join('doctor pharmacy hospital health'.split())
-    }
-    return JsonResponse({'places': json.loads(requests.get(NEARBY_PLACE_API, params=nearby_place_parameters).text)}, json_dumps_params={'indent':4, 'sort_keys': True})
+    if request.method=='GET':
+        NEARBY_PLACE_API = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
+        nearby_place_parameters = {
+            'key': secret_settings.MAP_API_KEY,
+            'location': data['location'], #format: lat,long
+            'keyword': data['keyword'],
+            'radius': data['radius'] if 'radius' in data else 50000,
+            'types': '|'.join('doctor pharmacy hospital health'.split())
+        }
+        all_places = json.loads(requests.get(NEARBY_PLACE_API, params=nearby_place_parameters).text)['results']
+        all_place_ids = [i['place_id'] for i in all_places]
+        valid_places = [model_to_dict(i) for i in models.StuntPlace.objects.filter(gmap_place_id__in=all_place_ids)]
+        return JsonResponse({'places': valid_places}, json_dumps_params={'indent':4, 'sort_keys': True})
+    
+    return HttpResponseNotFound()
+
 
 
 def _article(article: models.Article):
