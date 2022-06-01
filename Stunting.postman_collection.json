@@ -905,7 +905,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"get_articles\": \"filter_articles\",\r\n    \"title\": \"Yay\",\r\n    \"article_types\": \"nutrition\",\r\n    \"get_articles\": \"all\"\r\n}",
+					"raw": "{\r\n    \"get_articles\": \"filter_articles\",\r\n    \"title\": \"Yay\",\r\n    \"article_types\": \"nutrition\"\r\n    \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1400,6 +1400,731 @@
 					"body": "{\n    \"success\": false,\n    \"message\": \"Invalid Authentication\"\n}"
 				}
 			]
+		},
+		{
+			"name": "Profile Admin",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"get_type\": \"filter\",\r\n    \"name\": \"Wh\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/profile_admin",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"profile_admin"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get all profiles",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"get_type\": \"all\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/profile_admin",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile_admin"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 12:24:22 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "106"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"all_users\": [\n        {\n            \"id\": 1,\n            \"authentication\": 1,\n            \"name\": \"White\",\n            \"email\": \"\",\n            \"profile_file\": \"White.jpg\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Get profiles with filter",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"get_type\": \"filter\",\r\n    \"name\": \"Wh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/profile_admin",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile_admin"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 12:25:01 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "106"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"all_users\": [\n        {\n            \"id\": 1,\n            \"authentication\": 1,\n            \"name\": \"White\",\n            \"email\": \"\",\n            \"profile_file\": \"White.jpg\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Maps Admin",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"get_type\": \"registered_filter\",\r\n    \"place_name\": \"puri\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/maps_admin",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"maps_admin"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Find new place on gmaps",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"get_type\": \"unregistered\",\r\n    \"place_query\": \"Rumah Sakit\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/maps_admin",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"maps_admin"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 12:31:07 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "26314"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"all_places\": {\n        \"html_attributions\": [],\n        \"next_page_token\": \"Aap_uEBqnjViN0PnGe-7gvd_UnXVs811Im3oh_Bjx0hJCkspaw_InOb1isFwHQ8h0l6zGYuDQeQ-5BCMWIzs_XSsX3JaR4wkp6-IptvpVBLC1MXbyJYlLmWQwArMvgTCBGQPigCKOIgiaIsUmrhk5NMwbgAaeSp44WWAv0VwXiVyvrI5D8lV_qI5bM-Mx2rqXAy3Zp5tiZTY821Q-gnCBhmb2Z290ynMv1mDohcqHpOeQA4445tmvEwwSETN2jkjZFwm9SBEj9TI-HiCkgBHJVvRaqrzaefo2c835lnBNb-iqjReAKxzvoVXoxVZI7CVO6yx17lur0HueA4-wJEqqm1k-glf5ca1CJ02CTAyjtzhR79f36Mqp4j8azo9iKG95diH6ZDsQnaxvMg_\",\n        \"results\": [\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Ir H. Juanda No.95, Pisangan, Kec. Ciputat Tim., Kota Tangerang Selatan, Banten 15419, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.3078911,\n                        \"lng\": 106.7564198\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.306553370107278,\n                            \"lng\": 106.7576969298927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.309253029892722,\n                            \"lng\": 106.7549972701073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Syarif Hidayatullah Hospital\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 4000,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/117779131463417224739\\\">A Google User</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEB-qGCHByIChVggs4FHvssJIv1NzbGhAVY3Bl-gHc9hIlS39S9oAoUCfXpJl8VXFcyAHZyX2qi5URj3t1xp5HQpVvc-f1_SLrWTsU_RsKYR87i8f9UH3uRo2pWY2uXCZx5tJOvLeRuyiHzCNQETJsUdakFKueDZn1RSPiKNpKXEL9tJ\",\n                        \"width\": 6000\n                    }\n                ],\n                \"place_id\": \"ChIJ5fzHvinwaS4RCc9xQwxf03o\",\n                \"plus_code\": {\n                    \"compound_code\": \"MQR4+RH Pisangan, South Tangerang City, Banten\",\n                    \"global_code\": \"6P58MQR4+RH\"\n                },\n                \"rating\": 3.8,\n                \"reference\": \"ChIJ5fzHvinwaS4RCc9xQwxf03o\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 249\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Maribaya No.1, Pangkalan Jati, Kec. Cinere, Kota Depok, Jawa Barat 16514, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.321864,\n                        \"lng\": 106.7827699\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.320466570107278,\n                            \"lng\": 106.7842377298927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.323166229892721,\n                            \"lng\": 106.7815380701073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Rumah Sakit Puri Cinere\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 427,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/104658820110420844048\\\">Sulis Setiadi</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEAHg2o9yyvSkdLqRyK8pj9CeM4E2Z3ubbUGI8CvAff8pXBGAJbPL1pYH2F3a4mkG6KZFJihvLbap5OzOmO0ebNfcjRjphBrEzQuzrlDGiIidRq6-R-W9FJatuLx6EKdZ9CIz7RbbPMB97PMxbjTM4pVq3PaGXDdbh6JvQlwxiwc2Y3h\",\n                        \"width\": 640\n                    }\n                ],\n                \"place_id\": \"ChIJHWe8DkjuaS4RQi0gDy8dkow\",\n                \"plus_code\": {\n                    \"compound_code\": \"MQHM+74 Pangkalan Jati, Depok City, West Java\",\n                    \"global_code\": \"6P58MQHM+74\"\n                },\n                \"rating\": 3.8,\n                \"reference\": \"ChIJHWe8DkjuaS4RQi0gDy8dkow\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 483\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. RS. Fatmawati Raya No.74, RT.5/RW.1, Pd. Labu, Kec. Cilandak, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12450, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.3147011,\n                        \"lng\": 106.7938337\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.313353870107277,\n                            \"lng\": 106.7951638798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.316053529892721,\n                            \"lng\": 106.7924642201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Rumah Sakit Prikasih\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 596,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/104311209818027701277\\\">A Google User</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uECykHFPByKK7kBJKx1S3IXutaJz309_r5pr3YdZUPAyo2kAuiP7vV2ox5ZXA3JmCg2wYnQ1XHqRdDzsvl2_OZ1ocH41wZUxTmRVrpt3kCJfpVx598tVKkiDDbUz5nrndGEnsKYDHq9VJ-oBNxRLjRyuyeCAZhaIQnA1Zp-mXLTwIAk\",\n                        \"width\": 842\n                    }\n                ],\n                \"place_id\": \"ChIJVZySiz3uaS4R4AwZqO_haFM\",\n                \"plus_code\": {\n                    \"compound_code\": \"MQPV+4G Pondok Labu, South Jakarta City, Jakarta\",\n                    \"global_code\": \"6P58MQPV+4G\"\n                },\n                \"rating\": 3.5,\n                \"reference\": \"ChIJVZySiz3uaS4R4AwZqO_haFM\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 471\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Aspi No.93, Pisangan, Kec. Ciputat Tim., Kota Tangerang Selatan, Banten 15419, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.3091843,\n                        \"lng\": 106.7581586\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.307832570107279,\n                            \"lng\": 106.7594942298927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.310532229892723,\n                            \"lng\": 106.7567945701073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"rumah sakit syarif hidayallah\",\n                \"place_id\": \"ChIJhVsA8d3vaS4REbN3iNyU7W4\",\n                \"plus_code\": {\n                    \"compound_code\": \"MQR5+87 Pisangan, South Tangerang City, Banten\",\n                    \"global_code\": \"6P58MQR5+87\"\n                },\n                \"rating\": 0,\n                \"reference\": \"ChIJhVsA8d3vaS4REbN3iNyU7W4\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 0\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Pisangan, Ciputat Timur, South Tangerang City, Banten 15412, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.307426299999999,\n                        \"lng\": 106.7563407\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.306087520107278,\n                            \"lng\": 106.7576948298927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.308787179892722,\n                            \"lng\": 106.7549951701073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Rumah Sakit Hidayatullah\",\n                \"place_id\": \"ChIJV0cR3ezvaS4RF0BnDu1hzM0\",\n                \"plus_code\": {\n                    \"compound_code\": \"MQV4+2G Pisangan, South Tangerang City, Banten\",\n                    \"global_code\": \"6P58MQV4+2G\"\n                },\n                \"rating\": 0,\n                \"reference\": \"ChIJV0cR3ezvaS4RF0BnDu1hzM0\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 0\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Sasak Tinggi No.3, Ciputat, Kec. Ciputat, Kota Tangerang Selatan, Banten 15411, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.3252634,\n                        \"lng\": 106.7443573\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.323783270107278,\n                            \"lng\": 106.7454969298927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.326482929892722,\n                            \"lng\": 106.7427972701073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Sari Asih Ciputat Hospital\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 2204,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/100141881142158277025\\\">sani</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEDzDMo6tf0nZZ4KhFhb6IhkbuAPdyV9pqBdTVr6nsN_EUn9yBRjIV8KbH-OgmQ-F8LXsghfZ2vdkrpxIalrplK8xj9sD0-8_uOAdsiLs4_ODhy3nWqVcCUICxW0FzbUhIHDkWaxo_HVbsq1lcyBk7SQcZKuKOsdUBFQKTADUNwbGxK-\",\n                        \"width\": 3920\n                    }\n                ],\n                \"place_id\": \"ChIJb2UQn5XvaS4RtFUBc7CE9mg\",\n                \"plus_code\": {\n                    \"compound_code\": \"MPFV+VP Ciputat, South Tangerang City, Banten\",\n                    \"global_code\": \"6P58MPFV+VP\"\n                },\n                \"rating\": 4.1,\n                \"reference\": \"ChIJb2UQn5XvaS4RtFUBc7CE9mg\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 1591\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Pd. Cabe Raya No.17, Pd. Cabe Udik, Kec. Pamulang, Kota Tangerang Selatan, Banten 15418, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.346765,\n                        \"lng\": 106.7504544\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.345464870107277,\n                            \"lng\": 106.7518082798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.348164529892721,\n                            \"lng\": 106.7491086201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Rumah Sakit Bhineka Bakti Husada\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 2610,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/118292781889379746273\\\">Zainudin Hamidi</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEAwFekg6tjuPfxuqCP5pwdI0vrsf8mrcra3E7i8952TcrBimQGoU4MkeCx12qkwkGPzI8xb-6JpGoUDng-xkyDwdTvgG70tmIia_KhROZCxmWyqzYEsG3TAUWrBuHhMD9uppCU5luLvHnq1KLPF5X5bOv7N02tZ32V997DgcSETR_gW\",\n                        \"width\": 4640\n                    }\n                ],\n                \"place_id\": \"ChIJ2aS1CgvvaS4RyhybMNIto5U\",\n                \"plus_code\": {\n                    \"compound_code\": \"MQ32+75 Pondok Cabe Udik, South Tangerang City, Banten\",\n                    \"global_code\": \"6P58MQ32+75\"\n                },\n                \"rating\": 2.9,\n                \"reference\": \"ChIJ2aS1CgvvaS4RyhybMNIto5U\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 208\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Cinere Raya No.19, Pangkalan Jati, Kec. Cinere, Kota Depok, Jawa Barat 16514, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.321850400000001,\n                        \"lng\": 106.7832319\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.320516320107278,\n                            \"lng\": 106.7844773798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.323215979892722,\n                            \"lng\": 106.7817777201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Rumah Sakit Siloam Jantung Diagram - Cinere\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 3833,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/106567799571112673499\\\">A Google User</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uECK4RYCzN-aKRobgzf_1sKHEXumTuDbXBhwE6KrXnRtybR1UaXNL8PL8HkWa8FHoyzkeMqqQNj9tp4MtN98N4QGaaFUG2dx__XxlkQWi7RylWnsMXgw1fbfZ_7bl4NlAGFI2BAP474qmUq_C-LuKngF6kq4Q2Plg5v42bUVSi2D5GdR\",\n                        \"width\": 5780\n                    }\n                ],\n                \"place_id\": \"ChIJa1yr6EfuaS4RMZ0y4AQGWZU\",\n                \"plus_code\": {\n                    \"compound_code\": \"MQHM+77 Pangkalan Jati, Depok City, West Java\",\n                    \"global_code\": \"6P58MQHM+77\"\n                },\n                \"rating\": 4.8,\n                \"reference\": \"ChIJa1yr6EfuaS4RMZ0y4AQGWZU\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 824\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. M. Khafi No.27 A, RT.1/RW.6, Jagakarsa, Kec. Jagakarsa, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12630, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.31623,\n                        \"lng\": 106.811354\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.314879570107278,\n                            \"lng\": 106.8128143798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.317579229892722,\n                            \"lng\": 106.8101147201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Jagakarsa Regional General Hospital\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 2736,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/105328563867476017399\\\">Randy Rifianda</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEAfteMfk4yJvxDpp51GhVqMEosyQhC1QEOboHvQRotsvz7c7e-ashZWQHJTB8PxF3IvxzE6R6QHSc2l9MFpatXRcb0slyWsqHS2q_FzDpVCIUP26KYQmQ5FBbwJlI6vsrKexO7_XLvHe6mTKUzYxGDJA3aFdwkku99YCyyPHIkCfGf7\",\n                        \"width\": 3648\n                    }\n                ],\n                \"place_id\": \"ChIJNTwicwzuaS4R6wnF9r38GAE\",\n                \"plus_code\": {\n                    \"compound_code\": \"MRM6+GG Jagakarsa, South Jakarta City, Jakarta\",\n                    \"global_code\": \"6P58MRM6+GG\"\n                },\n                \"rating\": 3.2,\n                \"reference\": \"ChIJNTwicwzuaS4R6wnF9r38GAE\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 233\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Pamulang Permai 1 No.1-3, Pamulang Bar., Kec. Pamulang, Kota Tangerang Selatan, Banten 15417, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.3447722,\n                        \"lng\": 106.7337404\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.343380420107279,\n                            \"lng\": 106.7352138298927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.346080079892722,\n                            \"lng\": 106.7325141701073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"RSIA Permata Sarana Husada\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 937,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/106246586682525286379\\\">A Google User</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEDdSCZGhT-wlh0ELU3DY7uAZbWEosAgHMUbyz5De-RqnaCNMUsdVCY3QR7KD7WnPkhCVBSLNArxtt635zKoBCdAZXzMKZ23ErzWqF-cqcjTMvccRMPx4RewXRmC4oYV0nQixDc3Dd-ISQqO8qzUn9cMml19hFNWGymlKHQPeX6C_Op8\",\n                        \"width\": 1408\n                    }\n                ],\n                \"place_id\": \"ChIJY19JrXnvaS4RYxYYcvmcRRo\",\n                \"plus_code\": {\n                    \"compound_code\": \"MP4M+3F West Pamulang, South Tangerang City, Banten\",\n                    \"global_code\": \"6P58MP4M+3F\"\n                },\n                \"rating\": 4.1,\n                \"reference\": \"ChIJY19JrXnvaS4RYxYYcvmcRRo\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 176\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Cinere Raya No.11B, Cinere, Kec. Cinere, Kota Depok, Jawa Barat 16514, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.3459211,\n                        \"lng\": 106.7766871\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.344655720107277,\n                            \"lng\": 106.7780129798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.347355379892721,\n                            \"lng\": 106.7753133201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"RSPJ\",\n                \"place_id\": \"ChIJwYP7TPnuaS4RFseeGYwC4eE\",\n                \"plus_code\": {\n                    \"compound_code\": \"MQ3G+JM Cinere, Depok City, West Java\",\n                    \"global_code\": \"6P58MQ3G+JM\"\n                },\n                \"rating\": 0,\n                \"reference\": \"ChIJwYP7TPnuaS4RFseeGYwC4eE\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 0\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Pajajaran No.101, Pamulang Bar., Kec. Pamulang, Kota Tangerang Selatan, Banten 15417, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.3375948,\n                        \"lng\": 106.738812\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.335926520107278,\n                            \"lng\": 106.7400867798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.338626179892722,\n                            \"lng\": 106.7373871201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"RSUD Tangerang Selatan\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 1944,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/102737329281835087704\\\">Agil Sugi</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEBc5F_WgJPuIIjNDbUHU_EOwyjSbC0e72F8-RD7jFcS4mz-adHLlRhdbX_ObGkAsnaB_HSwuqfyo1fLkFjE3Jm0I2d-Vb8L2R2wuMgwsGt7BYZps7EnEvGEJjM5CFJJS05h6cVtwXLReg9NocSu4LSp1vnjR4toFniBrEfW9xq35unI\",\n                        \"width\": 2592\n                    }\n                ],\n                \"place_id\": \"ChIJreAphpvvaS4RJoliQUABDFo\",\n                \"plus_code\": {\n                    \"compound_code\": \"MP6Q+XG West Pamulang, South Tangerang City, Banten\",\n                    \"global_code\": \"6P58MP6Q+XG\"\n                },\n                \"rating\": 2.8,\n                \"reference\": \"ChIJreAphpvvaS4RJoliQUABDFo\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 657\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. RS. Fatmawati Raya No.4, RT.4/RW.9, Cilandak Bar., Kec. Cilandak, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12430, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.2950842,\n                        \"lng\": 106.796477\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.293441220107278,\n                            \"lng\": 106.7971685798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.296140879892722,\n                            \"lng\": 106.7944689201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Rumah Sakit Umum Pusat Fatmawati\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 3024,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/109200905526145866472\\\">Gilang Kanigara</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEBqHqkEQ7KFWq1kMhwrtQzOVbwADFOzkyNHf9RNNxontlo0ICu6vBfU9G9DIs6DSl2oqums9VrDWHXpMb3XBk_0NMNiaRmIIJmy0Mxf9rg1BjiCIGVnmyZM-d2VEshWZin1vRIqbPwW5HOcWIaaFY7CY8eLz97g1ySGC0WHHgni8mgf\",\n                        \"width\": 4032\n                    }\n                ],\n                \"place_id\": \"ChIJwRuQU-bxaS4R1wiiqgOOR8A\",\n                \"plus_code\": {\n                    \"compound_code\": \"PQ3W+XH West Cilandak, South Jakarta City, Jakarta\",\n                    \"global_code\": \"6P58PQ3W+XH\"\n                },\n                \"rating\": 3.3,\n                \"reference\": \"ChIJwRuQU-bxaS4R1wiiqgOOR8A\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 1530\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Jambu II No.92, RT.5/RW.2, Cipedak, Kec. Jagakarsa, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12630, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.3602168,\n                        \"lng\": 106.8022113\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.358866220107277,\n                            \"lng\": 106.8035467298927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.361565879892721,\n                            \"lng\": 106.8008470701073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"RS Mitra Medika GRAHA\",\n                \"photos\": [\n                    {\n                        \"height\": 1080,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/115450873867620655823\\\">M Zim</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEBJB64lab5Qiim4PEhWVrtqs1rKz-CsJVgePpkjmymJkfSi3leeee3MEwMmv7FzT6LK2e_HluHDcG4ZGth5OIAYgT329EfGehopyb3cuP94MfD12VYh1w9QMzlpjVJEiq9JrFaZveGcQLo9RsOLbIKRcGH38Vpc12GvQ1QJ3c95Jl5c\",\n                        \"width\": 1920\n                    }\n                ],\n                \"place_id\": \"ChIJbcV9k0_vaS4RNsUrE9839PM\",\n                \"plus_code\": {\n                    \"compound_code\": \"JRQ2+WV Cipedak, South Jakarta City, Jakarta\",\n                    \"global_code\": \"6P58JRQ2+WV\"\n                },\n                \"rating\": 5,\n                \"reference\": \"ChIJbcV9k0_vaS4RNsUrE9839PM\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 2\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Metro Duta Kav. UE, Pondok Indah, Kec. Kby. Lama, Daerah Khusus Ibukota Jakarta 12310, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.2835829,\n                        \"lng\": 106.781621\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.2820222,\n                            \"lng\": 106.7829459798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.285286200000001,\n                            \"lng\": 106.7802463201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Pondok Indah Hospital\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 3366,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/102053156853684226186\\\">Ayu Wahyu</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEAfeLUGt8UNVs96prdAw-DY9__pVT-ataZXNSbQM6e3VJLs0SbkR_EyoO9OjrxxzmNec06AntOZBXEp2BtWfOcPlTyvUNDB7dEIkoMmXHVAi91ZUb1nD1ul2AVek_VhfZYfZUh3x0zVxk6MZZ9Vh2Lv_OcHnygqQXWwxAZwJC8h-lBY\",\n                        \"width\": 5984\n                    }\n                ],\n                \"place_id\": \"ChIJBdOfdKXxaS4RGwaCzZIsW20\",\n                \"plus_code\": {\n                    \"compound_code\": \"PQ8J+HJ Pondok Pinang, South Jakarta City, Jakarta\",\n                    \"global_code\": \"6P58PQ8J+HJ\"\n                },\n                \"rating\": 4.4,\n                \"reference\": \"ChIJBdOfdKXxaS4RGwaCzZIsW20\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 1161\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Raya Cilandak KKO No.3, RW.5, Cilandak Tim., Kec. Ps. Minggu, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12560, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.3048025,\n                        \"lng\": 106.8104097\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.303484870107278,\n                            \"lng\": 106.8120056798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.306184529892722,\n                            \"lng\": 106.8093060201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Cilandak Marine Hospital\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 2976,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/102327442150249378940\\\">Luthfi Naufal</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uECqLUEQawT7VSx28ByE4jBT3ljGagMuaFPBW7sPnLPG_df9SMbRV6DmO-Epj8GUWEstCFPvijMxol4vO2hHexCUdaU20QpviPE_4SL7Grs5Qz-dHIEzWIo1ySNjYnNnE0P8KcKaBqNhuP8GpxnCr4Iq2Y5V8a2wDqHyPGDoPJDCFE4D\",\n                        \"width\": 3968\n                    }\n                ],\n                \"place_id\": \"ChIJTdQwdATuaS4RdS-Jwe95AQg\",\n                \"plus_code\": {\n                    \"compound_code\": \"MRW6+35 East Cilandak, South Jakarta City, Jakarta\",\n                    \"global_code\": \"6P58MRW6+35\"\n                },\n                \"rating\": 3.9,\n                \"reference\": \"ChIJTdQwdATuaS4RdS-Jwe95AQg\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 251\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. Kertamukti No.2, Cireundeu, Kec. Ciputat Tim., Kota Tangerang Selatan, Banten 15419, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.3068839,\n                        \"lng\": 106.7594961\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.305531070107278,\n                            \"lng\": 106.7607658298927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.308230729892722,\n                            \"lng\": 106.7580661701073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"RSU Hermina Ciputat\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 3456,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/114391137951523198523\\\">A Google User</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEB-ZANRmoUKVuuJ0iDthDSNnzQ0yc9PZTJ8gq9E031I1EmBHOxFjiqj106IxxXXZeOZIGW72fkb7VGVLHhDdLFz0Rwds3QjAOSimPxSGp0O1zvh6M3sNw4IlXTHHlDQEYdpwArW3Lfqmk1CQ4zgdzHam-N5kuslnDHYAWwXymEr4x7u\",\n                        \"width\": 4608\n                    }\n                ],\n                \"place_id\": \"ChIJ5cFUOgLvaS4RfC46njWlcho\",\n                \"plus_code\": {\n                    \"compound_code\": \"MQV5+6Q Cireundeu, South Tangerang City, Banten\",\n                    \"global_code\": \"6P58MQV5+6Q\"\n                },\n                \"rating\": 4,\n                \"reference\": \"ChIJ5cFUOgLvaS4RfC46njWlcho\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 1239\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"3, Jl. RS. Fatmawati Raya No.80-82, RT.3/RW.10, Cilandak Bar., Kec. Cilandak, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12430, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.2812228,\n                        \"lng\": 106.7958349\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.279924520107278,\n                            \"lng\": 106.7973298798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.282624179892721,\n                            \"lng\": 106.7946302201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Rumah Sakit Setia Mitra\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 3024,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/108236410792843677021\\\">Andini Maheswari</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEAIHnQB7ZBQIojNfl0J9UiLur8iRvoweO5_tBpy0vGbew9oyEVG0V2r4InoZEhKJoyxvI5vVTWUZOrfJDyfdPTk3wBHkDYVnFOdl24LRIf0jVrscgltSNPu-sRpyp9WiB6ru14V2zhlz2RxltZrdbuBWcwgSL3brIlIScRBfy0tIamE\",\n                        \"width\": 4032\n                    }\n                ],\n                \"place_id\": \"ChIJk2iI8urxaS4RSEVDT6ODy4w\",\n                \"plus_code\": {\n                    \"compound_code\": \"PQ9W+G8 West Cilandak, South Jakarta City, Jakarta\",\n                    \"global_code\": \"6P58PQ9W+G8\"\n                },\n                \"rating\": 2.9,\n                \"reference\": \"ChIJk2iI8urxaS4RSEVDT6ODy4w\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 356\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"No.Kav. 29, Jl. Lb. Bulus I, RT.6/RW.4, Lebak Bulus, Cilandak, South Jakarta City, Jakarta 12440, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.2981092,\n                        \"lng\": 106.7857609\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.296870670107278,\n                            \"lng\": 106.7871593298927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.299570329892722,\n                            \"lng\": 106.7844596701073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Mayapada Hospital Jakarta Selatan (MHJS)\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 1350,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/107499038070308748846\\\">Zubad Sam</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEBZn3hZl-M7mnByOAylaqnfsVGNVSf1NOiFOIZi9WlJbQ10vFb3hP2DkpFE2jdQQXx1dJw0b9h12CNCoacd2ZL0qnPo9XLSwivBTjJ23iEHqN5NnocDcnKE5X7gMUlwi8TL5dbxAOjtPgKjzfsB3ANBQDiOMfIa1gD0O8aQW93Z6_Rx\",\n                        \"width\": 1080\n                    }\n                ],\n                \"place_id\": \"ChIJ9-3mD_DxaS4RDIdW7juIZLY\",\n                \"plus_code\": {\n                    \"compound_code\": \"PQ2P+Q8 Lebak Bulus, South Jakarta City, Jakarta\",\n                    \"global_code\": \"6P58PQ2P+Q8\"\n                },\n                \"rating\": 3.7,\n                \"reference\": \"ChIJ9-3mD_DxaS4RDIdW7juIZLY\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 1255\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"formatted_address\": \"Jl. W R Supratman No.69, Pd. Ranji, Kec. Ciputat Tim., Kota Tangerang Selatan, Banten 15412, Indonesia\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.289742599999999,\n                        \"lng\": 106.7458372\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.288391220107278,\n                            \"lng\": 106.7473057798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.291090879892722,\n                            \"lng\": 106.7446061201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png\",\n                \"icon_background_color\": \"#F88181\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet\",\n                \"name\": \"Prima Medika Hospital\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 2600,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/102582137495018902673\\\">Wijaya</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uECrNejBZEglIhuqu3mEr2KSOn6IlSjDJhE-S5tVocfhTThhjA1hmefvH5gLvA370rY-G4qNFIQEmOZJmYi6pdHu_rtY3ty8DJjkzL97ML8esr0w_pqtJrIhQXTXuF7KQ9_JjuABXTH3QwyCoQ33o4_Qop0NklPm1ISUP3tkVrQRWpTZ\",\n                        \"width\": 2239\n                    }\n                ],\n                \"place_id\": \"ChIJqy-60hfwaS4RMDWB1kXtFs8\",\n                \"plus_code\": {\n                    \"compound_code\": \"PP6W+48 Pondok Ranji, South Tangerang City, Banten\",\n                    \"global_code\": \"6P58PP6W+48\"\n                },\n                \"rating\": 4.4,\n                \"reference\": \"ChIJqy-60hfwaS4RMDWB1kXtFs8\",\n                \"types\": [\n                    \"hospital\",\n                    \"point_of_interest\",\n                    \"health\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 51\n            }\n        ],\n        \"status\": \"OK\"\n    }\n}"
+				},
+				{
+					"name": "Register Stunt Places",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"all_places\": [\r\n        {\r\n            \"location_lat\": -6.3078911,\r\n            \"location_lng\": 106.7564198,\r\n            \"name\": \"Rumah Sakit Puri Cinere\",\r\n            \"gmap_place_id\": \"ChIJHWe8DkjuaS4RQi0gDy8dkow\"\r\n        },\r\n        {\r\n            \"location_lat\": -6.3091843,\r\n            \"location_lng\": 106.7581586,\r\n            \"name\": \"rumah sakit syarif hidayallah\",\r\n            \"gmap_place_id\": \"ChIJhVsA8d3vaS4REbN3iNyU7W4\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/maps_admin",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"maps_admin"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 12:35:22 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "301"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"saved\": [\n        {\n            \"location_lat\": -6.3078911,\n            \"location_lng\": 106.7564198,\n            \"name\": \"Rumah Sakit Puri Cinere\",\n            \"gmap_place_id\": \"ChIJHWe8DkjuaS4RQi0gDy8dkow\"\n        },\n        {\n            \"location_lat\": -6.3091843,\n            \"location_lng\": 106.7581586,\n            \"name\": \"rumah sakit syarif hidayallah\",\n            \"gmap_place_id\": \"ChIJhVsA8d3vaS4REbN3iNyU7W4\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Find registered stunt places (all)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"get_type\": \"registered_all\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/maps_admin",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"maps_admin"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 12:37:05 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "342"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"registerd_places\": [\n        {\n            \"id\": 1,\n            \"location_lat\": -6.3078911,\n            \"location_lng\": 106.7564198,\n            \"place_name\": \"Rumah Sakit Puri Cinere\",\n            \"gmap_place_id\": \"ChIJHWe8DkjuaS4RQi0gDy8dkow\"\n        },\n        {\n            \"id\": 2,\n            \"location_lat\": -6.3091843,\n            \"location_lng\": 106.7581586,\n            \"place_name\": \"rumah sakit syarif hidayallah\",\n            \"gmap_place_id\": \"ChIJhVsA8d3vaS4REbN3iNyU7W4\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Find registered stunt places (filter)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"get_type\": \"registered_filter\",\r\n    \"place_name\": \"puri\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/maps_admin",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"maps_admin"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 12:40:12 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "179"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"registerd_places\": [\n        {\n            \"id\": 1,\n            \"location_lat\": -6.3078911,\n            \"location_lng\": 106.7564198,\n            \"place_name\": \"Rumah Sakit Puri Cinere\",\n            \"gmap_place_id\": \"ChIJHWe8DkjuaS4RQi0gDy8dkow\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Stunt Maps",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/maps_admin",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"maps_admin"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Stunt Maps",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"to_delete_ids\": [1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/maps_admin",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"maps_admin"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 12:43:18 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "15"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"deleted\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete traces",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"to_delete_ids\": [1, 2]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/trace",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"trace"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete traces",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"to_delete_ids\": [1, 2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/trace",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trace"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 12:49:31 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "79"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"deleted\": [\n        {\n            \"id\": null,\n            \"user\": 1,\n            \"week\": 1,\n            \"height\": 7,\n            \"weight\": 8\n        }\n    ]\n}"
+				}
+			]
 		}
 	],
 	"event": [
@@ -1430,7 +2155,7 @@
 		},
 		{
 			"key": "token",
-			"value": "280112fca7b894296bbdbfa934dd5b32d03d6b938ba1a6d59409869d400ae6495e9b622784ad7b28cf472f0a61697a64",
+			"value": "057db76f0b64ec3766c5a072068c1bec127f2e4a1e0b2a2ea9e2db8d376f407c39c5a70741f4f5cbdb7273daf21091ea",
 			"type": "default"
 		}
 	]

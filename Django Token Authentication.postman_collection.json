@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"user0\",\r\n    \"password\": \"user0\",\r\n    \"role\": 1\r\n}",
+					"raw": "{\r\n    \"username\": \"user1\",\r\n    \"password\": \"user1\",\r\n    \"role_name\": \"user\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -237,7 +237,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"user0\",\r\n    \"password\": \"user0\"\r\n}",
+					"raw": "{\r\n    \"username\": \"admin0\",\r\n    \"password\": \"admin0\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
