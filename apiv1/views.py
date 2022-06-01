@@ -16,7 +16,10 @@ from apiv1 import models, utils
 def test(user: ta_models.UserAuthentication, request: WSGIRequest):
     return JsonResponse({'User': model_to_dict(user)})
 
-@token_auth(roles=['user'], get_user=True)
+# @token_auth(roles=['user'], get_user=True)
+# def user_profile_users(user: ta_models.UserAuthentication, request: WSGIRequest)
+
+@token_auth(roles=['*'], get_user=True)
 def user_profile(user: ta_models.UserAuthentication, request: WSGIRequest):
     if request.method=='GET':
         profile = models.UserProfile.objects.get(authentication=user)
@@ -121,9 +124,6 @@ def article(request: WSGIRequest):
 
             return JsonResponse({'articles': [model_to_dict(i) for i in models.Article.objects.filter(**field_names_filter)]})
         
-
-
-
     elif request.method=='POST':
         title = data['title']
         pattern = re.compile(r'({([a-z|A-Z|0-9|_|-]+)})')

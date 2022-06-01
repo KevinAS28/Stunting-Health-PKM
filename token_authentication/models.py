@@ -23,7 +23,7 @@ class UserRole(models.Model):
 class UserAuthentication(models.Model):
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50)
-    role = models.IntegerField(default=2)
+    role = models.ForeignKey(UserRole, on_delete=models.DO_NOTHING)
     token = models.CharField(max_length=MAX_TOKEN_LENGTH, null=True)
     token_expired = models.DateTimeField(default=expire, null=True)
 
