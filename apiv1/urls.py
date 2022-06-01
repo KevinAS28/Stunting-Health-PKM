@@ -8,5 +8,6 @@ urlpatterns = [
     path('profile', views.user_profile),
     path('reminder', views.stunt_reminder),
     path('trace', views.stunting_trace),
-    path('maps', views.stunt_maps)
+    path('maps', views.stunt_maps),
+    path('article', views.article)
 ]

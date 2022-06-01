@@ -18,3 +18,10 @@ class StuntingTrace(models.Model):
     week = models.IntegerField()
     height = models.FloatField()
     weight = models.FloatField()
+
+class Article(models.Model):
+    article_file = models.CharField(max_length=50)
+    title = models.CharField(max_length=30)
+    date = models.DateField()
+    article_types = models.CharField(max_length=20) # exmaple: stunting_info, nutrition_info
+    article_tags = models.CharField(max_length=60) # exmaple: protein|karbo|etc..

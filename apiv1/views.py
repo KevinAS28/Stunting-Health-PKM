@@ -1,4 +1,4 @@
-import json, datetime, requests
+import json, datetime, requests, re, os
 
 from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseNotFound
@@ -20,13 +20,13 @@ def test(user: ta_models.UserAuthentication, request: WSGIRequest):
 def user_profile(user: ta_models.UserAuthentication, request: WSGIRequest):
     if request.method=='GET':
         profile = models.UserProfile.objects.get(authentication=user)
-        get_necessary_profile = lambda profile: {'name': profile.name, 'b64_profile_img': utils.read_base64(profile.profile_file)}
+        get_necessary_profile = lambda profile: {'name': profile.name, 'b64_profile_img': utils.read_b64_file('img'/profile.profile_file)}
         return JsonResponse({'profile': get_necessary_profile(profile), 'user': model_to_dict(user)})
     elif request.method=='POST':
         data = json.loads(request.body)
         profile_file = f'{utils.valid_filename(data["name"])}.jpg'
         profile = models.UserProfile(authentication=user, name=data['name'], profile_file=profile_file)
-        utils.write_base64(profile_file, data['b64_profile_img'])
+        utils.write_b64_file('img'/profile_file, data['b64_profile_img'])
         profile.save()
         return JsonResponse({'profile': model_to_dict(profile), 'user': model_to_dict(user)})
     return HttpResponseNotFound()
@@ -89,3 +89,56 @@ def stunt_maps(request: WSGIRequest):
         'types': '|'.join('doctor pharmacy hospital health'.split())
     }
     return JsonResponse({'places': json.loads(requests.get(NEARBY_PLACE_API, params=nearby_place_parameters).text)}, json_dumps_params={'indent':4, 'sort_keys': True})
+
+@token_auth(roles=['user'])
+def article(request: WSGIRequest):
+    data = json.loads(request.body)
+
+    def _article(article: models.Article):
+        article_file_content = utils.read_file(article.article_file).decode('utf-8')
+        model_dict = model_to_dict(article)
+        model_dict['article_file_content'] = article_file_content
+        return model_dict
+
+    if request.method=='GET':
+        get_articles = data['get_articles']
+        if get_articles=='all':
+            return JsonResponse({'all_articles': [_article(i) for i in models.Article.objects.all()]})
+
+    elif request.method=='POST':
+        title = data['title']
+        pattern = re.compile(r'({([a-z|A-Z|0-9|_|-]+)})')
+        tags_urls = dict()
+        for i, m in enumerate(pattern.finditer(data['article_content'])):
+            print(i)
+            full_match, match = m.groups()
+            match, m_type = match.split('_')
+            extension = data['article_items'][match]['extension']
+            file_name = utils.valid_filename(f'{title}_{match}_{i}.{extension}')
+            file_path = f"{m_type}/{file_name}"
+            print('write:', utils.write_b64_file(file_path, data['article_items'][match]['content']))
+            url = f'http://{request.get_host()}/static/{file_path}'
+            tags_urls[full_match] = url
+
+        article_parsed = utils.multiple_replace(data['article_content'], tags_urls, regex=False)
+        article_parsed_path = os.path.join('articles', utils.valid_filename(f'{title}_{data["date"]}.html', '_'))
+        utils.write_file(article_parsed_path, article_parsed.encode('utf-8'))
+        article = models.Article(
+            article_file=article_parsed_path,
+            date=datetime.datetime.strptime(data['date'], "%d/%m/%Y").date(),
+            title=title,
+            article_types=data['article_types'],
+            article_tags=data['article_tags']
+        )
+        article.save()
+        return JsonResponse({'status': 'OK', 'items': tags_urls, 'article_parsed': article_parsed, 'article_parsed_path': f'article_parsed_path', 'saved': model_to_dict(article)})
+
+        
+        
+    elif request.method=='DELETE':
+        to_delete = models.Article.objects.filter(id__in=data['to_delete_ids']) 
+        deleteds = []
+        for article in to_delete:
+            article.delete()
+            deleteds.append(model_to_dict(article))
+        return JsonResponse({'deteleds': deleteds})
