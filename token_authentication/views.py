@@ -6,7 +6,6 @@ import token_authentication.auth_core as auth_core
 import traceback # For debugging
 
 def get_token(request):
-    print(request.body)
     data = json.loads(request.body)
     username = data['username']
     password = data['password']

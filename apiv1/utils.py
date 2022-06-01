@@ -70,5 +70,7 @@ def multiple_replace(text:str, str_subs:dict, regex=True):
 
     return pattern.sub(_multiple_replace, text)
 
+
+
 if __name__=='__main__':
     print(valid_filename('r4u191rd  u58cb@$RF&^NU(!N&U(#!C.jp3eg'))

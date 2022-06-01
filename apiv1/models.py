@@ -3,8 +3,9 @@ from token_authentication import models as ta_models
 # Create your models here.
 
 class UserProfile(models.Model):
-    authentication = models.ForeignKey(ta_models.UserAuthentication, on_delete=models.DO_NOTHING)
+    authentication = models.ForeignKey(ta_models.UserAuthentication, on_delete=models.DO_NOTHING, unique=True)
     name = models.CharField(max_length=30)
+    email = models.CharField(max_length=30, default='', blank=True, null=True)
     profile_file = models.CharField(max_length=40)
 
 class StuntReminder(models.Model):

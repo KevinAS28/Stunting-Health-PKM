@@ -23,24 +23,22 @@ def login(*args, **kwargs):
                 password = data['password']   
             else:
                 response = {'success': False, 'message': 'Invalid method'}
-                print('Response:', response)
                 return JsonResponse(response)
 
             user = models.UserAuthentication.objects.filter(username=username, password=password)
             if user.exists():
-                print(f"Login success: {user[0].username} -> {request.build_absolute_uri()}")
                 result = fun(*args, **kwargs)
                 auth_success = {'success': True, 'message': 'OK', 'user': model_to_dict(user[0])}
                 response = {**({f'data{i}': json.loads(key) for i, key in enumerate(result)}), **auth_success}
-                print('Response:', response)
+                # print(
                 # response = JsonResponse(response)
-                # print('readable', response.)
+                # # print(
                 return response
 
             else:
-                print(f"Invalid authentication {username}|{password}")
+                # print(
                 response = {'success': False, 'message': 'Invalid Authentication'}
-                print('Response:', response)
+                # print(
                 return JsonResponse(response)
         return wrapper
     return decorator
@@ -51,7 +49,7 @@ def token_get(username, password):
     try:
         user = models.UserAuthentication.objects.get(username=username, password=password)
         # role = models.UserRole.objects.get(id=user.role)
-        print(user.role)
+        # print(
         token = (auth_util.token_hash((username+password+str(datetime.now())).encode('utf-8')))
         user.token = token
         user.token_expired = models.expire()
