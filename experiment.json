@@ -1,0 +1,939 @@
+{
+    "html_attributions": [],
+    "next_page_token": "Aap_uEAKgGp1c6KZvwa6fmkUzMrPgaZy-1ZJne9HpLcYhtuic7GvEb4hSzNl7-ebzLmneZ_ZYBCDHxg1Z9AQOmzSPSETD1iEG8p3PdZoMvv2SEM31pl9FQVNTW3EAM93QuTjugWq98lYDAxX7yLJgtSWrlRTAHM7uDBCYp6jRs-lTav-rt937yZPtOoQxkRSan-ml1KOqDLatD933U92_SuTwqv_c_Z7OisMyKKpki5yssT8kw8LY6a5ojDmVHl9OB9YS0IjzlUwqe3FWtbbiOB7MDAqioWgfUYscuj8xgPkCGDUqTy7jGqx5golrXIE92BIUeqp-bKRWPrKJsaLQwGD-QxpRuPfOaEG89cikURkbtX8AoEYK1L7uFlnjrWqD_JTL4FGemfk2HD_hU3VqVX-XhkuWtFdPJWIvppbhryynXBoJltUMcnqw2KFtoU",
+    "results": [
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.479720899999999,
+                    "lng": 106.8023266
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.478391620107278,
+                        "lng": 106.8036637798927
+                    },
+                    "southwest": {
+                        "lat": -6.481091279892722,
+                        "lng": 106.8009641201073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas Bojong Gede",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 3024,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115342368958638739131\">Angger Ndaruratry</a>"
+                    ],
+                    "photo_reference": "Aap_uED0Ej4DM-gocBv9pKoQC3T75SSe1C_o1bc1wddYfb4QU2OKZe55vaKym0YpnS2Vr5ma9ESBqqfPtbMEAAGxlfq5WnINJcxxAMsxLeIN7PIWlYVRFULVtIPOCydqZQEubHp5hCzxgZgX4dYeFh8GEkOlFSJhEeuE2c6zCIaZO7pbbX9U",
+                    "width": 3024
+                }
+            ],
+            "place_id": "ChIJnQ_kzxbCaS4RSbTCVJaTNgU",
+            "plus_code": {
+                "compound_code": "GRC2+4W Bojong Baru, Bogor Regency, West Java",
+                "global_code": "6P58GRC2+4W"
+            },
+            "rating": 2.5,
+            "reference": "ChIJnQ_kzxbCaS4RSbTCVJaTNgU",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 111,
+            "vicinity": "Jl. Raya Bojong Gede No.27, Bojong Baru, Kabupaten Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.480379200000001,
+                    "lng": 106.7583122
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.478974720107279,
+                        "lng": 106.7596733298927
+                    },
+                    "southwest": {
+                        "lat": -6.481674379892723,
+                        "lng": 106.7569736701073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "PHC Tajur Halang",
+            "opening_hours": {
+                "open_now": true
+            },
+            "photos": [
+                {
+                    "height": 1920,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/101742235997228495719\">A Google User</a>"
+                    ],
+                    "photo_reference": "Aap_uEDxJE1N4UmjNt0OXCOKuN8JJLGwwGY-rdaWKl4fDhWMpkk3grlJ-bOvKeS-xoYMSslJABc8qjh59a4AupbHW30fozqLR9bLB1YZO3m2BqsX8UNVd2zZUc9dZu8GEQMk5ZzOIGqvVo60VlIZ_95gkTm9o2YnoDRUymyOTultUlf-G_N2",
+                    "width": 1080
+                }
+            ],
+            "place_id": "ChIJYYJamJrCaS4RdrLeknmhM2Q",
+            "plus_code": {
+                "compound_code": "GQ95+R8 Tajurhalang, Bogor Regency, West Java",
+                "global_code": "6P58GQ95+R8"
+            },
+            "rating": 2.8,
+            "reference": "ChIJYYJamJrCaS4RdrLeknmhM2Q",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 100,
+            "vicinity": "Jl. Cendrawasih No.11, Tajurhalang, Kabupaten Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.4633052,
+                    "lng": 106.8251878
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.461934170107278,
+                        "lng": 106.8265400298927
+                    },
+                    "southwest": {
+                        "lat": -6.464633829892722,
+                        "lng": 106.8238403701073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas Pondok Rajeg",
+            "photos": [
+                {
+                    "height": 3120,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/101123745735206450305\">Hadirat Syukur Lombu</a>"
+                    ],
+                    "photo_reference": "Aap_uEAGIkec7ArANp428ig56PUzhXB9bP2d35HB3_2oDOmqJtLPqGdhivO9lkI6tpVDn0szKUKwIN1xS_kWb3OhHgJ1X21CiPnnYxaWTytGFcwgbNd5KVVRpfN148PO2mm5Q11z2-0nwEzNxkpCEHTbqrqH5_eRPvmNdGnAUvYDZ-ZSzEaq",
+                    "width": 3120
+                }
+            ],
+            "place_id": "ChIJc2tP8_3BaS4R9EL8Z_1fPvw",
+            "plus_code": {
+                "compound_code": "GRPG+M3 Pondok Rajeg, Bogor Regency, West Java",
+                "global_code": "6P58GRPG+M3"
+            },
+            "rating": 4,
+            "reference": "ChIJc2tP8_3BaS4R9EL8Z_1fPvw",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 4,
+            "vicinity": "Jl. Komp. Pd. Rajeg Indah Blok E No.13, RT.2/RW.9, Pd. Rajeg, Kabupaten Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.518577899999999,
+                    "lng": 106.8084215
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.517204670107277,
+                        "lng": 106.8096413798927
+                    },
+                    "southwest": {
+                        "lat": -6.519904329892721,
+                        "lng": 106.8069417201073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas Karadenan",
+            "opening_hours": {
+                "open_now": true
+            },
+            "photos": [
+                {
+                    "height": 3096,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/109326934168935972051\">d3pok2@yahoo.co.id</a>"
+                    ],
+                    "photo_reference": "Aap_uEBHDNyO51Eku7NRRtYFGytfehqbSW3VfGXtIu3Htz8o6T0JJJo9nB1x7TshBNWLcOHw6byKawAIwMOzzDxorGDuVrnDKXzvobkYwBmL0_NohjDIUkgYhfJiXxyafZbvEKTCNrw7R-XL1ZIgg7ckGD8Q9ORAhBYREiUjn1jgb19oi-_Q",
+                    "width": 4128
+                }
+            ],
+            "place_id": "ChIJlyPECJXBaS4RivN9FzdxKzs",
+            "plus_code": {
+                "compound_code": "FRJ5+H9 Karadenan, Bogor Regency, West Java",
+                "global_code": "6P58FRJ5+H9"
+            },
+            "rating": 2.2,
+            "reference": "ChIJlyPECJXBaS4RivN9FzdxKzs",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 48,
+            "vicinity": "Jl. Karadenan No.28, RT.05/RW.04, Karadenan, Kabupaten Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.5423516,
+                    "lng": 106.7840393
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.541062270107277,
+                        "lng": 106.7852611298927
+                    },
+                    "southwest": {
+                        "lat": -6.543761929892721,
+                        "lng": 106.7825614701073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Mekarwangi Public Medical Center",
+            "opening_hours": {
+                "open_now": true
+            },
+            "photos": [
+                {
+                    "height": 1080,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115014247971774810880\">Tusiman Yo Wis</a>"
+                    ],
+                    "photo_reference": "Aap_uEB7jcaiOE0lqsykknN-VP0dC_paTABzr4Hy6UtuXveEtHEVtLtiwuY_080uUUeWi374wxIseJYAm7zn8FUKGwtin7VzcIv9AoUWM76yXNsHwp1llgnPoG8ltzGqKprww4DUsVP5bT0_o16r3xlM_p52U7_0OaY4IjlDyjAymseEGXgL",
+                    "width": 1920
+                }
+            ],
+            "place_id": "ChIJ4zaIwIjDaS4RAE816LpjTcI",
+            "plus_code": {
+                "compound_code": "FQ5M+3J Mekarwangi, Bogor City, West Java",
+                "global_code": "6P58FQ5M+3J"
+            },
+            "rating": 3.5,
+            "reference": "ChIJ4zaIwIjDaS4RAE816LpjTcI",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 82,
+            "vicinity": "Jl. Pabuaran Cimanggis No.46-111, RT.01/RW.01, Mekarwangi, Kota Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.5302394,
+                    "lng": 106.7694479
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.528902720107277,
+                        "lng": 106.7707751298927
+                    },
+                    "southwest": {
+                        "lat": -6.531602379892721,
+                        "lng": 106.7680754701073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas Kayumanis",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 1080,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115014247971774810880\">Tusiman Yo Wis</a>"
+                    ],
+                    "photo_reference": "Aap_uEDcr4Ab_Bm6cKuwyb0dMzcbXIGnkyk9iihqKyxG16xvGG98-LaAwirVTlVWtnU8siO7tu_N-jexSx2xz7hcPRe2IQQ-RvhA1rjHyTSVJgjvnG7zGwc7wv5b0JaOH3Wwn9k4jlME4tSuRWO0mi8crGPAt8i9s_0XQ0c9BPlBAhd5SVVT",
+                    "width": 1920
+                }
+            ],
+            "place_id": "ChIJY4PfknXDaS4RPS_A0ZvU15s",
+            "plus_code": {
+                "compound_code": "FQ99+WQ Kayu Manis, Bogor City, West Java",
+                "global_code": "6P58FQ99+WQ"
+            },
+            "rating": 3.5,
+            "reference": "ChIJY4PfknXDaS4RPS_A0ZvU15s",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 38,
+            "vicinity": "Jl. Pool Bina Marga No.3, RT.02/RW.01, Kayu Manis, Kota Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.4647131,
+                    "lng": 106.8121887
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.463380620107277,
+                        "lng": 106.8135392298927
+                    },
+                    "southwest": {
+                        "lat": -6.466080279892721,
+                        "lng": 106.8108395701073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas",
+            "photos": [
+                {
+                    "height": 3264,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/114233012326973722420\">robbie febryyady</a>"
+                    ],
+                    "photo_reference": "Aap_uEBN4FLaYGQupGTT6MdQQpqaaXxzWModNUmk2vENEa7cFVWTmIUzLgKguYo6NAG6KACYbNOxhxYajNUQvC_Rp1cDwSIQQZl5MbtS4A7ZkxsU-MYOXJigaNgeGflMfrpXUqUEQxHsW8pULcA2DQdChbES3_OjJ9S5MktXJtYcfQ1d8OaX",
+                    "width": 2448
+                }
+            ],
+            "place_id": "ChIJ79WdygDCaS4RQDQmkNV92CM",
+            "plus_code": {
+                "compound_code": "GRP6+4V Rawa Panjang, Bogor Regency, West Java",
+                "global_code": "6P58GRP6+4V"
+            },
+            "rating": 4,
+            "reference": "ChIJ79WdygDCaS4RQDQmkNV92CM",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 6,
+            "vicinity": "Jl. Perum Lipi No.9, Rw. Panjang, Kabupaten Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.5321931,
+                    "lng": 106.8002213
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.530847970107278,
+                        "lng": 106.8016181298927
+                    },
+                    "southwest": {
+                        "lat": -6.533547629892722,
+                        "lng": 106.7989184701073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+            "name": "Puskesmas Cilebut",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 3264,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/101741813212043404664\">bontot</a>"
+                    ],
+                    "photo_reference": "Aap_uECifYlmcPebSpO-son7dZeTdX6l1qBTA3_IlecPuOKIGdrGOsAifuYslsFP2Oyi1PIYx9mLHW9S5mNNXY5C7-tNk4_u7_Lh38wTUNdNTqxe8-zhvGYA89zNzwW6AtUEJmYWx_purzRYXL71qU4U-KvxybnnZ-jbH2V5pWuamQ53vwrK",
+                    "width": 1836
+                }
+            ],
+            "place_id": "ChIJG5MMnu7DaS4RFddQZiv5biU",
+            "rating": 3.3,
+            "reference": "ChIJG5MMnu7DaS4RFddQZiv5biU",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 44,
+            "vicinity": "FR92+43G, Jl. Raya, RT.02/RW.03, Cilebut Timur, Kabupaten Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.525567499999999,
+                    "lng": 106.7890834
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.524216420107279,
+                        "lng": 106.7904325798927
+                    },
+                    "southwest": {
+                        "lat": -6.526916079892723,
+                        "lng": 106.7877329201073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas pembantu KENCANA",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 4160,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/114952241363915725941\">Herry Zai</a>"
+                    ],
+                    "photo_reference": "Aap_uEDKdu8ek6M7LCw_D3mWJojMoAY69SsNYlfTcUzEkXH-9_aIDNIbaFK_lF4vwnooOwTgKpCCqWCeM9WWHx2Q-GNTtkjjzbq5_gp0QuWjGgB2kApPVKo-nEeAWR0I8ZDIKhu-oG--L1t7810ovRZU3jWJ8yZRKjy4MGpdMAeCb9mD5AIZ",
+                    "width": 2080
+                }
+            ],
+            "place_id": "ChIJL9zTZXvDaS4R8sadLjRpqcE",
+            "plus_code": {
+                "compound_code": "FQFQ+QJ Kencana, Bogor City, West Java",
+                "global_code": "6P58FQFQ+QJ"
+            },
+            "rating": 4.7,
+            "reference": "ChIJL9zTZXvDaS4R8sadLjRpqcE",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 6,
+            "vicinity": "Jl.Lantana raya, Jl. Perum Griya Kencana No.27, RT.03/RW.12, Kencana, Kota Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.533387599999999,
+                    "lng": 106.8288928
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.532022120107277,
+                        "lng": 106.8302124798927
+                    },
+                    "southwest": {
+                        "lat": -6.534721779892721,
+                        "lng": 106.8275128201073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas Cimandala",
+            "opening_hours": {
+                "open_now": true
+            },
+            "photos": [
+                {
+                    "height": 2340,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/117038610316173187027\">Tri Danu Warsito</a>"
+                    ],
+                    "photo_reference": "Aap_uEA2w9peJ37hPMbEr5aSqiyl0_YOgvsgPImPkfxhUGWpz2U2s8rij4BO4OqWACWGR88i4zv8dAtFVvBOQWOE26C6BQ6sqpK6AhmO0skGDaVWyrrja0uhGUXwiCZ0cQ62kQj8NPmCIK2_sBPebrkunBeKXQMx3VTmRrgI7FEvMi7mENQ",
+                    "width": 4160
+                }
+            ],
+            "place_id": "ChIJY6hydFHBaS4RgJDfPnsCTjI",
+            "rating": 2.7,
+            "reference": "ChIJY6hydFHBaS4RgJDfPnsCTjI",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 42,
+            "vicinity": "FR8H+JHR, Jl. Bina Harja, Cijujung, Kabupaten Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.505549299999999,
+                    "lng": 106.7754948
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.504193470107277,
+                        "lng": 106.7768286298927
+                    },
+                    "southwest": {
+                        "lat": -6.506893129892721,
+                        "lng": 106.7741289701073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas Kemuning",
+            "opening_hours": {
+                "open_now": true
+            },
+            "photos": [
+                {
+                    "height": 2592,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/117203171041503015644\">Affry Johan</a>"
+                    ],
+                    "photo_reference": "Aap_uEAK0166SJP0TSgjazFX784t2nLD3d0ZNTjObDHBWAH6XNngeia8Qy4zN-Badny6WZ0-76RCg78UhqhEB_T-XUMe9gTbesQkmtB3m5_NsmGtE0CWxoBmGzAH0ZfpvKG7VHf1Ln1KvPJ2M0ESCEEn4iQv0lsbBDQsa9kHd83KTwtF5Xi4",
+                    "width": 1944
+                }
+            ],
+            "place_id": "ChIJL_--tVTCaS4R2NYUCWCKb-w",
+            "rating": 2.9,
+            "reference": "ChIJL_--tVTCaS4R2NYUCWCKb-w",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 78,
+            "vicinity": "FQVG+R6C, Jl. Raya Tonjong - Sudimampir, Cimanggis, Kabupaten Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.5332709,
+                    "lng": 106.8149608
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.531853570107279,
+                        "lng": 106.8163054798927
+                    },
+                    "southwest": {
+                        "lat": -6.534553229892722,
+                        "lng": 106.8136058201073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas Pembantu Pasir Jambu",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 3120,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/114500078454764574639\">cheppy Junaedi</a>"
+                    ],
+                    "photo_reference": "Aap_uEByTWCTP2JSIJr2HciFtIMe9nP1KsBwLxMDLyDe5JdyBVFzPDweIllhe4I_ExwyHs8UWOkBV7-Qx-yD9qyYgSDyIPDdLb4VbYgbR3jLZ8y-1H6opJ5jEB4NFs75Kn-zHjOnsdLIaLKtktjroIh5WeWFJEwddGqPX8TkoE_Y3PlGpKLA",
+                    "width": 4160
+                }
+            ],
+            "place_id": "ChIJ7R-64uLDaS4RZRD4U4KpEf8",
+            "plus_code": {
+                "compound_code": "FR87+MX Pasir Jambu, Bogor Regency, West Java",
+                "global_code": "6P58FR87+MX"
+            },
+            "rating": 4,
+            "reference": "ChIJ7R-64uLDaS4RZRD4U4KpEf8",
+            "scope": "GOOGLE",
+            "types": [
+                "doctor",
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 5,
+            "vicinity": "Jl. Mandor Naiman No.09, Pasir Jambu, Kabupaten Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.5427944,
+                    "lng": 106.7777682
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.541409720107279,
+                        "lng": 106.7791728298927
+                    },
+                    "southwest": {
+                        "lat": -6.544109379892722,
+                        "lng": 106.7764731701073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas Pembantu Cibadak",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 2448,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/108361050635030465508\">Irwansyah</a>"
+                    ],
+                    "photo_reference": "Aap_uEAP2dgY3dNw7-UqMvub4Js-cVFSDtpIq63gEj_KWVZa6Gjph_3TNYmgmVD0W5ZjfxXQ4NIoQRnHxnwiO-kfBU8KOISX0BxI6t2sNuJxxPRuV-LjL8bsC_l331xgLC_k4iwNCfslXkYkJdh_3rKE8JJXrGl7IU0D99e-BTdJC62CdWW3",
+                    "width": 3264
+                }
+            ],
+            "place_id": "ChIJtYPAxobDaS4RmA3IUVGwB30",
+            "plus_code": {
+                "compound_code": "FQ4H+V4 Cibadak, Bogor City, West Java",
+                "global_code": "6P58FQ4H+V4"
+            },
+            "rating": 4,
+            "reference": "ChIJtYPAxobDaS4RmA3IUVGwB30",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 2,
+            "vicinity": "Jl. Kencana Raya Blok C. 12 No.4, RT.01/RW.15, Cibadak, Kota Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.5320443,
+                    "lng": 106.7772083
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.530710170107278,
+                        "lng": 106.7786806798927
+                    },
+                    "southwest": {
+                        "lat": -6.533409829892722,
+                        "lng": 106.7759810201073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas Pembantu Mekarwangi",
+            "opening_hours": {
+                "open_now": false
+            },
+            "place_id": "ChIJab8J8JvDaS4RctLVa48J0lw",
+            "rating": 5,
+            "reference": "ChIJab8J8JvDaS4RctLVa48J0lw",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 1,
+            "vicinity": "FQ9G+5VP, Jl. Setu Asem Raya Kp Setu Asem, RT.01/RW.14, Mekarwangi, Kota Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.5125246,
+                    "lng": 106.7563948
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.511100170107278,
+                        "lng": 106.7577310798927
+                    },
+                    "southwest": {
+                        "lat": -6.513799829892722,
+                        "lng": 106.7550314201073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Puskesmas Kemang",
+            "opening_hours": {
+                "open_now": true
+            },
+            "photos": [
+                {
+                    "height": 1080,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/107244228473952017635\">A Google User</a>"
+                    ],
+                    "photo_reference": "Aap_uECCQkB8GzwX0fgOBrH2FqoMsFszH1S83kP_ggs0SWrt_XSuodq5pI7svyJG7-LLUij0ah5V3ofWPKGzPIfbUxrbLjvLBLrPx0gGLqi2mJZzuunTIIYweJn3IuqqZZIR0hC8snLU-PvdPNUyv5HfrVYBV01pa52aRN2iSRZ5HRX02MI5",
+                    "width": 1440
+                }
+            ],
+            "place_id": "ChIJ_____xrDaS4RM_8gf5xloHM",
+            "rating": 3.3,
+            "reference": "ChIJ_____xrDaS4RM_8gf5xloHM",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 3,
+            "vicinity": "FQP4+XHR, Jl. Kemang, RT.4/RW.6, Perapatan, Kabupaten Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.472042399999999,
+                    "lng": 106.823055
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.470653320107277,
+                        "lng": 106.8243930798927
+                    },
+                    "southwest": {
+                        "lat": -6.473352979892721,
+                        "lng": 106.8216934201073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+            "icon_background_color": "#F88181",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+            "name": "puskesmas kelurahan tengah",
+            "place_id": "ChIJFYax8vnBaS4RnXPZ5nEitcc",
+            "rating": 0,
+            "reference": "ChIJFYax8vnBaS4RnXPZ5nEitcc",
+            "scope": "GOOGLE",
+            "types": [
+                "hospital",
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 0,
+            "vicinity": "GRHF+56M, Tengah, Bogor Regency"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.512385000000001,
+                    "lng": 106.756564
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.511037070107278,
+                        "lng": 106.7579114798927
+                    },
+                    "southwest": {
+                        "lat": -6.513736729892722,
+                        "lng": 106.7552118201073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "PUSKESMAS KEC. KEMANG",
+            "opening_hours": {
+                "open_now": false
+            },
+            "place_id": "ChIJzdaPMxzDaS4R-0y-Fu2Bl60",
+            "rating": 3.4,
+            "reference": "ChIJzdaPMxzDaS4R-0y-Fu2Bl60",
+            "scope": "GOOGLE",
+            "types": [
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 11,
+            "vicinity": "FQQ4+2JG, Jl. Raya Pabuaran, Kemang, Kabupaten Bogor"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.4900064,
+                    "lng": 106.8307163
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.488766870107278,
+                        "lng": 106.8321396798927
+                    },
+                    "southwest": {
+                        "lat": -6.491466529892722,
+                        "lng": 106.8294400201073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+            "name": "Puskesmas Pabuaran Mekar",
+            "place_id": "ChIJfaIshmrqaS4R7lLl6a5YfB0",
+            "rating": 0,
+            "reference": "ChIJfaIshmrqaS4R7lLl6a5YfB0",
+            "scope": "GOOGLE",
+            "types": [
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 0,
+            "vicinity": "GR5J+X7W, Pakansari, Bogor Regency"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.50562,
+                    "lng": 106.77549
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.504276870107278,
+                        "lng": 106.7768372798927
+                    },
+                    "southwest": {
+                        "lat": -6.506976529892722,
+                        "lng": 106.7741376201073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+            "name": "Puskesmas Kemuning",
+            "photos": [
+                {
+                    "height": 2340,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/104108652027255845320\">yopie_ popoy</a>"
+                    ],
+                    "photo_reference": "Aap_uEC8fBr1B8pikAoKgxgAYf2pqiGVeyGdkO206wbr1BkXHLQdwNKoa-WLQm7lcQDfdVDj581GaQ180u0fVe_UPgu6bc7hdpo6jKinfxrdv8G9BbtYTIrnoKgzzmZEmJZeMi2HdsDOpRMGet1GXwelqlEaXFXdQLmedAw6r31RHT9GGUF4",
+                    "width": 4160
+                }
+            ],
+            "place_id": "ChIJL4tos1TCaS4RkdVmgHdvJ2I",
+            "plus_code": {
+                "compound_code": "FQVG+Q5 Cimanggis, Bogor Regency, West Java",
+                "global_code": "6P58FQVG+Q5"
+            },
+            "rating": 5,
+            "reference": "ChIJL4tos1TCaS4RkdVmgHdvJ2I",
+            "scope": "GOOGLE",
+            "types": [
+                "transit_station",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 1,
+            "vicinity": "Cimanggis, Bogor Regency"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": -6.5333913,
+                    "lng": 106.8288948
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": -6.532041470107276,
+                        "lng": 106.8302446298927
+                    },
+                    "southwest": {
+                        "lat": -6.53474112989272,
+                        "lng": 106.8275449701073
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+            "icon_background_color": "#F88181",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+            "name": "Puskesmas Cimandala, Kab Bogor",
+            "photos": [
+                {
+                    "height": 400,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/101220097674080679624\">ikung forumproperti</a>"
+                    ],
+                    "photo_reference": "Aap_uEA-mHGvbPvjK3mQD6rASD3c-xw8ugyjnRnZTCSddjYb39KeZ73Yyn8jJeQNDfSRr6JsmZhi4z_al8PzARn4nGW_ii5qaAE-wrgPi5c0Ooi7p5Kh4B-IyYpFvvAHfLvej2uXXFRUU9neSaK5afWmfx6RKQrqYTpaU-_lYisE7w6QnM4V",
+                    "width": 600
+                }
+            ],
+            "place_id": "ChIJ439AdFHBaS4RfR5ceCqNqJU",
+            "plus_code": {
+                "compound_code": "FR8H+JH Cimandala, Bogor Regency, West Java",
+                "global_code": "6P58FR8H+JH"
+            },
+            "rating": 3.4,
+            "reference": "ChIJ439AdFHBaS4RfR5ceCqNqJU",
+            "scope": "GOOGLE",
+            "types": [
+                "hospital",
+                "health",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 20,
+            "vicinity": "Jl. Raya Jakarta-Bogor No.51, Cimandala, Kabupaten Bogor"
+        }
+    ],
+    "status": "OK"
+}
