@@ -1,9 +1,10 @@
-import json, datetime
+import json, datetime, requests
 
 from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseNotFound
 from django.shortcuts import render
 from django.core.handlers.wsgi import WSGIRequest
+from stunting_backend import secret_settings 
 
 from token_authentication import models as ta_models
 from token_authentication.auth_core import token_auth
@@ -50,7 +51,6 @@ def stunt_reminder(user: ta_models.UserAuthentication, request: WSGIRequest):
         deleted_reminders = [i.delete() for i in models.StuntReminder.objects.filter(id__in=data['to_delete_ids'])]
         return JsonResponse({'deleted': deleted_reminders})
             
-
     return HttpResponseNotFound()
 
 @token_auth(roles=['user'], get_user=True)
@@ -77,3 +77,15 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
             saved_traces.append(model_to_dict(trace_object))
     return HttpResponseNotFound()
 
+@token_auth(roles=['user'])
+def stunt_maps(request: WSGIRequest):
+    data = json.loads(request.body)
+    NEARBY_PLACE_API = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
+    nearby_place_parameters = {
+        'key': secret_settings.MAP_API_KEY,
+        'location': data['location'], #format: lat,long
+        'keyword': data['keyword'],
+        'radius': data['radius'] if 'radius' in data else 50000,
+        'types': '|'.join('doctor pharmacy hospital health'.split())
+    }
+    return JsonResponse({'places': json.loads(requests.get(NEARBY_PLACE_API, params=nearby_place_parameters).text)}, json_dumps_params={'indent':4, 'sort_keys': True})
