@@ -20,13 +20,13 @@ def test(user: ta_models.UserAuthentication, request: WSGIRequest):
 def user_profile(user: ta_models.UserAuthentication, request: WSGIRequest):
     if request.method=='GET':
         profile = models.UserProfile.objects.get(authentication=user)
-        get_necessary_profile = lambda profile: {'name': profile.name, 'b64_profile_img': utils.read_b64_file('img'/profile.profile_file)}
+        get_necessary_profile = lambda profile: {'name': profile.name, 'b64_profile_img': utils.read_b64_file(os.path.join('img', profile.profile_file))}
         return JsonResponse({'profile': get_necessary_profile(profile), 'user': model_to_dict(user)})
     elif request.method=='POST':
         data = json.loads(request.body)
         profile_file = f'{utils.valid_filename(data["name"])}.jpg'
         profile = models.UserProfile(authentication=user, name=data['name'], profile_file=profile_file)
-        utils.write_b64_file('img'/profile_file, data['b64_profile_img'])
+        utils.write_b64_file(os.path.join('img', profile_file), data['b64_profile_img'])
         profile.save()
         return JsonResponse({'profile': model_to_dict(profile), 'user': model_to_dict(user)})
     return HttpResponseNotFound()
@@ -70,11 +70,12 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
         data = json.loads(request.body)
         saved_traces = []
         for trace in data['all_traces']:
-            trace_object = models.StuntingTrace.objects.filter(user=profile, week=trace['week'])
+            trace_object = models.StuntingTrace.objects.get(user=profile, week=trace['week'])
             trace_object.height=trace['height']
             trace_object.weight=trace['weight']
             trace_object.save()
             saved_traces.append(model_to_dict(trace_object))
+        return JsonResponse({'updated': saved_traces})
     return HttpResponseNotFound()
 
 @token_auth(roles=['user'])
@@ -104,13 +105,30 @@ def article(request: WSGIRequest):
         get_articles = data['get_articles']
         if get_articles=='all':
             return JsonResponse({'all_articles': [_article(i) for i in models.Article.objects.all()]})
+        elif get_articles=='filter_articles':
+            field_names_default = {
+                'title': '.*',
+                'article_types': '.*',
+                'article_tags': '.*'
+            }
+            field_names_filter = dict()
+
+            for field, default in field_names_default.items():
+                if field in data:
+                    field_names_filter[field+'__contains'] = data[field]
+                else:
+                    field_names_filter[field+'__regex'] = default
+
+            return JsonResponse({'articles': [model_to_dict(i) for i in models.Article.objects.filter(**field_names_filter)]})
+        
+
+
 
     elif request.method=='POST':
         title = data['title']
         pattern = re.compile(r'({([a-z|A-Z|0-9|_|-]+)})')
         tags_urls = dict()
         for i, m in enumerate(pattern.finditer(data['article_content'])):
-            print(i)
             full_match, match = m.groups()
             match, m_type = match.split('_')
             extension = data['article_items'][match]['extension']
@@ -132,8 +150,6 @@ def article(request: WSGIRequest):
         )
         article.save()
         return JsonResponse({'status': 'OK', 'items': tags_urls, 'article_parsed': article_parsed, 'article_parsed_path': f'article_parsed_path', 'saved': model_to_dict(article)})
-
-        
         
     elif request.method=='DELETE':
         to_delete = models.Article.objects.filter(id__in=data['to_delete_ids']) 

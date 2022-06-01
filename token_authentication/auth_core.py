@@ -110,19 +110,15 @@ def token_auth(roles=['*'], get_user=False, response_info=False):
             try:
                 token = request.headers['token']
             except:
-                print(f"no token")
                 response = {'success': False, 'message': 'Invalid Authentication'}
-                print('Response:', response)
                 return JsonResponse(response)
 
             if token is None:
                 response = {'success': False, 'message': 'Invalid method'}
-                print('Response:', response)
                 return JsonResponse(response)
 
             user = token_auth_core(token, roles)
             if user:
-                print(f"Login success: {user} -> {request.build_absolute_uri()}")
                 if get_user:
                     result = fun(user, *args, **kwargs)
                 else:
@@ -134,13 +130,10 @@ def token_auth(roles=['*'], get_user=False, response_info=False):
                     response = JsonResponse(response)
                 else:
                     response = result
-                print('Response:', response)
                 return response
 
             else:
-                print(f"Invalid token")
                 response = {'success': False, 'message': 'Invalid Authentication'}
-                print('Response:', response)
                 return JsonResponse(response)
         return wrapper
     return decorator

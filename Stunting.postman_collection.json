@@ -1,0 +1,1437 @@
+{
+	"info": {
+		"_postman_id": "8367727f-170d-4160-bdbe-f746dc61cf4c",
+		"name": "Stunting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Profile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"White\",\r\n    \"b64_profile_img\": \"iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAAYSURBVChTY/hPJhjViAeMasQD6K3x/38AvsDVRz3BefoAAAAASUVORK5CYII=\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/profile",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"profile"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Profile",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"White\",\r\n    \"b64_profile_img\": \"iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAAYSURBVChTY/hPJhjViAeMasQD6K3x/38AvsDVRz3BefoAAAAASUVORK5CYII=\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/profile",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:22:25 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "315"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"profile\": {\n        \"id\": 1,\n        \"authentication\": 1,\n        \"name\": \"White\",\n        \"profile_file\": \"White.jpg\"\n    },\n    \"user\": {\n        \"id\": 1,\n        \"username\": \"user0\",\n        \"password\": \"user0\",\n        \"role\": 1,\n        \"token\": \"280112fca7b894296bbdbfa934dd5b32d03d6b938ba1a6d59409869d400ae6495e9b622784ad7b28cf472f0a61697a64\",\n        \"token_expired\": \"2022-06-01T09:51:20.371Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Reminder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hour_minute\": \"17:42\",\r\n    \"repeat_each\": \"[\\\"MON\\\", \\\"MON\\\", \\\"MON\\\", \\\"MON\\\", \\\"MON\\\", \\\"MON\\\", \\\"MON\\\"]\",\r\n    \"on\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/reminder",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reminder"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Reminder",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"hour_minute\": \"17:42\",\r\n    \"repeat_each\": \"[\\\"MON\\\", \\\"MON\\\", \\\"MON\\\", \\\"MON\\\", \\\"MON\\\", \\\"MON\\\", \\\"MON\\\"]\",\r\n    \"on\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/reminder",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reminder"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:22:48 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "187"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"reminder_saved\": {\n        \"id\": 1,\n        \"user\": 1,\n        \"clock\": \"17:42:00\",\n        \"repeat_each\": \"\\\"[\\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\"]\\\"\",\n        \"on\": true\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Trace",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"all_traces\": [\r\n        {\"week\": 0, \"height\": 4, \"weight\": 5},\r\n        {\"week\": 1, \"height\": 3, \"weight\": 1},\r\n        {\"week\": 2, \"height\": 5, \"weight\": 7}\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/trace",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"trace"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Trace",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"all_traces\": [\r\n        {\"week\": 0, \"height\": 4, \"weight\": 5},\r\n        {\"week\": 1, \"height\": 3, \"weight\": 1},\r\n        {\"week\": 2, \"height\": 5, \"weight\": 7}\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/trace",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trace"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:22:59 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "195"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"saved_traces\": [\n        {\n            \"id\": 1,\n            \"user\": 1,\n            \"week\": 0,\n            \"height\": 4,\n            \"weight\": 5\n        },\n        {\n            \"id\": 2,\n            \"user\": 1,\n            \"week\": 1,\n            \"height\": 3,\n            \"weight\": 1\n        },\n        {\n            \"id\": 3,\n            \"user\": 1,\n            \"week\": 2,\n            \"height\": 5,\n            \"weight\": 7\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Maps",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"location\": \"-6.500744,106.7874093\",\r\n    \"keyword\": \"Puskesmas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/maps",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"maps"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Maps",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"location\": \"-6.500744,106.7874093\",\r\n    \"keyword\": \"Puskesmas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/maps",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"maps"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:23:27 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "4220"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"places\": {\n        \"html_attributions\": [],\n        \"results\": [\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.198898,\n                        \"lng\": 106.765261\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.197472520107278,\n                            \"lng\": 106.7665963798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.200172179892722,\n                            \"lng\": 106.7638967201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png\",\n                \"icon_background_color\": \"#7B9EB0\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet\",\n                \"name\": \"PHC district. Kebon Jeruk\",\n                \"opening_hours\": {\n                    \"open_now\": true\n                },\n                \"photos\": [\n                    {\n                        \"height\": 1362,\n                        \"html_attributions\": [\n                            \"<a href=\\\"https://maps.google.com/maps/contrib/105388695752131829825\\\">Puskesmas Kec. Kebon Jeruk</a>\"\n                        ],\n                        \"photo_reference\": \"Aap_uEDN3TkFd1IrbmxQBkYVvL4leDyEg7PNV49mnlg5AH6pE0ledFYwf863SjNjLANj5Ce6jHQp998qAm5gmZI7Pqm2cwYxFZ6KIbrEsGWVovNqtXjEp3j2fN0gMQ9LoqOfuG7cWNPg05PmKElzNkhktXUvsc2JCIzQmP4sTmAsSuYHIlpr\",\n                        \"width\": 2048\n                    }\n                ],\n                \"place_id\": \"ChIJYfrl_CH3aS4RMhsOh-HYpnE\",\n                \"plus_code\": {\n                    \"compound_code\": \"RQ28+C4 Kebon Jeruk, West Jakarta City, Jakarta\",\n                    \"global_code\": \"6P58RQ28+C4\"\n                },\n                \"rating\": 3.9,\n                \"reference\": \"ChIJYfrl_CH3aS4RMhsOh-HYpnE\",\n                \"scope\": \"GOOGLE\",\n                \"types\": [\n                    \"dentist\",\n                    \"doctor\",\n                    \"health\",\n                    \"point_of_interest\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 618,\n                \"vicinity\": \"Jl. Raya Kb. Jeruk No.2, RW.1, Kb. Jeruk, Kota Jakarta Barat\"\n            },\n            {\n                \"business_status\": \"OPERATIONAL\",\n                \"geometry\": {\n                    \"location\": {\n                        \"lat\": -6.2982608,\n                        \"lng\": 106.8390769\n                    },\n                    \"viewport\": {\n                        \"northeast\": {\n                            \"lat\": -6.296985470107278,\n                            \"lng\": 106.8404213798927\n                        },\n                        \"southwest\": {\n                            \"lat\": -6.299685129892722,\n                            \"lng\": 106.8377217201073\n                        }\n                    }\n                },\n                \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png\",\n                \"icon_background_color\": \"#7B9EB0\",\n                \"icon_mask_base_uri\": \"https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet\",\n                \"name\": \"Puskesmas Kelurahan Ps. Minggu\",\n                \"place_id\": \"ChIJw0RzhQryaS4RZbwmDZDu-G0\",\n                \"plus_code\": {\n                    \"compound_code\": \"PR2Q+PJ Pasar Minggu, South Jakarta City, Jakarta\",\n                    \"global_code\": \"6P58PR2Q+PJ\"\n                },\n                \"rating\": 0,\n                \"reference\": \"ChIJw0RzhQryaS4RZbwmDZDu-G0\",\n                \"scope\": \"GOOGLE\",\n                \"types\": [\n                    \"doctor\",\n                    \"health\",\n                    \"point_of_interest\",\n                    \"establishment\"\n                ],\n                \"user_ratings_total\": 0,\n                \"vicinity\": \"Jl. Tlk. Bayur I No.4, RT.4/RW.8, Pasar Minggu, South Jakarta City\"\n            }\n        ],\n        \"status\": \"OK\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Article",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{       \r\n    \"title\": \"YAY\",\r\n    \"date\": \"1/6/2022\",\r\n    \"article_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>YAY</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"{IMG0_img}\\\"/>\\n</body>\\n</html>\",\r\n    \"article_items\": {\r\n        \"IMG0\": {\"content\":\"iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAAYSURBVChTY/hPJhjViAeMasQD6K3x/38AvsDVRz3BefoAAAAASUVORK5CYII=\", \"extension\": \"jpg\"}\r\n    },\r\n    \"article_types\": \"nutrition\",\r\n    \"article_tags\": \"protein|karbo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/article",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"article"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Article",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{       \r\n    \"title\": \"Test\",\r\n    \"date\": \"1/6/2022\",\r\n    \"article_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>TESTING</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"{IMG0_img}\\\"/>\\n</body>\\n</html>\",\r\n    \"article_items\": {\r\n        \"IMG0\": {\"content\":\"iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAAYSURBVChTY/hPJhjViAeMasQD6K3x/38AvsDVRz3BefoAAAAASUVORK5CYII=\", \"extension\": \"jpg\"}\r\n    },\r\n    \"article_types\": \"nutrition\",\r\n    \"article_tags\": \"protein|karbo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/article",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"article"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:24:17 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "721"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"items\": {\n        \"{IMG0_img}\": \"http://172.26.74.148:8000/static/img/Test_IMG0_0.jpg\"\n    },\n    \"article_parsed\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>TESTING</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.74.148:8000/static/img/Test_IMG0_0.jpg\\\"/>\\n</body>\\n</html>\",\n    \"article_parsed_path\": \"article_parsed_path\",\n    \"saved\": {\n        \"id\": 1,\n        \"article_file\": \"articles/Test_1_6_2022.html\",\n        \"title\": \"Test\",\n        \"date\": \"2022-06-01\",\n        \"article_types\": \"nutrition\",\n        \"article_tags\": \"protein|karbo\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Profile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/profile",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"profile"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Profile",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/profile",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:24:53 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "455"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"profile\": {\n        \"name\": \"White\",\n        \"b64_profile_img\": \"iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAAYSURBVChTY/hPJhjViAeMasQD6K3x/38AvsDVRz3BefoAAAAASUVORK5CYII=\"\n    },\n    \"user\": {\n        \"id\": 1,\n        \"username\": \"user0\",\n        \"password\": \"user0\",\n        \"role\": 1,\n        \"token\": \"280112fca7b894296bbdbfa934dd5b32d03d6b938ba1a6d59409869d400ae6495e9b622784ad7b28cf472f0a61697a64\",\n        \"token_expired\": \"2022-06-01T09:51:20.371Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Reminder",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/reminder",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reminder"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Reminder",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/reminder",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reminder"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:25:04 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "193"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"all_user_reminders\": [\n        {\n            \"id\": 1,\n            \"user\": 1,\n            \"clock\": \"17:42:00\",\n            \"repeat_each\": \"\\\"[\\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\", \\\\\\\"MON\\\\\\\"]\\\"\",\n            \"on\": true\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Trace",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/trace",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"trace"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Trace",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/trace",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trace"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:25:13 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "205"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"all_traces\": [\n        {\n            \"id\": 1,\n            \"user\": 1,\n            \"week\": 0,\n            \"height\": 4,\n            \"weight\": 5\n        },\n        {\n            \"id\": 2,\n            \"user\": 1,\n            \"week\": 1,\n            \"height\": 3,\n            \"weight\": 1\n        },\n        {\n            \"id\": 3,\n            \"user\": 1,\n            \"week\": 2,\n            \"height\": 5,\n            \"weight\": 7\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Article",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"get_articles\": \"filter_articles\",\r\n    \"title\": \"Yay\",\r\n    \"article_types\": \"nutrition\",\r\n    \"get_articles\": \"all\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/article",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"article"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get All Article",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"get_articles\": \"all\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/article",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"article"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:25:33 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "593"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"all_articles\": [\n        {\n            \"id\": 1,\n            \"article_file\": \"articles/Test_1_6_2022.html\",\n            \"title\": \"Test\",\n            \"date\": \"2022-06-01\",\n            \"article_types\": \"nutrition\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>TESTING</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.74.148:8000/static/img/Test_IMG0_0.jpg\\\"/>\\n</body>\\n</html>\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Filter Article",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"get_articles\": \"filter_articles\",\r\n    \"title\": \"Yay\",\r\n    \"article_types\": \"nutrition\",\r\n    \"get_articles\": \"all\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/article",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"article"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:50:00 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1161"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"all_articles\": [\n        {\n            \"id\": 1,\n            \"article_file\": \"articles/Test_1_6_2022.html\",\n            \"title\": \"Test\",\n            \"date\": \"2022-06-01\",\n            \"article_types\": \"nutrition\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>TESTING</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.74.148:8000/static/img/Test_IMG0_0.jpg\\\"/>\\n</body>\\n</html>\"\n        },\n        {\n            \"id\": 2,\n            \"article_file\": \"articles/YAY_1_6_2022.html\",\n            \"title\": \"YAY\",\n            \"date\": \"2022-06-01\",\n            \"article_types\": \"nutrition\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>YAY</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.74.148:8000/static/img/YAY_IMG0_0.jpg\\\"/>\\n</body>\\n</html>\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Reminders",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"to_delete_ids\": [1]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/reminder",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reminder"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Reminders",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"to_delete_ids\": [1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/reminder",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reminder"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:28:06 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "46"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"deleted\": [\n        [\n            1,\n            {\n                \"apiv1.StuntReminder\": 1\n            }\n        ]\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Update trace",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"all_traces\": [\r\n        {\"week\": 0, \"height\": 5, \"weight\": 6},\r\n        {\"week\": 1, \"height\": 7, \"weight\": 8},\r\n        {\"week\": 2, \"height\": 9, \"weight\": 10}\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/trace",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"trace"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update trace",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"all_traces\": [\r\n        {\"week\": 0, \"height\": 5, \"weight\": 6},\r\n        {\"week\": 1, \"height\": 7, \"weight\": 8},\r\n        {\"week\": 2, \"height\": 9, \"weight\": 10}\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/trace",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"trace"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:31:09 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "191"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"updated\": [\n        {\n            \"id\": 1,\n            \"user\": 1,\n            \"week\": 0,\n            \"height\": 5,\n            \"weight\": 6\n        },\n        {\n            \"id\": 2,\n            \"user\": 1,\n            \"week\": 1,\n            \"height\": 7,\n            \"weight\": 8\n        },\n        {\n            \"id\": 3,\n            \"user\": 1,\n            \"week\": 2,\n            \"height\": 9,\n            \"weight\": 10\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Articles",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"to_delete_ids\": [3]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/article",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"article"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Article",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"to_delete_ids\": [3]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/article",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"article"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 01 Jun 2022 09:51:51 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "55"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"message\": \"Invalid Authentication\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "172.26.74.148:8000",
+			"type": "default"
+		},
+		{
+			"key": "token",
+			"value": "280112fca7b894296bbdbfa934dd5b32d03d6b938ba1a6d59409869d400ae6495e9b622784ad7b28cf472f0a61697a64",
+			"type": "default"
+		}
+	]
+}
