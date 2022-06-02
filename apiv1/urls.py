@@ -5,7 +5,7 @@ app_name='apiv1'
 
 urlpatterns = [
     path('test', views.test),
-    path('profile', views.user_profile),
+    path('user', views.user),
     path('reminder', views.stunt_reminder),
     path('trace', views.stunting_trace),
     path('maps', views.stunt_maps),

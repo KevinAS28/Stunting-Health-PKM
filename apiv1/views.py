@@ -3,10 +3,10 @@ import json, datetime, requests, re, os
 from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseNotFound
 from django.core.handlers.wsgi import WSGIRequest
-from stunting_backend import secret_settings 
+from stunting_backend import secret_settings
 
 from token_authentication import models as ta_models
-from token_authentication.auth_core import token_auth
+from token_authentication.auth_core import token_auth, token_auth_core
 from apiv1 import models, utils
 
 # Create your views here.
@@ -25,20 +25,41 @@ def profile_admin(request: WSGIRequest):
             return JsonResponse({'all_users': [model_to_dict(i) for i in models.UserProfile.objects.filter(name__contains=data['name'])]})    
         return HttpResponseNotFound()
 
-@token_auth(roles=['user', 'admin'], get_user=True)
-def user_profile(user: ta_models.UserAuthentication, request: WSGIRequest):
+def user(request: WSGIRequest):
     data = json.loads(request.body)
     if request.method=='GET':
+        user: ta_models.UserAuthentication = token_auth_core(request.headers['token'], ['*'])
         profile = models.UserProfile.objects.get(authentication=user)
         get_necessary_profile = lambda profile: {'name': profile.name, 'b64_profile_img': utils.read_b64_file(os.path.join('img', profile.profile_file))}
         return JsonResponse({'profile': get_necessary_profile(profile), 'user': model_to_dict(user)})
     elif request.method=='POST':
+        data = json.loads(request.body)
+        username = data['username']
+        password = data['password']
+        if 'role_id' in data:
+            role = ta_models.UserRole.objects.get(id=data['role_id']) 
+        elif 'role_name' in data:
+            role = ta_models.UserRole.objects.get(role_name=data['role_name']) 
+        else:
+            return JsonResponse({'success': False, 'error': 'Please provide role_name or role_name'})
+
+        userauth = ta_models.UserAuthentication(
+            username=username,
+            password=password,
+            role=role
+        )
+        userauth.save()
+
         profile_file = f'{utils.valid_filename(data["name"])}.jpg'
-        profile = models.UserProfile(authentication=user, name=data['name'], email=data['email'], profile_file=profile_file)
+        profile = models.UserProfile(authentication=userauth, name=data['name'], email=data['email'], profile_file=profile_file)
         utils.write_b64_file(os.path.join('img', profile_file), data['b64_profile_img'])
+
+        
         profile.save()
-        return JsonResponse({'profile': model_to_dict(profile), 'user': model_to_dict(user)})
+
+        return JsonResponse({'profile': model_to_dict(profile)})
     elif request.method=='PATCH':
+        user: ta_models.UserAuthentication = token_auth_core(request.headers['token'], ['*'])
         profile = models.UserProfile.objects.get(authentication=user)
         role = None
         if 'role_id' in data:
@@ -60,7 +81,8 @@ def user_profile(user: ta_models.UserAuthentication, request: WSGIRequest):
 
         return JsonResponse({'profile': model_to_dict(profile), 'user': model_to_dict(user)})
     elif request.method=='DELETE':
-        profile = models.UserProfile.objects.get(authentication=user)
+        user: ta_models.UserAuthentication = token_auth_core(request.headers['token'], ['*'])
+        profile: models.UserProfile = models.UserProfile.objects.get(authentication=user)
         user.delete()
         profile.delete()
 
