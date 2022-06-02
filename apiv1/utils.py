@@ -31,11 +31,13 @@ def read_b64_file(file_path:str) -> str:
     else:
         return -1
 
-def write_b64_file(file_path:str, b64_str:str) -> int:
+def write_b64_file(file_path:str, b64_content) -> int:
     full_path = os.path.join(settings.STATIC_ROOT, file_path)
     make_dir(full_path, no_end=True)
     with open(full_path, 'wb+') as file_fd:
-        return file_fd.write(base64.b64decode(b64_str.encode('ascii')))
+        if type(b64_content)==str:
+            b64_content = b64_content.encode('ascii')
+        return file_fd.write(base64.b64decode(b64_content))
 
 def read_file(file_path:str) -> int:
     full_path = os.path.join(settings.STATIC_ROOT, file_path)

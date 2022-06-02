@@ -1,4 +1,5 @@
-import json, datetime, requests, re, os
+import json, datetime, requests, re, os, base64
+from isort import file
 
 from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseNotFound
@@ -26,7 +27,7 @@ def profile_admin(request: WSGIRequest):
         return HttpResponseNotFound()
 
 def user(request: WSGIRequest):
-    data = json.loads(request.body)
+    
     if request.method=='GET':
         user: ta_models.UserAuthentication = token_auth_core(request.headers['token'], ['*'])
         profile = models.UserProfile.objects.get(authentication=user)
@@ -54,11 +55,11 @@ def user(request: WSGIRequest):
         profile = models.UserProfile(authentication=userauth, name=data['name'], email=data['email'], profile_file=profile_file)
         utils.write_b64_file(os.path.join('img', profile_file), data['b64_profile_img'])
 
-        
         profile.save()
 
         return JsonResponse({'profile': model_to_dict(profile)})
     elif request.method=='PATCH':
+        data = json.loads(request.body)
         user: ta_models.UserAuthentication = token_auth_core(request.headers['token'], ['*'])
         profile = models.UserProfile.objects.get(authentication=user)
         role = None
@@ -81,6 +82,7 @@ def user(request: WSGIRequest):
 
         return JsonResponse({'profile': model_to_dict(profile), 'user': model_to_dict(user)})
     elif request.method=='DELETE':
+        data = json.loads(request.body)
         user: ta_models.UserAuthentication = token_auth_core(request.headers['token'], ['*'])
         profile: models.UserProfile = models.UserProfile.objects.get(authentication=user)
         user.delete()
@@ -124,7 +126,16 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
         saved_traces = []
         for trace in data['all_traces']:
             profile = models.UserProfile.objects.get(authentication=user)
-            trace_object = models.StuntingTrace(user=profile, week=trace['week'], height=trace['height'], weight=trace['weight'])
+            trace_object = models.StuntingTrace(
+                user=profile,
+                week=trace['week'],
+                height=trace['height'],
+                weight=trace['weight'],
+                age_day=trace['age_day'],
+                exclusive_asi=trace['exclusive_asi'],
+                disease_history=trace['disease_history'],
+                immunization_history=trace['immunization_history']
+                )
             trace_object.save()
             saved_traces.append(model_to_dict(trace_object))
         return JsonResponse({'saved_traces': saved_traces})
@@ -136,6 +147,10 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
             trace_object = models.StuntingTrace.objects.get(user=profile, week=trace['week'])
             trace_object.height=trace['height']
             trace_object.weight=trace['weight']
+            trace_object.age_day=trace['age_day']
+            trace_object.exclusive_asi=trace['exclusive_asi']
+            trace_object.disease_history=trace['disease_history']
+            trace_object.immunization_history=trace['immunization_history']
             trace_object.save()
             saved_traces.append(model_to_dict(trace_object))
         return JsonResponse({'updated': saved_traces})
@@ -158,11 +173,28 @@ def stunt_maps_admin(request: WSGIRequest):
     if request.method=='GET':
         if data['get_type']=='unregistered':
             SEARCH_PLACE_API = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
+            PHOTO_PLACE_API = 'https://maps.googleapis.com/maps/api/place/photo'
             search_place_parameters = {
                 'key': secret_settings.MAP_API_KEY,
                 'query': data['place_query']
             }
-            all_places = json.loads(requests.get(SEARCH_PLACE_API, params=search_place_parameters).text)
+            all_places = json.loads(requests.get(SEARCH_PLACE_API, params=search_place_parameters).text)['results']
+            for i, place in enumerate(all_places):
+
+                #process the photo
+                if 'photos' in place:
+                    if len(place['photos'])>0:
+                        photo_params = {
+                            'key': secret_settings.MAP_API_KEY,
+                            'photo_reference': place['photos'][0]['photo_reference']
+                        }
+                        photo_resp = requests.get(PHOTO_PLACE_API, params=photo_params)
+
+                        file_path = os.path.join('img', utils.valid_filename(f'{place["name"]}_{place["place_id"]}_first.png'))
+                        utils.write_b64_file(file_path, base64.b64encode(photo_resp.content))
+                        place['static_img'] = f'http://{request.get_host()}/static/{file_path}'
+                all_places[i] = place
+
             return JsonResponse({'all_places': all_places})
         elif data['get_type']=='registered_all':
             return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.all()]})
@@ -178,7 +210,8 @@ def stunt_maps_admin(request: WSGIRequest):
                 location_lat=place['location_lat'],
                 location_lng=place['location_lng'],
                 place_name=place['name'],
-                gmap_place_id=place['gmap_place_id']
+                gmap_place_id=place['gmap_place_id'],
+                img_url=place['img_url']
             )
             place_obj.save()
             saved_places.append(place)

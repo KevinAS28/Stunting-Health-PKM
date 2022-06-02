@@ -19,6 +19,10 @@ class StuntingTrace(models.Model):
     week = models.IntegerField()
     height = models.FloatField()
     weight = models.FloatField()
+    age_day = models.IntegerField(default=0)
+    exclusive_asi = models.BooleanField(default=True)
+    disease_history = models.BooleanField(default=True)
+    immunization_history = models.CharField(max_length=60)
 
 class Article(models.Model):
     article_file = models.CharField(max_length=50)
@@ -32,3 +36,4 @@ class StuntPlace(models.Model):
     location_lng = models.FloatField()
     place_name = models.CharField(max_length=50)
     gmap_place_id = models.CharField(max_length=50)
+    img_url = models.CharField(max_length=150, default='')
