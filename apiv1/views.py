@@ -260,7 +260,7 @@ def stunt_maps(request: WSGIRequest):
         name_filter = models.StuntPlace.objects.filter(place_name__icontains=data['keyword'])
         dev_loc = tuple(map(float, data['location'].split(',')))
         radius = data['radius'] if 'radius' in data else 5000
-        radius_filter = [utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
+        radius_filter = [utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host()) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
         
         
 
@@ -317,8 +317,7 @@ def article_admin(request: WSGIRequest):
         article_parsed_path = os.path.join('articles', utils.valid_filename(f'{title}_{data["date"]}.html', '_'))
         utils.write_file(article_parsed_path, article_parsed.encode('utf-8'))
 
-        cover_path=''
-        # cover_name, cover_path, cover_url = utils.save_static('img', data['cover']['extension'], f"{data['title']}_cover", data['cover']['content'], 0)
+        cover_name, cover_path, cover_url = utils.save_static('img', data['cover']['extension'], f"{data['title']}_cover", data['cover']['content'], 0)
         
         article = models.Article(
             article_file=article_parsed_path,
