@@ -101,7 +101,7 @@ def get_place_detail_photos(place_id, key, max_photos=3):
         if not ('photos') in place:
             place['photos'] = []
         
-        photos = [get_place_detail_photos(i['photo_reference'], key) for i in place['photos']][:max_photos]
+        photos = [get_place_photo(i['photo_reference']) for i in place['photos']][:max_photos]
     else:
         photos = []
     return {'place_details': place, 'photos_b64': photos}
