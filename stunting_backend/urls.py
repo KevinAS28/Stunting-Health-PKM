@@ -23,4 +23,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('token_authentication/', include('token_authentication.urls', namespace='token_authentication_ns')),
     path('api/v1/', include('apiv1.urls', namespace='apiv1_ns')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT, show_indexes=True)
