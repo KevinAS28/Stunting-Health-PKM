@@ -1,5 +1,4 @@
 import json, datetime, requests, re, os, base64
-from isort import file
 
 from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseNotFound
@@ -9,6 +8,9 @@ from stunting_backend import secret_settings
 from token_authentication import models as ta_models
 from token_authentication.auth_core import token_auth, token_auth_core
 from apiv1 import models, utils
+
+from geopy import distance
+
 
 # Create your views here.
 
@@ -232,20 +234,37 @@ def stunt_maps_admin(request: WSGIRequest):
 
 @token_auth(roles=['user', 'admin'])
 def stunt_maps(request: WSGIRequest):
+    print('stunt_maps')
     data = json.loads(request.body)
     if request.method=='GET':
-        NEARBY_PLACE_API = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
-        nearby_place_parameters = {
-            'key': secret_settings.MAP_API_KEY,
-            'location': data['location'], #format: lat,long
-            'keyword': data['keyword'],
-            'radius': data['radius'] if 'radius' in data else 50000,
-            'types': '|'.join('doctor pharmacy hospital health'.split())
-        }
-        all_places = json.loads(requests.get(NEARBY_PLACE_API, params=nearby_place_parameters).text)['results']
-        all_place_ids = [i['place_id'] for i in all_places]
-        valid_places = [model_to_dict(i) for i in models.StuntPlace.objects.filter(gmap_place_id__in=all_place_ids)]
-        return JsonResponse({'places': valid_places}, json_dumps_params={'indent':4, 'sort_keys': True})
+        # NEARBY_PLACE_API = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
+        # nearby_place_parameters = {
+        #     'key': secret_settings.MAP_API_KEY,
+        #     'location': data['location'], #format: lat,long
+        #     'keyword': data['keyword'],
+        #     'radius': data['radius'] if 'radius' in data else 5000,
+        #     'types': '|'.join('doctor pharmacy hospital health'.split())
+        # }
+        # print('Requesting GMAP API...', end='')
+        # all_places = json.loads(requests.get(NEARBY_PLACE_API, params=nearby_place_parameters).text)
+        # print('Done')
+        # print(all_places)
+        # all_places = all_places['results']
+        # all_place_ids = [i['place_id'] for i in all_places]
+        # print(all_places)
+        # print(len(all_place_ids), all_place_ids)
+        # valid_places = [model_to_dict(i) for i in models.StuntPlace.objects.filter(gmap_place_id__in=all_place_ids)]
+        # print(len(valid_places))
+
+        
+        name_filter = models.StuntPlace.objects.filter(place_name__icontains=data['keyword'])
+        dev_loc = tuple(map(float, data['location'].split(',')))
+        radius = data['radius'] if 'radius' in data else 5000
+        radius_filter = [utils.get_place_detail(i.gmap_place_id, secret_settings.MAP_API_KEY) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
+        
+        
+
+        return JsonResponse({'places': radius_filter}, json_dumps_params={'indent':4, 'sort_keys': True})
     
     return HttpResponseNotFound()
 

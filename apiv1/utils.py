@@ -1,7 +1,9 @@
-import os, base64, re
+import os, base64, re, json
 
 from django.conf import settings
+import requests
 from sympy import integer_log
+
 
 def make_dir(path, no_end=True):
     if no_end:
@@ -72,6 +74,15 @@ def multiple_replace(text:str, str_subs:dict, regex=True):
 
     return pattern.sub(_multiple_replace, text)
 
+def get_place_detail(place_id, key):
+    PLACE_DETAIL_API = 'https://maps.googleapis.com/maps/api/place/details/json'
+    
+    place_detail_parameters = {
+        'key': key,
+        'place_id': place_id
+    }
+
+    return json.loads(requests.get(PLACE_DETAIL_API, params=place_detail_parameters).text)
 
 
 if __name__=='__main__':
