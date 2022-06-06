@@ -260,7 +260,7 @@ def stunt_maps(request: WSGIRequest):
         name_filter = models.StuntPlace.objects.filter(place_name__icontains=data['keyword'])
         dev_loc = tuple(map(float, data['location'].split(',')))
         radius = data['radius'] if 'radius' in data else 5000
-        radius_filter = [utils.get_place_detail(i.gmap_place_id, secret_settings.MAP_API_KEY) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
+        radius_filter = [utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
         
         
 
@@ -309,22 +309,26 @@ def article_admin(request: WSGIRequest):
             full_match, match = m.groups()
             match, m_type = match.split('_')
             extension = data['article_items'][match]['extension']
-            file_name = utils.valid_filename(f'{title}_{match}_{i}.{extension}')
-            file_path = f"{m_type}/{file_name}"
-            utils.write_b64_file(file_path, data['article_items'][match]['content'])
-            url = f'http://{request.get_host()}/static/{file_path}'
+            fn, fp, url = utils.save_static(m_type, extension, title, data['article_items'][match]['content'], i)
+            url = url.format(request.get_host())
             tags_urls[full_match] = url
 
         article_parsed = utils.multiple_replace(data['article_content'], tags_urls, regex=False)
         article_parsed_path = os.path.join('articles', utils.valid_filename(f'{title}_{data["date"]}.html', '_'))
         utils.write_file(article_parsed_path, article_parsed.encode('utf-8'))
+
+        cover_path=''
+        # cover_name, cover_path, cover_url = utils.save_static('img', data['cover']['extension'], f"{data['title']}_cover", data['cover']['content'], 0)
+        
         article = models.Article(
             article_file=article_parsed_path,
             date=datetime.datetime.strptime(data['date'], "%d/%m/%Y").date(),
             title=title,
             article_types=data['article_types'],
-            article_tags=data['article_tags']
+            article_tags=data['article_tags'],
+            article_cover_file=cover_path
         )
+
         article.save()
         return JsonResponse({'status': 'OK', 'items': tags_urls, 'article_parsed': article_parsed, 'article_parsed_path': f'article_parsed_path', 'saved': model_to_dict(article)})
         

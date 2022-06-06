@@ -26,6 +26,7 @@ class StuntingTrace(models.Model):
 
 class Article(models.Model):
     article_file = models.CharField(max_length=50)
+    article_cover_file = models.CharField(max_length=50, default='')
     title = models.CharField(max_length=30)
     date = models.DateField()
     article_types = models.CharField(max_length=20) # exmaple: stunting_info, nutrition_info

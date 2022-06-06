@@ -1,3 +1,4 @@
+import enum
 import os, base64, re, json
 
 from django.conf import settings
@@ -74,7 +75,16 @@ def multiple_replace(text:str, str_subs:dict, regex=True):
 
     return pattern.sub(_multiple_replace, text)
 
-def get_place_detail(place_id, key):
+def get_place_photo(photo_reference):
+    PLACE_PHOTO_API = 'https://maps.googleapis.com/maps/api/place/photo'
+    params = {
+        'photo_reference': photo_reference
+    }
+    return base64.b64encode(requests.get(PLACE_PHOTO_API, params=params).content).decode('ascii')
+
+
+
+def get_place_detail_photos(place_id, key, max_photos=3):
     PLACE_DETAIL_API = 'https://maps.googleapis.com/maps/api/place/details/json'
     
     place_detail_parameters = {
@@ -82,8 +92,27 @@ def get_place_detail(place_id, key):
         'place_id': place_id
     }
 
-    return json.loads(requests.get(PLACE_DETAIL_API, params=place_detail_parameters).text)
+    place = json.loads(requests.get(PLACE_DETAIL_API, params=place_detail_parameters).text)
+    print(place.keys())
 
+    if 'result' in place:
+        place = place['result']
+        
+        if not ('photos') in place:
+            place['photos'] = []
+        
+        photos = [get_place_detail_photos(i['photo_reference'], key) for i in place['photos']][:max_photos]
+    else:
+        photos = []
+    return {'place_details': place, 'photos_b64': photos}
+
+def save_static(category, extension, title, content, num=0):
+    file_name = valid_filename(f'{title}_{category}_{num}.{extension}')
+    file_path = f"{category}/{file_name}"
+    write_b64_file(file_path, content)
+    url = 'http://{}/static/'+file_path
+    return file_name, file_path, url
+    
 
 if __name__=='__main__':
     print(valid_filename('r4u191rd  u58cb@$RF&^NU(!N&U(#!C.jp3eg'))
