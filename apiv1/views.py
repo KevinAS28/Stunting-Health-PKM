@@ -271,9 +271,12 @@ def stunt_maps(request: WSGIRequest):
 
 
 def _article(article: models.Article):
-    article_file_content = utils.read_file(article.article_file).decode('utf-8')
+    article_file_content = utils.read_file(article.article_file)
     model_dict = model_to_dict(article)
-    model_dict['article_file_content'] = article_file_content
+    if article_file_content==-1:
+        model_dict['article_file_content'] = f'ERROR: FILE NOT FOUND {article.article_file}'    
+    else:
+        model_dict['article_file_content'] = article_file_content.decode('utf-8')
     return model_dict
 
 @token_auth(roles=['user', 'admin'])
@@ -285,7 +288,8 @@ def article_users(request: WSGIRequest):
     elif get_articles=='filter_articles':
         field_names_default = {
             'title': '.*',
-            'article_types': '.*',
+            'article_type': '.*',
+            'article_sub_type': '.*',
             'article_tags': '.*'
         }
         field_names_filter = dict()
@@ -323,7 +327,8 @@ def article_admin(request: WSGIRequest):
             article_file=article_parsed_path,
             date=datetime.datetime.strptime(data['date'], "%d/%m/%Y").date(),
             title=title,
-            article_types=data['article_types'],
+            article_type=data['article_type'],
+            article_sub_type=data['article_sub_type'],
             article_tags=data['article_tags'],
             article_cover_file=cover_path
         )

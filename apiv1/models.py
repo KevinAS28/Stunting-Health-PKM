@@ -29,8 +29,9 @@ class Article(models.Model):
     article_cover_file = models.CharField(max_length=50, default='')
     title = models.CharField(max_length=30)
     date = models.DateField()
-    article_types = models.CharField(max_length=20) # exmaple: stunting_info, nutrition_info
-    article_tags = models.CharField(max_length=60) # exmaple: protein|karbo|etc..
+    article_type = models.CharField(max_length=20) # exmaple: stunting_info, nutrition_info
+    article_sub_type = models.CharField(max_length=20, default='') # exmaple: breakfast, lunch
+    article_tags = models.CharField(max_length=63, default='') # exmaple: protein|karbo|etc..
 
 class StuntPlace(models.Model):
     location_lat = models.FloatField()

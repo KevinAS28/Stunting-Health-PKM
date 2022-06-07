@@ -324,6 +324,95 @@
 					"body": "{\n    \"status\": 0,\n    \"token\": \"280112fca7b894296bbdbfa934dd5b32d03d6b938ba1a6d59409869d400ae6495e9b622784ad7b28cf472f0a61697a64\"\n}"
 				}
 			]
+		},
+		{
+			"name": "Refresh token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://{{HOST}}/token_authentication/refresh_token",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"token_authentication",
+						"refresh_token"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Refresh token",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://{{HOST}}/token_authentication/refresh_token",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"token_authentication",
+								"refresh_token"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 07 Jun 2022 05:08:10 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "109"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": \"10f9a9aeac876e2645303facd5814f5c21cab611fc63b90983e3596ba935bf8b9096e8912def9a1ebe09d2ee7741e3e4\"\n}"
+				}
+			]
 		}
 	],
 	"event": [
@@ -349,7 +438,12 @@
 	"variable": [
 		{
 			"key": "HOST",
-			"value": "172.26.74.148:8000",
+			"value": "172.26.64.203:8000",
+			"type": "default"
+		},
+		{
+			"key": "token",
+			"value": "ff4e2cb4861514431c3f6dcd675a0aa41149142d8a794f22d03740c7172aa883043c2362192646a31dc9cf067adf8589",
 			"type": "default"
 		}
 	]
