@@ -52,7 +52,7 @@ def token_get(username, password):
         # print(
         token = (auth_util.token_hash((username+password+str(datetime.now())).encode('utf-8')))
         user.token = token
-        user.token_expired = models.expire()
+        user.token_expired = models.get_token_expire()
         user.save()
         return token
     except ObjectDoesNotExist:
@@ -63,9 +63,9 @@ def token_refresh(token):
         user = models.UserAuthentication.objects.get(token=token)
         username = user.username
         password = user.password
-        token = (auth_util.token_hash((username+password+str(datetime.now())).encode('utf-8'))).hexdigest()
+        token = (auth_util.token_hash((username+password+str(datetime.now())).encode('utf-8')))
         user.token = token
-        user.token_expired = models.expire()
+        user.token_expired = models.get_token_expire()
         user.save()        
         return token
     except ObjectDoesNotExist:

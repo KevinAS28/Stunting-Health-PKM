@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('password', models.CharField(max_length=50)),
                 ('role', models.IntegerField(default=2)),
                 ('token', models.CharField(max_length=500, null=True)),
-                ('token_expired', models.DateTimeField(default=token_authentication.models.expire, null=True)),
+                ('token_expired', models.DateTimeField(default=token_authentication.models.get_token_expire, null=True)),
             ],
         ),
         migrations.CreateModel(
