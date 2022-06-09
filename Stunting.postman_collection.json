@@ -905,7 +905,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"get_articles\": \"get_by_id\",\r\n    \"id\": 1\r\n}",
+					"raw": "{\r\n    \"get_articles\": \"all\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -2203,6 +2203,41 @@
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "Article edit",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{       \r\n    \"id\": 1,\r\n    \"title\": \"t123\",\r\n    \"date\": \"1/6/2022\",\r\n    \"article_content\": \"src=\\\"aa\\\"\",\r\n    \"article_items\": {\r\n        \r\n    },\r\n    \"article_type\": \"breakfast\",\r\n    \"article_sub_type\": \"\",\r\n    \"article_tags\": \"vitamin|mineral\",\r\n    \"cover\":{\r\n        \"content\":\"iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAAYSURBVChTY/hPJhjViAeMasQD6K3x/38AvsDVRz3BefoAAAAASUVORK5CYII=\",\r\n        \"extension\": \"jpg\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}/api/v1/article",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"article"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -2233,7 +2268,7 @@
 		},
 		{
 			"key": "token",
-			"value": "54268fb1e2501d18d7890e6f1b3f38625f569af263c0618165ee5aecb2bd05385af886bae91e4ce0bb17c13d91fe7391",
+			"value": "097aad334710b6499279156c55cb7c7391475745b448bd45e0ba2870e8dfa14ead47be5c04b4dde8dc167e4b9fce6ff1",
 			"type": "default"
 		}
 	]

@@ -305,27 +305,34 @@ def article_users(request: WSGIRequest):
     elif get_articles=='get_by_id':
         return JsonResponse({'article': model_to_dict(models.Article.objects.get(id=data['id']))})
 
+
+def process_article(request: WSGIRequest):
+    data = json.loads(request.body)
+    title = data['title']
+    pattern = re.compile(r'({([a-z|A-Z|0-9|_|-]+)})')
+    tags_urls = dict()
+    data['article_content'] = data['article_content'].replace('\\', '')
+    for i, m in enumerate(pattern.finditer(data['article_content'])):
+        full_match, match = m.groups()
+        match, m_type = match.split('_')
+        extension = data['article_items'][match]['extension']
+        fn, fp, url = utils.save_static(m_type, extension, title, data['article_items'][match]['content'], i)
+        url = url.format(request.get_host())
+        tags_urls[full_match] = url
+
+    article_parsed = utils.multiple_replace(data['article_content'], tags_urls, regex=False)
+    article_parsed_path = os.path.join('articles', utils.valid_filename(f'{title}_{data["date"]}.html', '_'))
+    utils.write_file(article_parsed_path, article_parsed.encode('utf-8'))
+
+    cover_name, cover_path, cover_url = utils.save_static('img', data['cover']['extension'], f"{data['title']}_cover", data['cover']['content'], 0)
+
+    return article_parsed_path, title, cover_path, tags_urls, article_parsed
+
 @token_auth(roles=['admin'])
 def article_admin(request: WSGIRequest):
     data = json.loads(request.body)
     if request.method=='POST':
-        title = data['title']
-        pattern = re.compile(r'({([a-z|A-Z|0-9|_|-]+)})')
-        tags_urls = dict()
-        data['article_content'] = data['article_content'].replace('\\', '')
-        for i, m in enumerate(pattern.finditer(data['article_content'])):
-            full_match, match = m.groups()
-            match, m_type = match.split('_')
-            extension = data['article_items'][match]['extension']
-            fn, fp, url = utils.save_static(m_type, extension, title, data['article_items'][match]['content'], i)
-            url = url.format(request.get_host())
-            tags_urls[full_match] = url
-
-        article_parsed = utils.multiple_replace(data['article_content'], tags_urls, regex=False)
-        article_parsed_path = os.path.join('articles', utils.valid_filename(f'{title}_{data["date"]}.html', '_'))
-        utils.write_file(article_parsed_path, article_parsed.encode('utf-8'))
-
-        cover_name, cover_path, cover_url = utils.save_static('img', data['cover']['extension'], f"{data['title']}_cover", data['cover']['content'], 0)
+        article_parsed_path, title, cover_path, tags_urls, article_parsed = process_article(request)
         
         article = models.Article(
             article_file=article_parsed_path,
@@ -339,7 +346,23 @@ def article_admin(request: WSGIRequest):
 
         article.save()
         return JsonResponse({'status': 'OK', 'items': tags_urls, 'article_parsed': article_parsed, 'article_parsed_path': f'article_parsed_path', 'saved': model_to_dict(article)})
+    
+    elif request.method=='PATCH':
+        article_toedit = models.Article.objects.get(id=data['id'])
+        article_parsed_path, title, cover_path, tags_urls, article_parsed = process_article(request)
+        article_toedit.article_file=article_parsed_path
+        article_toedit.date=datetime.datetime.strptime(data['date'], "%d/%m/%Y").date()
+        article_toedit.title=title
+        article_toedit.article_type=data['article_type']
+        article_toedit.article_sub_type=data['article_sub_type']
+        article_toedit.article_tags=data['article_tags']
+        article_toedit.article_cover_file=cover_path
+        article_toedit.save()
         
+        return JsonResponse({'status': 'OK', 'items': tags_urls, 'article_parsed': article_parsed, 'article_parsed_path': f'article_parsed_path', 'saved': model_to_dict(article_toedit)})
+        
+
+
     elif request.method=='DELETE':
         to_delete = models.Article.objects.filter(id__in=data['to_delete_ids']) 
         deleteds = []
@@ -347,6 +370,8 @@ def article_admin(request: WSGIRequest):
             article.delete()
             deleteds.append(model_to_dict(article))
         return JsonResponse({'deteleds': deleteds})
+    
+
     else:
         return HttpResponseNotFound()
 
