@@ -302,6 +302,9 @@ def article_users(request: WSGIRequest):
 
         return JsonResponse({'articles': [model_to_dict(i) for i in models.Article.objects.filter(**field_names_filter)]})    
 
+    elif get_articles=='get_by_id':
+        return JsonResponse({'article': model_to_dict(models.Article.objects.get(id=data['id']))})
+
 @token_auth(roles=['admin'])
 def article_admin(request: WSGIRequest):
     data = json.loads(request.body)

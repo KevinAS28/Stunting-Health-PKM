@@ -1071,6 +1071,79 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"all_articles\": [\n        {\n            \"id\": 1,\n            \"article_file\": \"articles/Test_1_6_2022.html\",\n            \"article_cover_file\": \"\",\n            \"title\": \"Test\",\n            \"date\": \"2022-06-01\",\n            \"article_type\": \"nutrition\",\n            \"article_sub_type\": \"\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>TESTING</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.74.148:8000/static/img/Test_IMG0_0.jpg\\\"/>\\n</body>\\n</html>\"\n        },\n        {\n            \"id\": 2,\n            \"article_file\": \"articles/YAY_1_6_2022.html\",\n            \"article_cover_file\": \"\",\n            \"title\": \"YAY\",\n            \"date\": \"2022-06-01\",\n            \"article_type\": \"nutrition\",\n            \"article_sub_type\": \"\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>YAY</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.74.148:8000/static/img/YAY_IMG0_0.jpg\\\"/>\\n</body>\\n</html>\"\n        },\n        {\n            \"id\": 3,\n            \"article_file\": \"articles/YAY_1_6_2022.html\",\n            \"article_cover_file\": \"img/YAY_cover_img_0.jpg\",\n            \"title\": \"YAY\",\n            \"date\": \"2022-06-01\",\n            \"article_type\": \"nutrition\",\n            \"article_sub_type\": \"\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>YAY</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.74.148:8000/static/img/YAY_IMG0_0.jpg\\\"/>\\n</body>\\n</html>\"\n        },\n        {\n            \"id\": 4,\n            \"article_file\": \"articles/YAY_1_6_2022.html\",\n            \"article_cover_file\": \"\",\n            \"title\": \"YAY\",\n            \"date\": \"2022-06-01\",\n            \"article_type\": \"nutrition\",\n            \"article_sub_type\": \"\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>YAY</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.74.148:8000/static/img/YAY_IMG0_0.jpg\\\"/>\\n</body>\\n</html>\"\n        },\n        {\n            \"id\": 5,\n            \"article_file\": \"articles/YAY_1_6_2022.html\",\n            \"article_cover_file\": \"img/YAY_cover_img_0.jpg\",\n            \"title\": \"YAY\",\n            \"date\": \"2022-06-01\",\n            \"article_type\": \"nutrition\",\n            \"article_sub_type\": \"\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>YAY</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.74.148:8000/static/img/YAY_IMG0_0.jpg\\\"/>\\n</body>\\n</html>\"\n        },\n        {\n            \"id\": 6,\n            \"article_file\": \"articles/t0_1_6_2022.html\",\n            \"article_cover_file\": \"img/t0_cover_img_0.jpg\",\n            \"title\": \"t0\",\n            \"date\": \"2022-06-01\",\n            \"article_type\": \"nutrition\",\n            \"article_sub_type\": \"\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"ERROR: FILE NOT FOUND articles/t0_1_6_2022.html\"\n        },\n        {\n            \"id\": 7,\n            \"article_file\": \"articles/t1_1_6_2022.html\",\n            \"article_cover_file\": \"img/t1_cover_img_0.jpg\",\n            \"title\": \"t1\",\n            \"date\": \"2022-06-01\",\n            \"article_type\": \"nutrition\",\n            \"article_sub_type\": \"\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>YAY</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.64.203:8000/static/img/t1_img_0.jpg\\\"/>\\n</body>\\n</html>\"\n        },\n        {\n            \"id\": 8,\n            \"article_file\": \"articles/t1_1_6_2022.html\",\n            \"article_cover_file\": \"img/t1_cover_img_0.jpg\",\n            \"title\": \"t1\",\n            \"date\": \"2022-06-01\",\n            \"article_type\": \"nutrition\",\n            \"article_sub_type\": \"\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>YAY</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.64.203:8000/static/img/t1_img_0.jpg\\\"/>\\n</body>\\n</html>\"\n        },\n        {\n            \"id\": 9,\n            \"article_file\": \"articles/t1_1_6_2022.html\",\n            \"article_cover_file\": \"img/t1_cover_img_0.jpg\",\n            \"title\": \"t1\",\n            \"date\": \"2022-06-01\",\n            \"article_type\": \"nutrition\",\n            \"article_sub_type\": \"\",\n            \"article_tags\": \"protein|karbo\",\n            \"article_file_content\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <meta http-equiv=\\\"X-UA-Compatible\\\" content=\\\"IE=edge\\\">\\n    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n    <title>YAY</title>\\n</head>\\n<body style=\\\"background-color: black;\\\">\\n    <img src=\\\"http://172.26.64.203:8000/static/img/t1_img_0.jpg\\\"/>\\n</body>\\n</html>\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Get Article by id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"get_articles\": \"get_by_id\",\r\n    \"id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/v1/article",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"article"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 09 Jun 2022 07:41:38 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "220"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"article\": {\n        \"id\": 1,\n        \"article_file\": \"articles/Test_1_6_2022.html\",\n        \"article_cover_file\": \"\",\n        \"title\": \"Test\",\n        \"date\": \"2022-06-01\",\n        \"article_type\": \"nutrition\",\n        \"article_sub_type\": \"\",\n        \"article_tags\": \"protein|karbo\"\n    }\n}"
 				}
 			]
 		},
@@ -2122,6 +2195,14 @@
 					"body": "{\n    \"deleted\": [\n        {\n            \"id\": null,\n            \"user\": 1,\n            \"week\": 1,\n            \"height\": 7,\n            \"weight\": 8\n        }\n    ]\n}"
 				}
 			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -2147,12 +2228,12 @@
 	"variable": [
 		{
 			"key": "HOST",
-			"value": "172.26.64.203:8000",
+			"value": "172.29.6.194:8000",
 			"type": "default"
 		},
 		{
 			"key": "token",
-			"value": "9916557ff911d74dd6597d03f905275fdcb5e2bf66c4f5325b8971423a88d0635adf5b4fdbd5e0966dca49101c34457b",
+			"value": "511cb123c7d31deb59a3f0f7ac385c182406c39f6835d9ecbd5d271280cfd632d607bb6051db5ef39c38570f1121e59f",
 			"type": "default"
 		}
 	]
