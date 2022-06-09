@@ -109,11 +109,11 @@ def token_auth(roles=['*'], get_user=False, response_info=False):
                 token = request.headers['token']
             except:
                 response = {'success': False, 'message': 'Invalid Authentication'}
-                return JsonResponse(response)
+                return JsonResponse(response, status=401)
 
             if token is None:
                 response = {'success': False, 'message': 'Invalid method'}
-                return JsonResponse(response)
+                return JsonResponse(response, status=401)
 
             user = token_auth_core(token, roles)
             if user:
