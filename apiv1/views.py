@@ -312,6 +312,7 @@ def article_admin(request: WSGIRequest):
         title = data['title']
         pattern = re.compile(r'({([a-z|A-Z|0-9|_|-]+)})')
         tags_urls = dict()
+        data['article_content'] = data['article_content'].replace('\\', '')
         for i, m in enumerate(pattern.finditer(data['article_content'])):
             full_match, match = m.groups()
             match, m_type = match.split('_')
