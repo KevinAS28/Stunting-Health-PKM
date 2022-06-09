@@ -905,7 +905,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"get_articles\": \"filter_articles\",\r\n    \"title\": \"Yay\",\r\n    \"article_type\": \"nutrition\",\r\n    \"article_sub_type\": \"\"\r\n}",
+					"raw": "{\r\n    \"get_articles\": \"get_by_id\",\r\n    \"id\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -2233,7 +2233,7 @@
 		},
 		{
 			"key": "token",
-			"value": "511cb123c7d31deb59a3f0f7ac385c182406c39f6835d9ecbd5d271280cfd632d607bb6051db5ef39c38570f1121e59f",
+			"value": "54268fb1e2501d18d7890e6f1b3f38625f569af263c0618165ee5aecb2bd05385af886bae91e4ce0bb17c13d91fe7391",
 			"type": "default"
 		}
 	]
