@@ -75,7 +75,8 @@ def multiple_replace(text:str, str_subs:dict, regex=True):
         for k,v in str_subs.items():
             if re.match(k, match.group(0)):
                 return v
-        raise ValueError(f'No match for: {match.group(0)}')
+        # raise ValueError(f'No match for: {match.group(0)}')
+        return match.group(0)
 
     return pattern.sub(_multiple_replace, text)
 
