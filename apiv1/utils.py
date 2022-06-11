@@ -90,7 +90,6 @@ def save_static(category, extension, title, content, num=0, encode_b64=False):
     return file_name, file_path, url
     
 
-
 def get_place_photo(photo_reference, key):
     PLACE_PHOTO_API = 'https://maps.googleapis.com/maps/api/place/photo'
     params = {
@@ -121,7 +120,7 @@ def get_place_detail_photos(place_id, key, host, max_photos=3):
         if not ('photos') in place:
             place['photos'] = []
         
-        photos = [get_place_photo(i['photo_reference'], key)[2].format(host) for i in place['photos']][:max_photos]
+        photos = [get_place_photo(place['photos'][i]['photo_reference'], key)[2].format(host) for i in range(max_photos)]
     else:
         photos = []
     return {'place_detail': place, 'photos_urls': photos}

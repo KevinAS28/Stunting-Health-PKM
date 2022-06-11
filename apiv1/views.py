@@ -29,7 +29,6 @@ def profile_admin(request: WSGIRequest):
         return HttpResponseNotFound()
 
 def user(request: WSGIRequest):
-    
     if request.method=='GET':
         user: ta_models.UserAuthentication = token_auth_core(request.headers['token'], ['*'])
         profile = models.UserProfile.objects.get(authentication=user)
@@ -58,8 +57,8 @@ def user(request: WSGIRequest):
         utils.write_b64_file(os.path.join('img', profile_file), data['b64_profile_img'])
 
         profile.save()
-
         return JsonResponse({'profile': model_to_dict(profile)})
+
     elif request.method=='PATCH':
         data = json.loads(request.body)
         user: ta_models.UserAuthentication = token_auth_core(request.headers['token'], ['*'])
@@ -182,7 +181,6 @@ def stunt_maps_admin(request: WSGIRequest):
             }
             all_places = json.loads(requests.get(SEARCH_PLACE_API, params=search_place_parameters).text)['results']
             for i, place in enumerate(all_places):
-
                 #process the photo
                 if 'photos' in place:
                     if len(place['photos'])>0:
@@ -213,7 +211,8 @@ def stunt_maps_admin(request: WSGIRequest):
                 location_lng=place['location_lng'],
                 place_name=place['name'],
                 gmap_place_id=place['gmap_place_id'],
-                img_url=place['img_url']
+                img_url=place['img_url'],
+                gmap_url=place['gmap_url']
             )
             place_obj.save()
             saved_places.append(place)
@@ -256,15 +255,21 @@ def stunt_maps(request: WSGIRequest):
         # valid_places = [model_to_dict(i) for i in models.StuntPlace.objects.filter(gmap_place_id__in=all_place_ids)]
         # print(len(valid_places))
 
-        
-        name_filter = models.StuntPlace.objects.filter(place_name__icontains=data['keyword'])
-        dev_loc = tuple(map(float, data['location'].split(',')))
-        radius = data['radius'] if 'radius' in data else 5000
-        radius_filter = [utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host()) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
-        
+        if data['location']=='' and data['keyword']=='':
+            all_places = models.StuntPlace.objects.all()
+            all_details = [utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host(), 0) for i in all_places]
+            
+            return JsonResponse({'places': all_details}, json_dumps_params={'indent':4, 'sort_keys': True})
+
+        else:
+            name_filter = models.StuntPlace.objects.filter(place_name__icontains=data['keyword'])
+            dev_loc = tuple(map(float, data['location'].split(',')))
+            radius = data['radius'] if 'radius' in data else 5000
+            radius_filter = [utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host()) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
+            return JsonResponse({'places': radius_filter}, json_dumps_params={'indent':4, 'sort_keys': True})
         
 
-        return JsonResponse({'places': radius_filter}, json_dumps_params={'indent':4, 'sort_keys': True})
+        
     
     return HttpResponseNotFound()
 
@@ -343,7 +348,6 @@ def article_admin(request: WSGIRequest):
             article_tags=data['article_tags'],
             article_cover_file=cover_path
         )
-
         article.save()
         return JsonResponse({'status': 'OK', 'items': tags_urls, 'article_parsed': article_parsed, 'article_parsed_path': f'article_parsed_path', 'saved': model_to_dict(article)})
     
@@ -358,10 +362,7 @@ def article_admin(request: WSGIRequest):
         article_toedit.article_tags=data['article_tags']
         article_toedit.article_cover_file=cover_path
         article_toedit.save()
-        
         return JsonResponse({'status': 'OK', 'items': tags_urls, 'article_parsed': article_parsed, 'article_parsed_path': f'article_parsed_path', 'saved': model_to_dict(article_toedit)})
-        
-
 
     elif request.method=='DELETE':
         to_delete = models.Article.objects.filter(id__in=data['to_delete_ids']) 

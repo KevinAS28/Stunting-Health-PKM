@@ -39,3 +39,4 @@ class StuntPlace(models.Model):
     place_name = models.CharField(max_length=50)
     gmap_place_id = models.CharField(max_length=50)
     img_url = models.CharField(max_length=150, default='')
+   
