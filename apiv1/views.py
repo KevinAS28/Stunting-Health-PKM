@@ -220,15 +220,20 @@ def stunt_maps_admin(request: WSGIRequest):
         return JsonResponse({'saved': saved_places})
 
     elif request.method=='DELETE':
-        deleted_places = []
-        for place_id in data['to_delete_ids']:
-            place = models.StuntPlace.objects.filter(id=place_id)
-            if len(place)==0:
-                continue
-            place = place[0]
-            place.delete()
-            deleted_places.append(model_to_dict(place))
-        return JsonResponse({'deleted': deleted_places})
+        if 'to_delete_ids' in data:
+            deleted_places = []
+            for place_id in data['to_delete_ids']:
+                place = models.StuntPlace.objects.filter(id=place_id)
+                if len(place)==0:
+                    continue
+                place = place[0]
+                place.delete()
+                deleted_places.append(model_to_dict(place))
+            return JsonResponse({'deleted': deleted_places})
+        else:
+            to_delete = models.StuntPlace.objects.get(gmap_place_id=data['gmap_place_id'])
+            to_delete.delete()
+            return JsonResponse({'deleted': model_to_dict(to_delete)})
     else:
         return HttpResponseNotFound()
 
