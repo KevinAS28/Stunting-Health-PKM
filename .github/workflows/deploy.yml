@@ -1,7 +1,10 @@
 name: Deploy
 
 on: [push]
-
+inputs:
+  debug:
+    description: 'enable debug mode'
+    default: false
 jobs:
   build:
 
@@ -23,6 +26,7 @@ jobs:
 
     - name: Executing remote command
       uses: appleboy/ssh-action@master
+      
       debug:
         description: 'enable debug mode'
         default: false
