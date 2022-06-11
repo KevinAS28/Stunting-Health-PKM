@@ -23,6 +23,7 @@ jobs:
 
     - name: Executing remote command
       uses: appleboy/ssh-action@master
+      environment: gcp_minimum
       env:
         HOST: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
