@@ -26,6 +26,6 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
-        PORT: ${{ secrets.PORT }}
+        PORT: 22
         KEY: ${{ secrets.PASSWORD }}
         script:  apt-get update -qq && apt-get install -y -qq sshpass && sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USERNAME@$HOST 'touch /home/kevinagusto28/test'
