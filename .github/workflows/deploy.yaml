@@ -26,6 +26,6 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        port: ${{ secrets.PORT }}
+        port: 22
         password: ${{ secrets.PASSWORD }}
         script: ls
