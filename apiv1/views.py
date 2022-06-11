@@ -233,7 +233,7 @@ def stunt_maps_admin(request: WSGIRequest):
         else:
             deleted_places = []
             for place_id in data['gmap_place_ids']:
-                place = models.StuntPlace.objects.filter(id=place_id)
+                place = models.StuntPlace.objects.filter(gmap_place_id=place_id)
                 if len(place)==0:
                     continue
                 place = place[0]
