@@ -33,9 +33,10 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PORT: 22
         KEY: ${{ secrets.PASSWORD }}
-      with:
-        host: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PORT: 22
-        KEY: ${{ secrets.PASSWORD }}
-        script:  echo $HOST #&& apt-get update -qq && apt-get install -y -qq sshpass #&& sshpass -p $KEY ssh -o StrictHostKeyChecking=no $USERNAME@$HOST 'touch /home/kevinagusto28/test'
+      run: echo $USERNAME
+      # with:
+      #   host: ${{ secrets.HOST }}
+      #   USERNAME: ${{ secrets.USERNAME }}
+      #   PORT: 22
+      #   KEY: ${{ secrets.PASSWORD }}
+      #   script:  echo $HOST #&& apt-get update -qq && apt-get install -y -qq sshpass #&& sshpass -p $KEY ssh -o StrictHostKeyChecking=no $USERNAME@$HOST 'touch /home/kevinagusto28/test'
