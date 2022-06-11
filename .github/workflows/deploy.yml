@@ -23,9 +23,14 @@ jobs:
 
     - name: Executing remote command
       uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
+      env:
+        HOST: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
         PORT: 22
         KEY: ${{ secrets.PASSWORD }}
-        script:  apt-get update -qq && apt-get install -y -qq sshpass && sshpass -p $KEY ssh -o StrictHostKeyChecking=no $USERNAME@$host 'touch /home/kevinagusto28/test'
+      with:
+        # host: ${{ secrets.HOST }}
+        # USERNAME: ${{ secrets.USERNAME }}
+        # PORT: 22
+        # KEY: ${{ secrets.PASSWORD }}
+        script:  apt-get update -qq && apt-get install -y -qq sshpass && sshpass -p $KEY ssh -o StrictHostKeyChecking=no $USERNAME@$HOST 'touch /home/kevinagusto28/test'
