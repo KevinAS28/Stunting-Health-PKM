@@ -32,7 +32,7 @@ jobs:
         HOST: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
         PORT: 22
-        KEY: ${{ secrets.PASSWORD }}
+        PASSWORD: ${{ secrets.PASSWORD }}
       # run: echo $USERNAME
       with:
         host: ${{ secrets.HOST }}
