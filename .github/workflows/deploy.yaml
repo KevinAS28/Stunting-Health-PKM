@@ -36,6 +36,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         port: 22
         password: ${{ secrets.PASSWORD }}
-        source: ""
+        source: "*"
         target: "/home/kevinagusto28/stunt/"
 
