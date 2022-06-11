@@ -23,6 +23,9 @@ jobs:
 
     - name: Executing remote command
       uses: appleboy/ssh-action@master
+      debug:
+        description: 'enable debug mode'
+        default: false
       env:
         HOST: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
