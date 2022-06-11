@@ -37,5 +37,5 @@ jobs:
         port: 22
         password: ${{ secrets.PASSWORD }}
         source: "."
-        target: "/var/www/mywebsite"
+        target: "/home/kevinagusto28/stunt"
 
