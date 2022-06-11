@@ -31,9 +31,11 @@ def profile_admin(request: WSGIRequest):
 def user(request: WSGIRequest):
     if request.method=='GET':
         user: ta_models.UserAuthentication = token_auth_core(request.headers['token'], ['*'])
-        profile = models.UserProfile.objects.get(authentication=user)
-        get_necessary_profile = lambda profile: {'name': profile.name, 'b64_profile_img': utils.read_b64_file(os.path.join('img', profile.profile_file))}
-        return JsonResponse({'profile': get_necessary_profile(profile), 'user': model_to_dict(user)})
+        if not (user is None):
+            profile = models.UserProfile.objects.get(authentication=user)
+            get_necessary_profile = lambda profile: {'name': profile.name, 'b64_profile_img': utils.read_b64_file(os.path.join('img', profile.profile_file))}
+            return JsonResponse({'success': True, 'profile': get_necessary_profile(profile), 'user': model_to_dict(user)})
+        return JsonResponse({'success': False, 'error': 'Invalid authentication'})
     elif request.method=='POST':
         data = json.loads(request.body)
         username = data['username']
