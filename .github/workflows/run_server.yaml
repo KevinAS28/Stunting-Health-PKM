@@ -1,0 +1,21 @@
+name: Run Server
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    environment: gcp_minimum
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: SSH using script
+      env:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+      run: |
+        sshpass -p "${PASSWORD}" ssh -o StrictHostKeyChecking=no "$USERNAME@$HOST" "cd /home/${USERNAME}/Stunting-Health-PKM && python manage.py runserver ${HOST}:8000"
+        
