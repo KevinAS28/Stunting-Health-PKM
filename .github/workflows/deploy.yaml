@@ -12,16 +12,17 @@ jobs:
 
     - name: SSH Using Appleboy
       uses: appleboy/ssh-action@master
-      env:
-        HOST: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PORT: 22
-        PASSWORD: ${{ secrets.PASSWORD }}
+
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         port: 22
         password: ${{ secrets.PASSWORD }}
+        env:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: 22
+          PASSWORD: ${{ secrets.PASSWORD }}
         script: "cd /home/kevinagusto28/Stunting-Health-PKM && git pull origin main"
         # The string are a bit different 
 
