@@ -22,7 +22,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         port: 22
         password: ${{ secrets.PASSWORD }}
-        script: git pull origin main
+        script: "cd /home/${USERNAME}/Stunting-Health-PKM && git pull origin main"
 
 
     - name: SSH using script
