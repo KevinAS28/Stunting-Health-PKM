@@ -23,9 +23,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         port: 22
         password: ${{ secrets.PASSWORD }}
-        script: |
-          cd "/home/${USERNAME}/Stunting-Health-PKM" && git pull origin main
-          sshpass -p "${PASSWORD}" ssh -o StrictHostKeyChecking=no "$USERNAME@$HOST" "cd /home/${USERNAME}/Stunting-Health-PKM && python3 -m pip install -r requirements.txt &&python3 manage.py runserver ${HOST}:8000"
+        script: cd "/home/${USERNAME}/Stunting-Health-PKM" && git pull origin main
+          
         
 
     - name: SSH using script
@@ -35,5 +34,5 @@ jobs:
         PORT: ${{ secrets.PORT }}
         PASSWORD: ${{ secrets.PASSWORD }}
       run: |
-        sshpass -p "${PASSWORD}" ssh -o StrictHostKeyChecking=no "$USERNAME@$HOST" "cd /home/${USERNAME}/Stunting-Health-PKM && git pull origin main"
+        sshpass -p "${PASSWORD}" ssh -o StrictHostKeyChecking=no "$USERNAME@$HOST" "cd /home/${USERNAME}/Stunting-Health-PKM && python3 -m pip install -r requirements.txt &&python3 manage.py runserver ${HOST}:8000"
         
