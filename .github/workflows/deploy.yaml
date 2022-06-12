@@ -18,7 +18,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         port: 22
         password: ${{ secrets.PASSWORD }}
-        env:
+        envs:
           HOST: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.USERNAME }}
           PORT: 22
