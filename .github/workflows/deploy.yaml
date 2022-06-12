@@ -10,24 +10,24 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Executing remote command
-      uses: appleboy/ssh-action@master
-      env:
-        HOST: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PORT: 22
-        PASSWORD: ${{ secrets.PASSWORD }}
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        port: 22
-        password: ${{ secrets.PASSWORD }}
-        script: git pull origin main
+    # - name: Executing remote command
+    #   uses: appleboy/ssh-action@master
+    #   env:
+    #     HOST: ${{ secrets.HOST }}
+    #     USERNAME: ${{ secrets.USERNAME }}
+    #     PORT: 22
+    #     PASSWORD: ${{ secrets.PASSWORD }}
+    #   with:
+    #     host: ${{ secrets.HOST }}
+    #     username: ${{ secrets.USERNAME }}
+    #     port: 22
+    #     password: ${{ secrets.PASSWORD }}
+    #     script: git pull origin main
 
 
-    # - name: Run a multi-line script
-    #   run: |
-    #     scp -r . ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/kevinagusto28/stunt/ 
+    - name: Run a multi-line script
+      run: |
+        cd /home/kevinagusto28/Stunting-Health-PKM && git pull origin main
 
     # - name: Copy repository contents via scp
     #   uses: appleboy/scp-action@master
