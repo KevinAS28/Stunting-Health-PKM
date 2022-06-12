@@ -32,6 +32,7 @@ jobs:
         PORT: ${{ secrets.PORT }}
         PASSWORD: ${{ secrets.PASSWORD }}
       run: |
+        echo $HOST;
         sshpass -p '$PASSWORD' ssh -o StrictHostKeyChecking=no $USERNAME@$HOST 'cd /home/kevinagusto28/Stunting-Health-PKM && git pull origin main'
         
 
