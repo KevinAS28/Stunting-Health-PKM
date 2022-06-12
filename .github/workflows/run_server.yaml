@@ -17,5 +17,6 @@ jobs:
         PORT: ${{ secrets.PORT }}
         PASSWORD: ${{ secrets.PASSWORD }}
       run: |
-        sshpass -p "${PASSWORD}" ssh -o StrictHostKeyChecking=no "$USERNAME@$HOST" "cd /home/${USERNAME}/Stunting-Health-PKM && python manage.py runserver ${HOST}:8000"
+        #sshpass -p "${PASSWORD}"ssh -o StrictHostKeyChecking=no "$USERNAME@$HOST" "cd /home/${USERNAME}/Stunting-Health-PKM && python3 manage.py runserver ${HOST}:8000"
+        echo 'YAY'
         
