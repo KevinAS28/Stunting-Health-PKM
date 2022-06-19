@@ -113,7 +113,7 @@ def get_place_detail_photos(place_id, key, host, max_photos=3):
     }
 
     place = json.loads(requests.get(PLACE_DETAIL_API, params=place_detail_parameters).text)
-
+    print(place)
     if 'result' in place:
         place = place['result']
         

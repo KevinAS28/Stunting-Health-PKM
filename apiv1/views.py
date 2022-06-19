@@ -294,7 +294,7 @@ def _article(article: models.Article):
 @token_auth(roles=['user', 'admin'])
 def article_users(request: WSGIRequest):
     #data = json.loads(request.body)
-    data = request.GET
+    data = request.POST
     get_articles = data['get_articles']
     if get_articles=='all':
         return JsonResponse({'all_articles': [_article(i) for i in models.Article.objects.all()]})
@@ -382,7 +382,8 @@ def article_admin(request: WSGIRequest):
         return HttpResponseNotFound()
 
 def article(request: WSGIRequest):
-    if request.method=='GET':
-        return article_users(request)
+    if request.method=='POST':
+        if 'get_articles' in request.POST:
+            return article_users(request)
     else:
         return article_admin(request)
