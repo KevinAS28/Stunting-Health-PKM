@@ -179,7 +179,9 @@ def stunt_maps_admin(request: WSGIRequest):
                 'key': secret_settings.MAP_API_KEY,
                 'query': data['place_query']
             }
-            all_places = json.loads(requests.get(SEARCH_PLACE_API, params=search_place_parameters).text)['results']
+            request_response = requests.get(SEARCH_PLACE_API, params=search_place_parameters).text
+            print(request_response)
+            all_places = json.loads(request_response)['results']
             for i, place in enumerate(all_places):
                 #process the photo
                 if 'photos' in place:
@@ -243,8 +245,6 @@ def stunt_maps_admin(request: WSGIRequest):
 
 @token_auth(roles=['user', 'admin'])
 def stunt_maps(request: WSGIRequest):
-    print('stunt_maps')
-    
     if request.method=='POST':
         # data = request.POST
         data = json.loads(request.body)
@@ -266,16 +266,19 @@ def stunt_maps(request: WSGIRequest):
         # print(len(all_place_ids), all_place_ids)
         # valid_places = [model_to_dict(i) for i in models.StuntPlace.objects.filter(gmap_place_id__in=all_place_ids)]
         # print(len(valid_places))
+        def __merge_with_db(data:json):
+            data['db_data'] = model_to_dict(models.StuntPlace.objects.filter(gmap_place_id=data['place_detail']['place_id'])[0])
+            return data
 
         if data['location']=='' and data['keyword']=='':
             all_places = models.StuntPlace.objects.all()
-            all_details = [utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host(), 0) for i in all_places]
+            all_details = [__merge_with_db(utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host(), 0)) for i in all_places]
             return JsonResponse({'places': all_details}, json_dumps_params={'indent':4, 'sort_keys': True})
         else:
             name_filter = models.StuntPlace.objects.filter(place_name__icontains=data['keyword'])
             dev_loc = tuple(map(float, data['location'].split(',')))
             radius = data['radius'] if 'radius' in data else 5000
-            radius_filter = [utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host()) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
+            radius_filter = [__merge_with_db(utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host())) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
             return JsonResponse({'places': radius_filter}, json_dumps_params={'indent':4, 'sort_keys': True})
     return HttpResponseNotFound()
 

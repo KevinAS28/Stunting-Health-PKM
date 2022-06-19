@@ -119,8 +119,10 @@ def get_place_detail_photos(place_id, key, host, max_photos=3):
         
         if not ('photos') in place:
             place['photos'] = []
+
+        get_max_photos = lambda max_count, photos: min((max_count, len(photos)))
         
-        photos = [get_place_photo(place['photos'][i]['photo_reference'], key)[2].format(host) for i in range(max_photos)]
+        photos = [get_place_photo(place['photos'][i]['photo_reference'], key)[2].format(host) for i in range(get_max_photos(max_photos, place['photos']))]
     else:
         photos = []
     return {'place_detail': place, 'photos_urls': photos}
