@@ -114,13 +114,11 @@ def stunt_reminder(user: ta_models.UserAuthentication, request: WSGIRequest):
     elif request.method=='DELETE':
         data = json.loads(request.body)
         deleted_reminders = [i.delete() for i in models.StuntReminder.objects.filter(id__in=data['to_delete_ids'])]
-        return JsonResponse({'deleted': deleted_reminders})
-            
+        return JsonResponse({'deleted': deleted_reminders})  
     return HttpResponseNotFound()
 
 @token_auth(roles=['user', 'admin'], get_user=True)
 def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
-    
     if request.method=='GET':
         profile = models.UserProfile.objects.get(authentication=user)
         return JsonResponse({'all_traces': [model_to_dict(i) for i in models.StuntingTrace.objects.filter(user=profile)]})
@@ -172,8 +170,8 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
 
 @token_auth(roles=['admin'])
 def stunt_maps_admin(request: WSGIRequest):
-    data = json.loads(request.body)
     if request.method=='GET':
+        data = request.GET
         if data['get_type']=='unregistered':
             SEARCH_PLACE_API = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
             PHOTO_PLACE_API = 'https://maps.googleapis.com/maps/api/place/photo'
@@ -206,6 +204,7 @@ def stunt_maps_admin(request: WSGIRequest):
             return HttpResponseNotFound()
 
     elif request.method=='POST':
+        data = json.loads(request.body)
         saved_places = []
         for place in data['all_places']:
             place_obj = models.StuntPlace(
@@ -220,6 +219,7 @@ def stunt_maps_admin(request: WSGIRequest):
         return JsonResponse({'saved': saved_places})
 
     elif request.method=='DELETE':
+        data = json.loads(request.body)
         if 'to_delete_ids' in data:
             deleted_places = []
             for place_id in data['to_delete_ids']:
@@ -246,8 +246,9 @@ def stunt_maps_admin(request: WSGIRequest):
 @token_auth(roles=['user', 'admin'])
 def stunt_maps(request: WSGIRequest):
     print('stunt_maps')
-    data = json.loads(request.body)
+    #json.loads(request.body)
     if request.method=='GET':
+        data = request.GET    
         # NEARBY_PLACE_API = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
         # nearby_place_parameters = {
         #     'key': secret_settings.MAP_API_KEY,
@@ -270,22 +271,14 @@ def stunt_maps(request: WSGIRequest):
         if data['location']=='' and data['keyword']=='':
             all_places = models.StuntPlace.objects.all()
             all_details = [utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host(), 0) for i in all_places]
-            
             return JsonResponse({'places': all_details}, json_dumps_params={'indent':4, 'sort_keys': True})
-
         else:
             name_filter = models.StuntPlace.objects.filter(place_name__icontains=data['keyword'])
             dev_loc = tuple(map(float, data['location'].split(',')))
             radius = data['radius'] if 'radius' in data else 5000
             radius_filter = [utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host()) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
             return JsonResponse({'places': radius_filter}, json_dumps_params={'indent':4, 'sort_keys': True})
-        
-
-        
-    
     return HttpResponseNotFound()
-
-
 
 def _article(article: models.Article):
     article_file_content = utils.read_file(article.article_file)
@@ -298,7 +291,8 @@ def _article(article: models.Article):
 
 @token_auth(roles=['user', 'admin'])
 def article_users(request: WSGIRequest):
-    data = json.loads(request.body)
+    #data = json.loads(request.body)
+    data = request.GET
     get_articles = data['get_articles']
     if get_articles=='all':
         return JsonResponse({'all_articles': [_article(i) for i in models.Article.objects.all()]})
@@ -310,15 +304,12 @@ def article_users(request: WSGIRequest):
             'article_tags': '.*'
         }
         field_names_filter = dict()
-
         for field, default in field_names_default.items():
             if field in data:
                 field_names_filter[field+'__contains'] = data[field]
             else:
                 field_names_filter[field+'__regex'] = default
-
         return JsonResponse({'articles': [model_to_dict(i) for i in models.Article.objects.filter(**field_names_filter)]})    
-
     elif get_articles=='get_by_id':
         return JsonResponse({'article': model_to_dict(models.Article.objects.get(id=data['id']))})
 
