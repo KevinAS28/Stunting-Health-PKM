@@ -385,5 +385,5 @@ def article(request: WSGIRequest):
     if request.method=='POST':
         if 'get_articles' in request.POST:
             return article_users(request)
-    else:
-        return article_admin(request)
+    
+    return article_admin(request)
