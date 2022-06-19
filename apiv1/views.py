@@ -170,8 +170,8 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
 
 @token_auth(roles=['admin'])
 def stunt_maps_admin(request: WSGIRequest):
+    data = json.loads(request.body)
     if request.method=='GET':
-        data = request.GET
         if data['get_type']=='unregistered':
             SEARCH_PLACE_API = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
             PHOTO_PLACE_API = 'https://maps.googleapis.com/maps/api/place/photo'
@@ -204,7 +204,6 @@ def stunt_maps_admin(request: WSGIRequest):
             return HttpResponseNotFound()
 
     elif request.method=='POST':
-        data = json.loads(request.body)
         saved_places = []
         for place in data['all_places']:
             place_obj = models.StuntPlace(
@@ -219,7 +218,6 @@ def stunt_maps_admin(request: WSGIRequest):
         return JsonResponse({'saved': saved_places})
 
     elif request.method=='DELETE':
-        data = json.loads(request.body)
         if 'to_delete_ids' in data:
             deleted_places = []
             for place_id in data['to_delete_ids']:
