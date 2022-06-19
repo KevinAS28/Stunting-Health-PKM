@@ -247,8 +247,8 @@ def stunt_maps_admin(request: WSGIRequest):
 def stunt_maps(request: WSGIRequest):
     print('stunt_maps')
     #json.loads(request.body)
-    if request.method=='GET':
-        data = request.GET    
+    if request.method=='POST':
+        data = request.POST
         # NEARBY_PLACE_API = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
         # nearby_place_parameters = {
         #     'key': secret_settings.MAP_API_KEY,
