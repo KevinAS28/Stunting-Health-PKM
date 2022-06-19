@@ -246,9 +246,10 @@ def stunt_maps_admin(request: WSGIRequest):
 @token_auth(roles=['user', 'admin'])
 def stunt_maps(request: WSGIRequest):
     print('stunt_maps')
-    #json.loads(request.body)
+    
     if request.method=='POST':
-        data = request.POST
+        # data = request.POST
+        data = json.loads(request.body)
         # NEARBY_PLACE_API = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
         # nearby_place_parameters = {
         #     'key': secret_settings.MAP_API_KEY,
