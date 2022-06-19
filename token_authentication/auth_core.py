@@ -9,7 +9,6 @@ from django.forms.models import model_to_dict
 import token_authentication.models as models
 import token_authentication.auth_util as auth_util
 
-
 def login(*args, **kwargs):
     def decorator(fun):
         def wrapper(*args, **kwargs):
@@ -42,7 +41,6 @@ def login(*args, **kwargs):
                 return JsonResponse(response)
         return wrapper
     return decorator
-
 
 
 def token_get(username, password):
@@ -132,6 +130,6 @@ def token_auth(roles=['*'], get_user=False, response_info=False):
 
             else:
                 response = {'success': False, 'message': 'Invalid Authentication'}
-                return JsonResponse(response)
+                return JsonResponse(response, status=401)
         return wrapper
     return decorator
