@@ -113,7 +113,8 @@ def stunt_reminder(user: ta_models.UserAuthentication, request: WSGIRequest):
         return JsonResponse({'all_user_reminders': [model_to_dict(i) for i in models.StuntReminder.objects.filter(user=profile)]})
     elif request.method=='DELETE':
         data = json.loads(request.body)
-        deleted_reminders = [i.delete() for i in models.StuntReminder.objects.filter(id__in=data['to_delete_ids'])]
+        def del_get(i): i.delete(); return i
+        deleted_reminders = [del_get(i) for i in models.StuntReminder.objects.filter(id__in=data['to_delete_ids'])]
         return JsonResponse({'deleted': deleted_reminders})  
     return HttpResponseNotFound()
 
