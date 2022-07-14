@@ -141,6 +141,7 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
             trace_object.save()
             saved_traces.append(model_to_dict(trace_object))
         return JsonResponse({'saved_traces': saved_traces})
+        
     elif request.method=='PATCH':
         profile = models.UserProfile.objects.get(authentication=user)
         data = json.loads(request.body)
@@ -308,8 +309,18 @@ def article_users(request: WSGIRequest):
         }
         field_names_filter = dict()
         for field, default in field_names_default.items():
+            
             if field in data:
-                field_names_filter[field+'__contains'] = data[field]
+                # handle special field filters
+                if field=='article_tags':
+                    notor_pattern = r'([\|]*)'
+                    
+                    at_pattern = ''.join([f'({notor_pattern}{item}{notor_pattern})' for item in data[field]])
+
+                    field_names_filter['article_tags__regex'] = at_pattern
+                    
+                else:
+                    field_names_filter[field+'__contains'] = data[field]
             else:
                 field_names_filter[field+'__regex'] = default
         return JsonResponse({'articles': [model_to_dict(i) for i in models.Article.objects.filter(**field_names_filter)]})    
@@ -378,7 +389,6 @@ def article_admin(request: WSGIRequest):
             deleteds.append(model_to_dict(article))
         return JsonResponse({'deteleds': deleteds})
     
-
     else:
         return HttpResponseNotFound()
 
@@ -387,6 +397,5 @@ def article(request: WSGIRequest):
         data = json.loads(request.body)
         if 'get_articles' in data:
             return article_users(request)
-    
     
     return article_admin(request)

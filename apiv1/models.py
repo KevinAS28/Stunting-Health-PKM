@@ -39,4 +39,19 @@ class StuntPlace(models.Model):
     place_name = models.CharField(max_length=50)
     gmap_place_id = models.CharField(max_length=50)
     img_url = models.CharField(max_length=150, default='')
-   
+    phone = models.CharField(max_length=15, default='')
+    desc = models.CharField(max_length=100, default='')
+    avg_rating = models.IntegerField()
+
+class StuntPlaceReview(models.Model):
+    stunt_place = models.ForeignKey(StuntPlace, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
+    rating = models.IntegerField()
+    desc = models.CharField(max_length=200)
+
+class HealthWorker(models.Model):
+    name = models.CharField(max_length=50)
+    work_place = models.ForeignKey(StuntPlace, on_delete=models.DO_NOTHING)
+    specialization = models.CharField(max_length=25)
+    desc = models.CharField(max_length=150, default='')
+
