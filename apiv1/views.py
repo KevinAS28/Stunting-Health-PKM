@@ -215,7 +215,8 @@ def stunt_maps_admin(request: WSGIRequest):
                 location_lng=place['location_lng'],
                 place_name=place['name'],
                 gmap_place_id=place['gmap_place_id'],
-                img_url=place['img_url']
+                img_url=place['img_url'],
+                avg_rating=place['avg_rating']
             )
             place_obj.save()
             saved_places.append(place)
