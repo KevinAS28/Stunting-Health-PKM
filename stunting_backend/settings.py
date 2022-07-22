@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from stunting_backend import secret_settings 
+from stunting_backend import secret_settings
+import os 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,12 +78,50 @@ WSGI_APPLICATION = 'stunting_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# [START db_setup]
+if 'GAE_APPLICATION' in os.environ:
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/helloworld-356108:us-central1:kevinas28-mysql0',
+            'USER': 'root',
+            'PASSWORD': '12345678',
+            'NAME': 'stunting0',
+        }
     }
-}
+else:
+    # Running locally 
+
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.mysql',
+    #         'HOST': '34.172.160.112',
+    #         'USER': 'kevinas28',
+    #         'PASSWORD': '12345678',
+    #         'NAME': 'stunting0',
+    #     }
+    # }
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.mysql',
+    #         'HOST': '127.0.0.1',
+    #         'PORT': '3306',
+    #         'NAME': '[YOUR-DATABASE]',
+    #         'USER': '[YOUR-USERNAME]',
+    #         'PASSWORD': '[YOUR-PASSWORD]',
+    #     }
+    # }
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+# [END db_setup]
+
 
 
 # Password validation

@@ -1,2 +1,5 @@
+requests==2.28.1
 Django==4.0.3
-geopy
+geopy==2.2.0
+sympy
+mysqlclient==2.1.0
