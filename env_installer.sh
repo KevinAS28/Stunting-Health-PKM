@@ -1,0 +1,1 @@
+sudo apt install default-libmysqlclient-dev python-mysqldb

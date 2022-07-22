@@ -25,12 +25,12 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         script: cd "/home/${USERNAME}/Stunting-Health-PKM" && git pull origin main
           
-    - name: SSH using script
-      env:
-        HOST: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PORT: ${{ secrets.PORT }}
-        PASSWORD: ${{ secrets.PASSWORD }}
-      run: |
-        sshpass -p "${PASSWORD}" ssh -o StrictHostKeyChecking=no "$USERNAME@$HOST" "cd /home/${USERNAME}/Stunting-Health-PKM && python3 -m pip install -r requirements.txt &&python3 manage.py runserver 0.0.0.0:8000"
+    # - name: SSH using script
+    #   env:
+    #     HOST: ${{ secrets.HOST }}
+    #     USERNAME: ${{ secrets.USERNAME }}
+    #     PORT: ${{ secrets.PORT }}
+    #     PASSWORD: ${{ secrets.PASSWORD }}
+    #   run: |
+    #     sshpass -p "${PASSWORD}" ssh -o StrictHostKeyChecking=no "$USERNAME@$HOST" "cd /home/${USERNAME}/Stunting-Health-PKM && python3 -m pip install -r requirements.txt &&python3 manage.py runserver 0.0.0.0:8000"
         
