@@ -6,7 +6,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from stunting_backend import secret_settings
 
 from token_authentication import models as ta_models
-from token_authentication.auth_core import token_auth, token_auth_core
+from token_authentication.auth_core import token_auth, token_auth_core, is_user_role
 from apiv1 import models, utils
 
 from geopy import distance
@@ -400,3 +400,42 @@ def article(request: WSGIRequest):
             return article_users(request)
     
     return article_admin(request)
+
+@token_auth(roles=['user', 'admin'], get_user=True)
+def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
+    if request.method=='POST':
+        if is_user_role(auth, ['user', 'admin']):
+            data = json.loads(request.body)
+            target_stuntplace = models.StuntPlace.objects.get(id=data['stuntmap_id'])
+            user = models.UserProfile.objects.get(authentication=auth)
+            stunt_review = models.StuntPlaceReview.objects.filter(stunt_place=target_stuntplace, user=user)
+            if len(stunt_review)>0:
+                return JsonResponse({'success': False, 'error': f'Review has already defined'})
+            review = models.StuntPlaceReview(stunt_place=target_stuntplace, user=user, rating=data['rating'], desc=data['desc'])
+            review.save()
+            return JsonResponse({'success': True, 'review': model_to_dict(review)})
+        else:
+            return JsonResponse({'success': False, 'error': 'Permission Denied'})
+        
+    if request.method=='GET':
+        data = json.loads(request.body)
+        if (data['filter']['stuntplace_id']==None) and (data['filter']['user_email']==None):
+            return JsonResponse({'reviews': [model_to_dict(i) for i in models.StuntPlaceReview.objects.all()]})
+        else:
+            user = models.UserProfile.objects.get(email=data['filter']['user_email'])
+            stuntplace = models.StuntPlace.objects.get(id=data['filter']['stuntplace_id'])
+            filtered_reviews = [model_to_dict(i) for i in models.StuntPlaceReview.objects.filter(stunt_place=stuntplace, user=user)]
+            return JsonResponse({'reviews': filtered_reviews})
+    
+    if request.method=='DELETE':
+        if not is_user_role(auth, ['admin']):
+            return JsonResponse({'succcess': False, 'error': 'Permission Denied'})
+        data = json.loads(request.body)
+        stunt_place = models.StuntPlace.objects.get(id=data['stuntmap_id'])
+        user = models.UserProfile.objects.get(email=data['email'])
+        review = models.StuntPlaceReview.objects.get(stunt_place=stunt_place, user=user)
+        review.delete()
+        return JsonResponse({'deleted_review': model_to_dict(review)})
+    
+    else:
+        return HttpResponseNotFound()

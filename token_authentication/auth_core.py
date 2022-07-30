@@ -133,3 +133,9 @@ def token_auth(roles=['*'], get_user=False, response_info=False):
                 return JsonResponse(response, status=401)
         return wrapper
     return decorator
+
+def is_user_role(user: models.UserAuthentication, role_names: list):
+    roles = models.UserRole.objects.filter(role_name__in=role_names)
+    if user.role in roles:
+        return True
+    return False

@@ -54,4 +54,3 @@ class HealthWorker(models.Model):
     work_place = models.ForeignKey(StuntPlace, on_delete=models.DO_NOTHING)
     specialization = models.CharField(max_length=25)
     desc = models.CharField(max_length=150, default='')
-
