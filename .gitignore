@@ -1,2 +1,3 @@
 stunting_backend/secrets.py
 stunting_backend/secret_settings.py
+db.sqlite3
