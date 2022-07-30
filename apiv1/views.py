@@ -403,6 +403,11 @@ def article(request: WSGIRequest):
 
 @token_auth(roles=['user', 'admin'], get_user=True)
 def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
+    def _merge_with_user(review):
+        user = models.UserProfile.objects.get(id=review['user'])
+        review['user'] = user.name
+        return review
+
     if request.method=='POST':
         if is_user_role(auth, ['user', 'admin']):
             data = json.loads(request.body)
@@ -420,11 +425,16 @@ def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
     if request.method=='GET':
         data = json.loads(request.body)
         if (data['filter']['stuntplace_id']==None) and (data['filter']['user_email']==None):
+            # Get all reviews
             return JsonResponse({'reviews': [model_to_dict(i) for i in models.StuntPlaceReview.objects.all()]})
         else:
-            user = models.UserProfile.objects.get(email=data['filter']['user_email'])
-            stuntplace = models.StuntPlace.objects.get(id=data['filter']['stuntplace_id'])
-            filtered_reviews = [model_to_dict(i) for i in models.StuntPlaceReview.objects.filter(stunt_place=stuntplace, user=user)]
+            if data['filter']['user_email']==None:
+                stuntplace = models.StuntPlace.objects.get(id=data['filter']['stuntplace_id'])
+                filtered_reviews = [_merge_with_user(model_to_dict(i)) for i in models.StuntPlaceReview.objects.filter(stunt_place=stuntplace)]   
+            else:
+                user = models.UserProfile.objects.get(email=data['filter']['user_email'])
+                stuntplace = models.StuntPlace.objects.get(id=data['filter']['stuntplace_id'])
+                filtered_reviews = [_merge_with_user(model_to_dict(i)) for i in models.StuntPlaceReview.objects.filter(stunt_place=stuntplace, user=user)]
             return JsonResponse({'reviews': filtered_reviews})
     
     if request.method=='DELETE':
