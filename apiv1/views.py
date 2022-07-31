@@ -3,6 +3,8 @@ import json, datetime, requests, re, os, base64
 from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseNotFound
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import Sum
+
 from stunting_backend import secret_settings
 
 from token_authentication import models as ta_models
@@ -401,6 +403,17 @@ def article(request: WSGIRequest):
     
     return article_admin(request)
 
+def update_avg_stuntplace_rating(stuntplace):
+    rating_counts = models.StuntPlaceReview.objects.all().count()
+    if rating_counts==0:
+        return 0, 0, 0
+
+    rating_sum = models.StuntPlaceReview.objects.filter(stunt_place=stuntplace).aggregate(Sum('rating'))
+    rating_avg = rating_sum['rating__sum']/rating_counts
+    stuntplace.avg_rating = rating_avg
+    stuntplace.save()
+    return rating_avg, rating_sum, rating_counts
+
 @token_auth(roles=['user', 'admin'], get_user=True)
 def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
     def _merge_with_user(review):
@@ -418,11 +431,12 @@ def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
                 return JsonResponse({'success': False, 'error': f'Review has already defined'})
             review = models.StuntPlaceReview(stunt_place=target_stuntplace, user=user, rating=data['rating'], desc=data['desc'])
             review.save()
-            return JsonResponse({'success': True, 'review': model_to_dict(review)})
+            rating_avg, _, _ = update_avg_stuntplace_rating(target_stuntplace)
+            return JsonResponse({'success': True, 'review': model_to_dict(review), 'new_avg_rating': rating_avg})
         else:
             return JsonResponse({'success': False, 'error': 'Permission Denied'})
         
-    if request.method=='GET':
+    elif request.method=='GET':
         data = json.loads(request.body)
         if (data['filter']['stuntplace_id']==None) and (data['filter']['user_email']==None):
             # Get all reviews
@@ -437,7 +451,7 @@ def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
                 filtered_reviews = [_merge_with_user(model_to_dict(i)) for i in models.StuntPlaceReview.objects.filter(stunt_place=stuntplace, user=user)]
             return JsonResponse({'reviews': filtered_reviews})
     
-    if request.method=='DELETE':
+    elif request.method=='DELETE':
         if not is_user_role(auth, ['admin']):
             return JsonResponse({'succcess': False, 'error': 'Permission Denied'})
         data = json.loads(request.body)
@@ -445,7 +459,16 @@ def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
         user = models.UserProfile.objects.get(email=data['email'])
         review = models.StuntPlaceReview.objects.get(stunt_place=stunt_place, user=user)
         review.delete()
-        return JsonResponse({'deleted_review': model_to_dict(review)})
+        avg_rating, _, _ = update_avg_stuntplace_rating(stuntplace=stunt_place)
+        return JsonResponse({'deleted_review': model_to_dict(review), 'new_avg_rating': avg_rating})
     
+    elif request.method=='PATCH':
+        stuntplace = models.StuntPlace.objects.get(id=2)
+        rating_sum = models.StuntPlaceReview.objects.filter(stunt_place=stuntplace).aggregate(Sum('rating'))
+        rating_counts = models.StuntPlaceReview.objects.all().count()
+        rating_avg = rating_sum['rating__sum']/rating_counts
+        stuntplace.avg_rating = rating_avg
+        stuntplace.save()
+        return JsonResponse({'stuntplace': model_to_dict(stuntplace), 'all_reviews': [model_to_dict(i) for i in models.StuntPlaceReview.objects.all()]})
     else:
         return HttpResponseNotFound()
