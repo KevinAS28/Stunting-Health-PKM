@@ -192,7 +192,9 @@ def stunt_maps_admin(request: WSGIRequest):
                     if len(place['photos'])>0:
                         photo_params = {
                             'key': secret_settings.MAP_API_KEY,
-                            'photo_reference': place['photos'][0]['photo_reference']
+                            'photo_reference': place['photos'][0]['photo_reference'],
+                            'maxheight': 1000,
+                            'maxwidth': 1000                            
                         }
                         photo_resp = requests.get(PHOTO_PLACE_API, params=photo_params)
 
