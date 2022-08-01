@@ -185,7 +185,13 @@ def stunt_maps_admin(request: WSGIRequest):
             }
             request_response = requests.get(SEARCH_PLACE_API, params=search_place_parameters).text
             print(request_response)
+
+            # Filter for already registered places
             all_places = json.loads(request_response)['results']
+            all_place_ids = [i['place_id'] for i in all_places]
+            existing_place_ids = [i.gmap_place_id for i in models.StuntPlace.objects.filter(gmap_place_id__in=all_place_ids)]
+            all_places = [i for i in all_places if not (i['place_id'] in existing_place_ids)]
+
             for i, place in enumerate(all_places):
                 #process the photo
                 if 'photos' in place:
@@ -197,10 +203,10 @@ def stunt_maps_admin(request: WSGIRequest):
                             'maxwidth': 1000                            
                         }
                         photo_resp = requests.get(PHOTO_PLACE_API, params=photo_params)
-
                         file_path = os.path.join('img', utils.valid_filename(f'{place["name"]}_{place["place_id"]}_first.png'))
                         utils.write_b64_file(file_path, base64.b64encode(photo_resp.content))
                         place['static_img'] = f'http://{request.get_host()}/static/{file_path}'
+                    
                 all_places[i] = place
 
             return JsonResponse({'all_places': all_places})
