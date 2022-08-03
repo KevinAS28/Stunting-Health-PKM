@@ -1,5 +1,4 @@
 import json, datetime, requests, re, os, base64
-from matplotlib.animation import FuncAnimation
 
 from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseNotFound
