@@ -1,8 +1,8 @@
 stunting_backend/secrets.py
 stunting_backend/secret_settings.py
 db.sqlite3
-apiv1/__pycache__/*
-apiv1/migrations/*
-apiv1/management/__pycache__/*
-stunting_backend/__pycache__/*
-token_authentication/__pycache__/*
+apiv1/__pycache__
+apiv1/migrations
+apiv1/management/__pycache__
+stunting_backend/__pycache__
+token_authentication/__pycache__
