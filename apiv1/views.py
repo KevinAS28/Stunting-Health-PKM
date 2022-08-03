@@ -3,7 +3,7 @@ import json, datetime, requests, re, os, base64
 from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseNotFound
 from django.core.handlers.wsgi import WSGIRequest
-from django.db.models import Sum
+from django.db.models import Sum, Max
 
 from stunting_backend import secret_settings
 
@@ -436,12 +436,24 @@ def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
         else:
             if data['filter']['user_email']==None:
                 stuntplace = models.StuntPlace.objects.get(id=data['filter']['stuntplace_id'])
-                filtered_reviews = [_merge_with_user(model_to_dict(i)) for i in models.StuntPlaceReview.objects.filter(stunt_place=stuntplace)]   
+                queryset = models.StuntPlaceReview.objects.filter(stunt_place=stuntplace)
+                filtered_reviews = [_merge_with_user(model_to_dict(i)) for i in queryset]  
+                review_count = len(queryset)
+                count_per_rating = dict()
+                for rating in range(1, 6):
+                    count_per_rating[rating] = len(queryset.filter(rating=rating))
+
             else:
                 user = models.UserProfile.objects.get(email=data['filter']['user_email'])
                 stuntplace = models.StuntPlace.objects.get(id=data['filter']['stuntplace_id'])
-                filtered_reviews = [_merge_with_user(model_to_dict(i)) for i in models.StuntPlaceReview.objects.filter(stunt_place=stuntplace, user=user)]
-            return JsonResponse({'reviews': filtered_reviews})
+                queryset = models.StuntPlaceReview.objects.filter(stunt_place=stuntplace, user=user)
+                filtered_reviews = [_merge_with_user(model_to_dict(i)) for i in queryset]
+                review_count = len(queryset)
+                count_per_rating = dict()
+                for rating in range(1, 6):
+                    count_per_rating[rating] = len(queryset.filter(rating=rating))                
+            
+            return JsonResponse({'reviews': filtered_reviews, 'review_count': review_count, 'count_per_rating': count_per_rating})
     
     elif request.method=='DELETE':
         if not is_user_role(auth, ['admin']):
@@ -544,5 +556,12 @@ def fun_stunt_user(auth: ta_models.UserAuthentication, request: WSGIRequest):
                 qas = models.FunStuntQA.objects.filter(id=data['qa_ids'])
             return JsonResponse({'qas': [_merge_qa_content(model_to_dict(i)) for i in qas]})
         elif get_type=='user_answers':
-            return JsonResponse({'user_answers': [model_to_dict(i) for i in models.FunStuntUserAnswer.objects.all()]})
+            queryset = models.FunStuntUserAnswer.objects.filter(user=user)
+            user_score_per_level = dict()
+            max_level = models.FunStuntQA.objects.aggregate(Max('level'))['level__max']
+            for level in range(1, max_level+1):
+                questions_count_level = len(models.FunStuntQA.objects.filter(level=level))
+                correct_answers_count = sum([1 for i in models.FunStuntUserAnswer.objects.filter(question__level=level) if i.answer_is_correct])
+                user_score_per_level[level] = {'question_count_level': questions_count_level, 'correct_answers_count': correct_answers_count}
+            return JsonResponse({'user_answers': [model_to_dict(i) for i in queryset], 'user_score_per_level': user_score_per_level})
     
