@@ -11,5 +11,8 @@ urlpatterns = [
     path('maps', views.stunt_maps),
     path('maps_admin', views.stunt_maps_admin),
     path('article', views.article),
-    path('profile_admin', views.profile_admin)
+    path('profile_admin', views.profile_admin),
+    path('review', views.review),
+    path('fun_stunt_admin', views.fun_stunt_admin),
+    path('fun_stunt_user', views.fun_stunt_user)
 ]

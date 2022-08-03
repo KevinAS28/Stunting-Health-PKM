@@ -23,7 +23,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         port: 22
         password: ${{ secrets.PASSWORD }}
-        script: cd "/home/${USERNAME}/Stunting-Health-PKM" && git pull origin main
+        script: cd "/home/${USERNAME}/Stunting-Health-PKM" && git pull origin main && python3 manage.py makemigrations && python3 manage.py migrate
           
     # - name: SSH using script
     #   env:

@@ -1,14 +1,21 @@
 import enum
 import os, base64, re, json
+from datetime import datetime as dt
 
+from django.core.handlers.wsgi import WSGIRequest
 from django.conf import settings
+from numpy import full
 import requests
-from sympy import integer_log
+
 
 if settings.DEBUG:
     STATIC_DIR = settings.STATICFILES_DIRS[0]
 else:
     STATIC_DIR = settings.STATIC_ROOT
+
+def now_str(separator='_', attrs=['year', 'month', 'day', 'hour', 'minute', 'second']):
+    all_attrs = [str(getattr(dt.now(), i)) for i in attrs]
+    return separator.join(all_attrs)
 
 def make_dir(path, no_end=True):
     if no_end:
@@ -28,6 +35,12 @@ def make_dir(path, no_end=True):
     if success>0:
         return True
     return False
+
+def delete_file(file_path:str):
+    full_path = os.path.join(STATIC_DIR, file_path)
+    if not os.path.isfile(full_path):
+        return -1
+    os.remove(full_path)
 
 def read_b64_file(file_path:str) -> str:
     full_path = os.path.join(STATIC_DIR, file_path)
@@ -127,6 +140,54 @@ def get_place_detail_photos(place_id, key, host, max_photos=3):
         photos = []
     return {'place_detail': place, 'photos_urls': photos}
 
+def process_content_items(item_type_name, title, content, items, host):
+    pattern = re.compile(r'({([a-z|A-Z|0-9|_|-]+)})')
+    tags_urls = dict()
+    content = content.replace('\\', '')
+    for i, m in enumerate(pattern.finditer(content)):
+        full_match, match = m.groups()
+        match, m_type = match.split('_')
+        extension = items[match]['extension']
+        fn, fp, url = save_static(m_type, extension, title, items[match]['content'], i)
+        url = url.format(host)
+        tags_urls[full_match] = url
 
+    article_parsed = multiple_replace(content, tags_urls, regex=False)
+    article_parsed_path = os.path.join(item_type_name, valid_filename(f'{title}_{now_str()}.html', '_'))
+    write_file(article_parsed_path, article_parsed.encode('utf-8'))
+    return article_parsed, article_parsed_path, tags_urls
+
+def process_article(request: WSGIRequest):
+    data = json.loads(request.body)
+    title = data['title']
+    
+    article_parsed, article_parsed_path, tags_urls = process_content_items('articles', title, data['article_content'], data['article_items'], request.get_host())
+
+    # pattern = re.compile(r'({([a-z|A-Z|0-9|_|-]+)})')
+    # tags_urls = dict()
+    # data['article_content'] = data['article_content'].replace('\\', '')
+    # for i, m in enumerate(pattern.finditer(data['article_content'])):
+    #     full_match, match = m.groups()
+    #     match, m_type = match.split('_')
+    #     extension = data['article_items'][match]['extension']
+    #     fn, fp, url = save_static(m_type, extension, title, data['article_items'][match]['content'], i)
+    #     url = url.format(request.get_host())
+    #     tags_urls[full_match] = url
+
+    # article_parsed = multiple_replace(data['article_content'], tags_urls, regex=False)
+    # article_parsed_path = os.path.join('articles', valid_filename(f'{title}_{data["date"]}.html', '_'))
+    # write_file(article_parsed_path, article_parsed.encode('utf-8'))
+
+    cover_name, cover_path, cover_url = save_static('img', data['cover']['extension'], f"{title}_cover", data['cover']['content'], 0)
+
+    return article_parsed_path, title, cover_path, tags_urls, article_parsed
+
+def auto_set_obj_attrs(obj, attrs: dict, ignore_not_found=True):
+    for key, value in attrs.items():
+        if (not hasattr(obj, key)) and (not ignore_not_found):
+            raise AttributeError(f'attribute {key} not found in selected object {str(obj)} and has been not ignored')
+        setattr(obj, key, value)
+    return obj
+    
 if __name__=='__main__':
     print(valid_filename('r4u191rd  u58cb@$RF&^NU(!N&U(#!C.jp3eg'))

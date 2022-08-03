@@ -1,12 +1,15 @@
 import json, datetime, requests, re, os, base64
+from matplotlib.animation import FuncAnimation
 
 from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseNotFound
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import Sum
+
 from stunting_backend import secret_settings
 
 from token_authentication import models as ta_models
-from token_authentication.auth_core import token_auth, token_auth_core
+from token_authentication.auth_core import token_auth, token_auth_core, is_user_role
 from apiv1 import models, utils
 
 from geopy import distance
@@ -183,27 +186,37 @@ def stunt_maps_admin(request: WSGIRequest):
             }
             request_response = requests.get(SEARCH_PLACE_API, params=search_place_parameters).text
             print(request_response)
+
+            # Filter for already registered places
             all_places = json.loads(request_response)['results']
+            all_place_ids = [i['place_id'] for i in all_places]
+            existing_place_ids = [i.gmap_place_id for i in models.StuntPlace.objects.filter(gmap_place_id__in=all_place_ids)]
+            all_places = [i for i in all_places if not (i['place_id'] in existing_place_ids)]
+
             for i, place in enumerate(all_places):
                 #process the photo
                 if 'photos' in place:
                     if len(place['photos'])>0:
                         photo_params = {
                             'key': secret_settings.MAP_API_KEY,
-                            'photo_reference': place['photos'][0]['photo_reference']
+                            'photo_reference': place['photos'][0]['photo_reference'],
+                            'maxheight': 1000,
+                            'maxwidth': 1000                            
                         }
                         photo_resp = requests.get(PHOTO_PLACE_API, params=photo_params)
-
                         file_path = os.path.join('img', utils.valid_filename(f'{place["name"]}_{place["place_id"]}_first.png'))
                         utils.write_b64_file(file_path, base64.b64encode(photo_resp.content))
                         place['static_img'] = f'http://{request.get_host()}/static/{file_path}'
+                    
                 all_places[i] = place
 
             return JsonResponse({'all_places': all_places})
         elif data['get_type']=='registered_all':
             return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.all()]})
-        elif data['get_type']=='registered_filter':
-            return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.filter(place_name__contains=data['place_name'])]})
+        elif data['get_type']=='registered_filter_names':
+            return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.filter(place_name__contains=data['place_names'])]})
+        elif data['get_type']=='registered_filter_ids':
+            return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.filter(id__in=data['place_ids'])]})
         else:
             return HttpResponseNotFound()
 
@@ -329,33 +342,11 @@ def article_users(request: WSGIRequest):
         return JsonResponse({'article': model_to_dict(models.Article.objects.get(id=data['id']))})
 
 
-def process_article(request: WSGIRequest):
-    data = json.loads(request.body)
-    title = data['title']
-    pattern = re.compile(r'({([a-z|A-Z|0-9|_|-]+)})')
-    tags_urls = dict()
-    data['article_content'] = data['article_content'].replace('\\', '')
-    for i, m in enumerate(pattern.finditer(data['article_content'])):
-        full_match, match = m.groups()
-        match, m_type = match.split('_')
-        extension = data['article_items'][match]['extension']
-        fn, fp, url = utils.save_static(m_type, extension, title, data['article_items'][match]['content'], i)
-        url = url.format(request.get_host())
-        tags_urls[full_match] = url
-
-    article_parsed = utils.multiple_replace(data['article_content'], tags_urls, regex=False)
-    article_parsed_path = os.path.join('articles', utils.valid_filename(f'{title}_{data["date"]}.html', '_'))
-    utils.write_file(article_parsed_path, article_parsed.encode('utf-8'))
-
-    cover_name, cover_path, cover_url = utils.save_static('img', data['cover']['extension'], f"{data['title']}_cover", data['cover']['content'], 0)
-
-    return article_parsed_path, title, cover_path, tags_urls, article_parsed
-
 @token_auth(roles=['admin'])
 def article_admin(request: WSGIRequest):
     data = json.loads(request.body)
     if request.method=='POST':
-        article_parsed_path, title, cover_path, tags_urls, article_parsed = process_article(request)
+        article_parsed_path, title, cover_path, tags_urls, article_parsed = utils.process_article(request)
         
         article = models.Article(
             article_file=article_parsed_path,
@@ -371,7 +362,7 @@ def article_admin(request: WSGIRequest):
     
     elif request.method=='PATCH':
         article_toedit = models.Article.objects.get(id=data['id'])
-        article_parsed_path, title, cover_path, tags_urls, article_parsed = process_article(request)
+        article_parsed_path, title, cover_path, tags_urls, article_parsed = utils.process_article(request)
         article_toedit.article_file=article_parsed_path
         article_toedit.date=datetime.datetime.strptime(data['date'], "%d/%m/%Y").date()
         article_toedit.title=title
@@ -400,3 +391,155 @@ def article(request: WSGIRequest):
             return article_users(request)
     
     return article_admin(request)
+
+def update_avg_stuntplace_rating(stuntplace):
+    rating_counts = models.StuntPlaceReview.objects.all().count()
+    if rating_counts==0:
+        return 0, 0, 0
+
+    rating_sum = models.StuntPlaceReview.objects.filter(stunt_place=stuntplace).aggregate(Sum('rating'))
+    rating_avg = rating_sum['rating__sum']/rating_counts
+    stuntplace.avg_rating = rating_avg
+    stuntplace.save()
+    return rating_avg, rating_sum, rating_counts
+
+@token_auth(roles=['user', 'admin'], get_user=True)
+def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
+    def _merge_with_user(review):
+        user = models.UserProfile.objects.get(id=review['user'])
+        review['user'] = user.name
+        return review
+
+    if request.method=='POST':
+        if is_user_role(auth, ['user', 'admin']):
+            data = json.loads(request.body)
+            target_stuntplace = models.StuntPlace.objects.get(id=data['stuntmap_id'])
+            user = models.UserProfile.objects.get(authentication=auth)
+            stunt_review = models.StuntPlaceReview.objects.filter(stunt_place=target_stuntplace, user=user)
+            if len(stunt_review)>0:
+                return JsonResponse({'success': False, 'error': f'Review has already defined'})
+            review = models.StuntPlaceReview(stunt_place=target_stuntplace, user=user, rating=data['rating'], desc=data['desc'])
+            review.save()
+            rating_avg, _, _ = update_avg_stuntplace_rating(target_stuntplace)
+            return JsonResponse({'success': True, 'review': model_to_dict(review), 'new_avg_rating': rating_avg})
+        else:
+            return JsonResponse({'success': False, 'error': 'Permission Denied'})
+        
+    elif request.method=='GET':
+        data = json.loads(request.GET['json_body'])
+        if (data['filter']['stuntplace_id']==None) and (data['filter']['user_email']==None):
+            # Get all reviews
+            return JsonResponse({'reviews': [model_to_dict(i) for i in models.StuntPlaceReview.objects.all()]})
+        else:
+            if data['filter']['user_email']==None:
+                stuntplace = models.StuntPlace.objects.get(id=data['filter']['stuntplace_id'])
+                filtered_reviews = [_merge_with_user(model_to_dict(i)) for i in models.StuntPlaceReview.objects.filter(stunt_place=stuntplace)]   
+            else:
+                user = models.UserProfile.objects.get(email=data['filter']['user_email'])
+                stuntplace = models.StuntPlace.objects.get(id=data['filter']['stuntplace_id'])
+                filtered_reviews = [_merge_with_user(model_to_dict(i)) for i in models.StuntPlaceReview.objects.filter(stunt_place=stuntplace, user=user)]
+            return JsonResponse({'reviews': filtered_reviews})
+    
+    elif request.method=='DELETE':
+        if not is_user_role(auth, ['admin']):
+            return JsonResponse({'succcess': False, 'error': 'Permission Denied'})
+        data = json.loads(request.body)
+        stunt_place = models.StuntPlace.objects.get(id=data['stuntmap_id'])
+        user = models.UserProfile.objects.get(email=data['email'])
+        review = models.StuntPlaceReview.objects.get(stunt_place=stunt_place, user=user)
+        review.delete()
+        avg_rating, _, _ = update_avg_stuntplace_rating(stuntplace=stunt_place)
+        return JsonResponse({'deleted_review': model_to_dict(review), 'new_avg_rating': avg_rating})
+    
+    elif request.method=='PATCH':
+        stuntplace = models.StuntPlace.objects.get(id=2)
+        rating_sum = models.StuntPlaceReview.objects.filter(stunt_place=stuntplace).aggregate(Sum('rating'))
+        rating_counts = models.StuntPlaceReview.objects.all().count()
+        rating_avg = rating_sum['rating__sum']/rating_counts
+        stuntplace.avg_rating = rating_avg
+        stuntplace.save()
+        return JsonResponse({'stuntplace': model_to_dict(stuntplace), 'all_reviews': [model_to_dict(i) for i in models.StuntPlaceReview.objects.all()]})
+    else:
+        return HttpResponseNotFound()
+
+# @token_auth(roles=['admin', 'user'])
+# def fun_stunt_user(request: WSGIRequest):
+#     if request
+
+@token_auth(roles=['admin'], get_user=True)
+def fun_stunt_admin(auth: ta_models.UserAuthentication, request: WSGIRequest):
+
+    if request.method=='POST':
+        data = json.loads(request.body)
+        if not is_user_role(auth, ['admin']):
+            return JsonResponse({'succcess': False, 'error': 'Permission Denied'})
+
+        last_question_index = models.GeneralConfig.objects.get(key='last_question_index')
+        title = utils.valid_filename(f'question_{last_question_index}')
+        qa_parsed, qa_parsed_path, tags_urls = utils.process_content_items('fun_stunt_questions', title, data['question_content'], data['question_items'], request.get_host())
+        last_question_index.value = str(int(last_question_index.value)+1)
+        last_question_index.save()
+        answer_file_path = os.path.join('fun_stunt_answers', title+'.json')
+        utils.write_file(answer_file_path, json.dumps(data['answers_content']).encode('utf-8'))
+        qa = models.FunStuntQA(question_file=qa_parsed_path, answers_file=answer_file_path, level=data['level'], correct_answer=data['correct_answer'])
+        qa.save()
+        return JsonResponse({'qa_parsed': qa_parsed, 'qa_model': model_to_dict(qa)})
+        # elif data['submit_type']=='submit_answer':
+
+
+    elif request.method=='DELETE':
+        if not is_user_role(auth, ['admin']):
+            return JsonResponse({'succcess': False, 'error': 'Permission Denied'})
+
+        data = json.loads(request.body)
+        to_delete_qa = models.FunStuntQA.objects.get(id=data['qa_id'])
+        to_delete_qa.delete()
+        utils.delete_file(to_delete_qa.question_file)
+        utils.delete_file(to_delete_qa.answers_file)
+        return JsonResponse({'qa_deleted': model_to_dict(to_delete_qa)})
+
+@token_auth(roles=['admin', 'user'], get_user=True)
+def fun_stunt_user(auth: ta_models.UserAuthentication, request: WSGIRequest):
+    def _merge_qa_content(qa: dict):
+        question_content = utils.read_file(qa['question_file']).decode('utf-8')
+        answers_content = utils.read_file(qa['answers_file']).decode('utf-8')
+        qa['question_content'] = question_content
+        qa['answers_content'] = answers_content
+        return qa
+        
+    user = models.UserProfile.objects.get(authentication=auth)
+
+    if  request.method=='POST':
+        data = json.loads(request.body)
+
+        qa = models.FunStuntQA.objects.get(id=data['qa_id'])
+        old_user_answer = models.FunStuntUserAnswer.objects.filter(user=user, question=qa)
+        
+        answer_is_correct = None
+        if qa.correct_answer==data['submitted_answer']:
+            answer_is_correct = True
+        else:
+            answer_is_correct = False
+
+        user_answer_attributes = dict(user=user, question=qa, answer=data['submitted_answer'], answer_is_correct=answer_is_correct)
+        if len(old_user_answer)==0:
+            user_answer = models.FunStuntUserAnswer(**user_answer_attributes)
+        else:
+            user_answer = utils.auto_set_obj_attrs(old_user_answer[0], user_answer_attributes)
+        user_answer.save()
+        return JsonResponse({'answer': model_to_dict(user_answer)})
+
+    elif request.method=='GET':
+        data = json.loads(request.GET['json_body'])
+        get_type = data['get_type']
+        if get_type=='qas':
+            if data['filter_type']=='all':
+                qas = models.FunStuntQA.objects.all()
+            elif data['filter_type']=='by_levels':
+                qas = models.FunStuntQA.objects.filter(level__in=data['levels'])
+            elif data['filter_type']=='id':
+                qas = models.FunStuntQA.objects.filter(id=data['qa_ids'])
+            return JsonResponse({'qas': [_merge_qa_content(model_to_dict(i)) for i in qas]})
+        elif get_type=='user_answers':
+            return JsonResponse({'user_answers': [model_to_dict(i) for i in models.FunStuntUserAnswer.objects.all()]})
+    

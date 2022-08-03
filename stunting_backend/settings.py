@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'token_authentication',
     'website',
-    'apiv1'
+    'apiv1',
+    # 'seeds'
 ]
 
 MIDDLEWARE = [
@@ -173,3 +174,5 @@ STATIC_ROOT = BASE_DIR / 'static'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DATA_UPLOAD_MAX_MEMORY = 26214400
+
+# CITY_CENTER_LOCATION = ('long', 'lat') # (koordinat pusat kota) asumsi klau nyarinya cuman dari satu provinsia

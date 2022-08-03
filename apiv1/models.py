@@ -2,6 +2,10 @@ from django.db import models
 from token_authentication import models as ta_models
 # Create your models here.
 
+class GeneralConfig(models.Model):
+    key = models.CharField(max_length=50)
+    value = models.CharField(max_length=50)
+
 class UserProfile(models.Model):
     authentication = models.OneToOneField(ta_models.UserAuthentication, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=30)
@@ -41,7 +45,7 @@ class StuntPlace(models.Model):
     img_url = models.CharField(max_length=150, default='')
     phone = models.CharField(max_length=15, default='')
     desc = models.CharField(max_length=100, default='')
-    avg_rating = models.IntegerField()
+    avg_rating = models.FloatField()
 
 class StuntPlaceReview(models.Model):
     stunt_place = models.ForeignKey(StuntPlace, on_delete=models.DO_NOTHING)
@@ -55,3 +59,14 @@ class HealthWorker(models.Model):
     specialization = models.CharField(max_length=25)
     desc = models.CharField(max_length=150, default='')
 
+class FunStuntQA(models.Model):
+    question_file = models.CharField(max_length=50)
+    answers_file = models.CharField(max_length=50)
+    level = models.IntegerField()
+    correct_answer = models.IntegerField()
+
+class FunStuntUserAnswer(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
+    question = models.ForeignKey(FunStuntQA, on_delete=models.DO_NOTHING)
+    answer = models.IntegerField()
+    answer_is_correct = models.BooleanField()
