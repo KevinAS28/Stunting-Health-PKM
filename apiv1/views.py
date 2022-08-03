@@ -15,7 +15,6 @@ from geopy import distance
 
 
 # Create your views here.
-
 @token_auth(roles=['user'], get_user=True)
 def test(user: ta_models.UserAuthentication, request: WSGIRequest):
     return JsonResponse({'User': model_to_dict(user)})
@@ -176,7 +175,8 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
 def stunt_maps_admin(request: WSGIRequest):
     data = json.loads(request.body)
     if request.method=='GET':
-        if data['get_type']=='unregistered':
+        get_type = data['get_type']
+        if get_type=='unregistered':
             SEARCH_PLACE_API = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
             PHOTO_PLACE_API = 'https://maps.googleapis.com/maps/api/place/photo'
             search_place_parameters = {
@@ -210,12 +210,10 @@ def stunt_maps_admin(request: WSGIRequest):
                 all_places[i] = place
 
             return JsonResponse({'all_places': all_places})
-        elif data['get_type']=='registered_all':
+        elif get_type=='registered_all':
             return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.all()]})
-        elif data['get_type']=='registered_filter_names':
+        elif get_type=='registered_filter_names':
             return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.filter(place_name__contains=data['place_names'])]})
-        elif data['get_type']=='registered_filter_ids':
-            return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.filter(id__in=data['place_ids'])]})
         else:
             return HttpResponseNotFound()
 
@@ -260,9 +258,10 @@ def stunt_maps_admin(request: WSGIRequest):
 
 @token_auth(roles=['user', 'admin'])
 def stunt_maps(request: WSGIRequest):
-    if request.method=='POST':
+    if request.method=='GET':
         # data = request.POST
-        data = json.loads(request.body)
+        data = json.loads(request.GET['json_body'])
+        get_type = data['get_type']
         # NEARBY_PLACE_API = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
         # nearby_place_parameters = {
         #     'key': secret_settings.MAP_API_KEY,
@@ -285,16 +284,21 @@ def stunt_maps(request: WSGIRequest):
             data['db_data'] = model_to_dict(models.StuntPlace.objects.filter(gmap_place_id=data['place_detail']['place_id'])[0])
             return data
 
-        if data['location']=='' and data['keyword']=='':
-            all_places = models.StuntPlace.objects.all()
-            all_details = [__merge_with_db(utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host(), 0)) for i in all_places]
-            return JsonResponse({'places': all_details}, json_dumps_params={'indent':4, 'sort_keys': True})
-        else:
-            name_filter = models.StuntPlace.objects.filter(place_name__icontains=data['keyword'])
-            dev_loc = tuple(map(float, data['location'].split(',')))
-            radius = data['radius'] if 'radius' in data else 5000
-            radius_filter = [__merge_with_db(utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host())) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
-            return JsonResponse({'places': radius_filter}, json_dumps_params={'indent':4, 'sort_keys': True})
+        if get_type=='registered_filter_ids':
+            return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.filter(id__in=data['place_ids'])]})
+
+        elif get_type=='registered_filter_users':
+            if data['location']=='' and data['keyword']=='':
+                all_places = models.StuntPlace.objects.all()
+                all_details = [__merge_with_db(utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host(), 0)) for i in all_places]
+                return JsonResponse({'places': all_details}, json_dumps_params={'indent':4, 'sort_keys': True})
+            else:
+                name_filter = models.StuntPlace.objects.filter(place_name__icontains=data['keyword'])
+                dev_loc = tuple(map(float, data['location'].split(',')))
+                radius = data['radius'] if 'radius' in data else 5000
+                radius_filter = [__merge_with_db(utils.get_place_detail_photos(i.gmap_place_id, secret_settings.MAP_API_KEY, request.get_host())) for i in name_filter if abs(distance.distance(dev_loc, (i.location_lat, i.location_lng)).meters) <= radius]
+                return JsonResponse({'places': radius_filter}, json_dumps_params={'indent':4, 'sort_keys': True})
+                
     return HttpResponseNotFound()
 
 def _article(article: models.Article):
