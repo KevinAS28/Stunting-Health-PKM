@@ -211,9 +211,9 @@ def stunt_maps_admin(request: WSGIRequest):
 
             return JsonResponse({'all_places': all_places})
         elif get_type=='registered_all':
-            return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.all()]})
+            return JsonResponse({'registered_places': [model_to_dict(i) for i in models.StuntPlace.objects.all()]})
         elif get_type=='registered_filter_names':
-            return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.filter(place_name__contains=data['place_names'])]})
+            return JsonResponse({'registered_places': [model_to_dict(i) for i in models.StuntPlace.objects.filter(place_name__contains=data['place_names'])]})
         else:
             return HttpResponseNotFound()
 
@@ -287,7 +287,7 @@ def stunt_maps(request: WSGIRequest):
             return data
 
         if get_type=='registered_filter_ids':
-            return JsonResponse({'registerd_places': [model_to_dict(i) for i in models.StuntPlace.objects.filter(id__in=data['place_ids'])]})
+            return JsonResponse({'registered_places': [model_to_dict(i) for i in models.StuntPlace.objects.filter(id__in=data['place_ids'])]})
 
         elif get_type=='registered_filter_users':
             if data['location']=='' and data['keyword']=='':
