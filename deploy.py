@@ -18,8 +18,6 @@ def unzip_static():
 
 
 if __name__=='__main__':
-    log('unzipping static...')
-    unzip_static()
     
     for command in os_commands:
         try:
@@ -29,4 +27,7 @@ if __name__=='__main__':
             log(f'ERROR command: {command}: {str(e)}')
             exit(1)
 
+    log('unzipping static...')
+    unzip_static()
+        
 exit(0)
