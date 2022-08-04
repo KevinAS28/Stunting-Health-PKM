@@ -5,3 +5,5 @@ apiv1/__pycache__
 apiv1/management/__pycache__
 stunting_backend/__pycache__
 token_authentication/__pycache__
+static_dev
+static
