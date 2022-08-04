@@ -226,7 +226,7 @@ def stunt_maps_admin(request: WSGIRequest):
                 location_lng=place['location_lng'],
                 place_name=place['name'],
                 gmap_place_id=place['gmap_place_id'],
-                img_url=place['img_url'],
+                img_url=place['img_url'],   
                 avg_rating=place['avg_rating']
             )
             place_obj.save()
@@ -458,17 +458,25 @@ def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
             return JsonResponse({'reviews': filtered_reviews, 'review_count': review_count, 'count_per_rating': count_per_rating})
     
     elif request.method=='DELETE':
-        if not is_user_role(auth, ['admin']):
-            return JsonResponse({'succcess': False, 'error': 'Permission Denied'})
         data = json.loads(request.body)
-        stunt_place = models.StuntPlace.objects.get(id=data['stuntmap_id'])
-        user = models.UserProfile.objects.get(email=data['email'])
-        review = models.StuntPlaceReview.objects.get(stunt_place=stunt_place, user=user)
-        review.delete()
-        avg_rating, _, _ = update_avg_stuntplace_rating(stuntplace=stunt_place)
-        return JsonResponse({'deleted_review': model_to_dict(review), 'new_avg_rating': avg_rating})
-    
+        delete_type = data['delete_type']
+        if delete_type=='email_place':
+            if not is_user_role(auth, ['admin']):
+                return JsonResponse({'succcess': False, 'error': 'Permission Denied'})
+            data = json.loads(request.body)
+            stunt_place = models.StuntPlace.objects.get(id=data['stuntmap_id'])
+            user = models.UserProfile.objects.get(email=data['email'])
+            review = models.StuntPlaceReview.objects.get(stunt_place=stunt_place, user=user)
+            review.delete()
+            avg_rating, _, _ = update_avg_stuntplace_rating(stuntplace=stunt_place)
+            return JsonResponse({'deleted_review': model_to_dict(review), 'new_avg_rating': avg_rating})
+        elif delete_type=='id':
+            review = models.StuntPlaceReview.objects.get(id=data['stuntreview_id'])
+            review.delete()
+            return JsonResponse({'deleted_review': model_to_dict(review)})
+
     elif request.method=='PATCH':
+        data = json.loads(request.body)
         stuntplace = models.StuntPlace.objects.get(id=2)
         rating_sum = models.StuntPlaceReview.objects.filter(stunt_place=stuntplace).aggregate(Sum('rating'))
         rating_counts = models.StuntPlaceReview.objects.all().count()
