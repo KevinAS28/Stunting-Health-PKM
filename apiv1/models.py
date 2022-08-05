@@ -73,6 +73,6 @@ class FunStuntQA(models.Model):
 
 class FunStuntUserAnswer(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
-    question = models.ForeignKey(FunStuntQA, on_delete=models.DO_NOTHING)
+    question = models.ForeignKey(FunStuntQA, on_delete=models.SET_NULL)
     answer = models.IntegerField()
     answer_is_correct = models.BooleanField()
