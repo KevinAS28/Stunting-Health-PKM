@@ -7,7 +7,7 @@ class GeneralConfig(models.Model):
     value = models.CharField(max_length=50)
 
 class UserProfile(models.Model):
-    authentication = models.OneToOneField(ta_models.UserAuthentication, on_delete=models.DO_NOTHING)
+    authentication = models.OneToOneField(ta_models.UserAuthentication, on_delete=models.SET_NULL)
     name = models.CharField(max_length=30)
     email = models.CharField(max_length=30, default='', blank=True, null=True)
     profile_file = models.CharField(max_length=40)
@@ -15,16 +15,16 @@ class UserProfile(models.Model):
 class Children(models.Model):
     name = models.CharField(max_length=50)
     born_date = models.DateField()
-    parent = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
+    parent = models.ForeignKey(UserProfile, on_delete=models.SET_NULL)
 
 class StuntReminder(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(UserProfile, on_delete=models.SET_NULL)
     clock = models.TimeField()
     repeat_each = models.TextField(max_length=50)
     on = models.BooleanField(default=True)
 
 class StuntingTrace(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(UserProfile, on_delete=models.SET_NULL)
     week = models.IntegerField()
     height = models.FloatField()
     weight = models.FloatField()
@@ -32,7 +32,7 @@ class StuntingTrace(models.Model):
     exclusive_asi = models.BooleanField(default=True)
     disease_history = models.BooleanField(default=True)
     immunization_history = models.CharField(max_length=60)
-    children = models.ForeignKey(Children, on_delete=models.DO_NOTHING)
+    children = models.ForeignKey(Children, on_delete=models.SET_NULL)
 
 class Article(models.Model):
     article_file = models.CharField(max_length=50)
@@ -54,14 +54,14 @@ class StuntPlace(models.Model):
     avg_rating = models.FloatField()
 
 class StuntPlaceReview(models.Model):
-    stunt_place = models.ForeignKey(StuntPlace, on_delete=models.DO_NOTHING)
-    user = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
+    stunt_place = models.ForeignKey(StuntPlace, on_delete=models.SET_NULL)
+    user = models.ForeignKey(UserProfile, on_delete=models.SET_NULL)
     rating = models.IntegerField()
     desc = models.CharField(max_length=200)
 
 class HealthWorker(models.Model):
     name = models.CharField(max_length=50)
-    work_place = models.ForeignKey(StuntPlace, on_delete=models.DO_NOTHING)
+    work_place = models.ForeignKey(StuntPlace, on_delete=models.SET_NULL)
     specialization = models.CharField(max_length=25)
     desc = models.CharField(max_length=150, default='')
 
@@ -72,7 +72,7 @@ class FunStuntQA(models.Model):
     correct_answer = models.IntegerField()
 
 class FunStuntUserAnswer(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(UserProfile, on_delete=models.SET_NULL)
     question = models.ForeignKey(FunStuntQA, on_delete=models.SET_NULL)
     answer = models.IntegerField()
     answer_is_correct = models.BooleanField()
