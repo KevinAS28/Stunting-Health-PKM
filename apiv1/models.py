@@ -16,8 +16,9 @@ class Children(models.Model):
     name = models.CharField(max_length=50)
     born_date = models.DateField()
     gender = models.IntegerField()
-    parent = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField(default=True)
+    parent = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
+    
 
 class StuntReminder(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
@@ -35,6 +36,9 @@ class StuntingTrace(models.Model):
     disease_history = models.BooleanField(default=True)
     immunization_history = models.CharField(max_length=60)
     children = models.ForeignKey(Children, on_delete=models.SET_NULL, null=True, blank=True)
+
+    class Meta:
+        unique_together = (('user', 'week', 'children'),)    
 
 class Article(models.Model):
     article_file = models.CharField(max_length=50)

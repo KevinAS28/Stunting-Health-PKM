@@ -123,7 +123,8 @@ def stunt_reminder(user: ta_models.UserAuthentication, request: WSGIRequest):
 def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
     if request.method=='GET':
         profile = models.UserProfile.objects.get(authentication=user)
-        return JsonResponse({'all_traces': [model_to_dict(i) for i in models.StuntingTrace.objects.filter(user=profile)]})
+        child = models.Children.objects.get(id=int(request.GET['child_id']))
+        return JsonResponse({'all_traces': [model_to_dict(i) for i in models.StuntingTrace.objects.filter(user=profile, children=child)]})
     elif request.method=='POST':
         data = json.loads(request.body)
         saved_traces = []
@@ -137,7 +138,8 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
                 age_day=trace['age_day'],
                 exclusive_asi=trace['exclusive_asi'],
                 disease_history=trace['disease_history'],
-                immunization_history=trace['immunization_history']
+                immunization_history=trace['immunization_history'],
+                children=models.Children.objects.get(id=data['child_id'])
                 )
             trace_object.save()
             saved_traces.append(model_to_dict(trace_object))
@@ -148,13 +150,14 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
         data = json.loads(request.body)
         saved_traces = []
         for trace in data['all_traces']:
-            trace_object = models.StuntingTrace.objects.get(user=profile, week=trace['week'])
+            trace_object = models.StuntingTrace.objects.get(user=profile, week=trace['week'], children=models.Children.objects.get(id=data['child_id']))
             trace_object.height=trace['height']
             trace_object.weight=trace['weight']
             trace_object.age_day=trace['age_day']
             trace_object.exclusive_asi=trace['exclusive_asi']
             trace_object.disease_history=trace['disease_history']
             trace_object.immunization_history=trace['immunization_history']
+            trace_object.children=models.Children.objects.get(id=data['child_id'])
             trace_object.save()
             saved_traces.append(model_to_dict(trace_object))
         return JsonResponse({'updated': saved_traces})
@@ -579,22 +582,36 @@ def fun_stunt_user(auth: ta_models.UserAuthentication, request: WSGIRequest):
 def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest):
     user = models.UserProfile.objects.get(authentication=auth)
     if request.method == 'GET':
-        return JsonResponse({'childrens': [user.children_set.all()]})
+        return JsonResponse({'childrens': [model_to_dict(i) for i in user.children_set.all()]})
     elif request.method == 'POST':
         data = json.loads(request.body)
+        
         child_info = {
             'parent': user,
             **data['child_info']
         }
-        existing_child = models.Children.objects.filter(**child_info)
-        if len(existing_child)>0:
-            child = existing_child[0]
-        else:
-            child = models.Children(**child_info)
+        child_info['born_date'] = datetime.date(*child_info['born_date'])
+        
+        child = models.Children(**child_info)
         child.save()
         return JsonResponse({'saved_child': model_to_dict(child)})
-    
+    elif request.method == 'PATCH':
+        data = json.loads(request.body)
+        existing_child = models.Children.objects.get(id=data['child_id'])
+        child_info = {
+            'parent': user,
+            **data['child_info']
+        }
+        child_info['born_date'] = datetime.date(*child_info['born_date'])        
+        child = utils.auto_set_obj_attrs(existing_child, child_info)
+        child.save()
+        return JsonResponse({'updated_child': model_to_dict(child)})
+    elif request.method == 'DELETE':
+        data = json.loads(request.body)
+        todelete_child = models.Children.objects.get(id=data['child_id'])
+        todelete_child.delete()
+        return JsonResponse({'deleted_child': model_to_dict(todelete_child)})
     return HttpResponseNotFound()
-    
+
         
     
