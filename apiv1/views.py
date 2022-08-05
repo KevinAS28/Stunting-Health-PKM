@@ -401,11 +401,12 @@ def article(request: WSGIRequest):
     return article_admin(request)
 
 def update_avg_stuntplace_rating(stuntplace):
-    rating_counts = models.StuntPlaceReview.objects.all().count()
+    queryset = models.StuntPlaceReview.objects.filter(stunt_place=stuntplace)
+    rating_counts = queryset.count()
     if rating_counts==0:
         return 0, 0, 0
 
-    rating_sum = models.StuntPlaceReview.objects.filter(stunt_place=stuntplace).aggregate(Sum('rating'))
+    rating_sum = queryset.aggregate(Sum('rating'))
     rating_avg = rating_sum['rating__sum']/rating_counts
     stuntplace.avg_rating = rating_avg
     stuntplace.save()
@@ -424,8 +425,8 @@ def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
             target_stuntplace = models.StuntPlace.objects.get(id=data['stuntmap_id'])
             user = models.UserProfile.objects.get(authentication=auth)
             stunt_review = models.StuntPlaceReview.objects.filter(stunt_place=target_stuntplace, user=user)
-            if len(stunt_review)>0:
-                return JsonResponse({'success': False, 'error': f'Review has already defined'})
+            # if len(stunt_review)>0:
+            #     return JsonResponse({'success': False, 'error': f'Review has already defined'})
             review = models.StuntPlaceReview(stunt_place=target_stuntplace, user=user, rating=data['rating'], desc=data['desc'])
             review.save()
             rating_avg, rating_sum, ratings_count = update_avg_stuntplace_rating(target_stuntplace)
@@ -471,8 +472,8 @@ def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
             user = models.UserProfile.objects.get(email=data['email'])
             review = models.StuntPlaceReview.objects.get(stunt_place=stunt_place, user=user)
             review.delete()
-            avg_rating, _, _ = update_avg_stuntplace_rating(stuntplace=stunt_place)
-            return JsonResponse({'deleted_review': model_to_dict(review), 'new_avg_rating': avg_rating})
+            avg_rating, rating_sum, ratings_count = update_avg_stuntplace_rating(stuntplace=stunt_place)
+            return JsonResponse({'deleted_review': model_to_dict(review), 'new_avg_rating': avg_rating, 'rating_sum': rating_sum, 'rating_count': ratings_count})
         elif delete_type=='id':
             review = models.StuntPlaceReview.objects.get(id=data['stuntreview_id'])
             review.delete()
