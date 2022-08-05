@@ -577,4 +577,24 @@ def fun_stunt_user(auth: ta_models.UserAuthentication, request: WSGIRequest):
     
 @token_auth(roles=['admin', 'user'], get_user=True)
 def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest):
-    ...
+    user = models.UserProfile.objects.get(authentication=auth)
+    if request.method == 'GET':
+        return JsonResponse({'childrens': [user.children_set.all()]})
+    elif request.method == 'POST':
+        data = json.loads(request.body)
+        child_info = {
+            'parent': user,
+            **data['child_info']
+        }
+        existing_child = models.Children.objects.filter(**child_info)
+        if len(existing_child)>0:
+            child = existing_child[0]
+        else:
+            child = models.Children(**child_info)
+        child.save()
+        return JsonResponse({'saved_child': model_to_dict(child)})
+    
+    return HttpResponseNotFound()
+    
+        
+    

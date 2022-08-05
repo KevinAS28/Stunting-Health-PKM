@@ -15,6 +15,7 @@ class UserProfile(models.Model):
 class Children(models.Model):
     name = models.CharField(max_length=50)
     born_date = models.DateField()
+    gender = models.IntegerField()
     parent = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
     
 
