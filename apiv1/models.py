@@ -1,5 +1,6 @@
 from django.db import models
 from token_authentication import models as ta_models
+from datetime import datetime
 # Create your models here.
 
 class GeneralConfig(models.Model):
@@ -37,6 +38,8 @@ class StuntingTrace(models.Model):
     immunization_history = models.CharField(max_length=60)
     children = models.ForeignKey(Children, on_delete=models.SET_NULL, null=True, blank=True)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     class Meta:
         unique_together = (('user', 'week', 'children'),)    
 
