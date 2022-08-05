@@ -17,7 +17,7 @@ class Children(models.Model):
     born_date = models.DateField()
     gender = models.IntegerField()
     parent = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
-    
+    active = models.BooleanField(default=True)
 
 class StuntReminder(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
