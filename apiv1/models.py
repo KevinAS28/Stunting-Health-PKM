@@ -12,6 +12,11 @@ class UserProfile(models.Model):
     email = models.CharField(max_length=30, default='', blank=True, null=True)
     profile_file = models.CharField(max_length=40)
 
+class Children(models.Model):
+    name = models.CharField(max_length=50)
+    born_date = models.DateField()
+    parent = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
+
 class StuntReminder(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
     clock = models.TimeField()
@@ -27,6 +32,7 @@ class StuntingTrace(models.Model):
     exclusive_asi = models.BooleanField(default=True)
     disease_history = models.BooleanField(default=True)
     immunization_history = models.CharField(max_length=60)
+    children = models.ForeignKey(Children, on_delete=models.DO_NOTHING)
 
 class Article(models.Model):
     article_file = models.CharField(max_length=50)

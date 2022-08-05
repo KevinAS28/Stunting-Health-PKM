@@ -384,7 +384,7 @@ def article_admin(request: WSGIRequest):
         for article in to_delete:
             article.delete()
             deleteds.append(model_to_dict(article))
-        return JsonResponse({'deteleds': deleteds})
+        return JsonResponse({'deleteds': deleteds})
     
     else:
         return HttpResponseNotFound()
@@ -425,8 +425,8 @@ def review(auth: ta_models.UserAuthentication, request: WSGIRequest):
                 return JsonResponse({'success': False, 'error': f'Review has already defined'})
             review = models.StuntPlaceReview(stunt_place=target_stuntplace, user=user, rating=data['rating'], desc=data['desc'])
             review.save()
-            rating_avg, _, _ = update_avg_stuntplace_rating(target_stuntplace)
-            return JsonResponse({'success': True, 'review': model_to_dict(review), 'new_avg_rating': rating_avg})
+            rating_avg, rating_sum, ratings_count = update_avg_stuntplace_rating(target_stuntplace)
+            return JsonResponse({'success': True, 'review': model_to_dict(review), 'new_avg_rating': rating_avg, 'rating_sum': rating_sum, 'rating_count': ratings_count})
         else:
             return JsonResponse({'success': False, 'error': 'Permission Denied'})
         
@@ -567,11 +567,11 @@ def fun_stunt_user(auth: ta_models.UserAuthentication, request: WSGIRequest):
             return JsonResponse({'qas': [_merge_qa_content(model_to_dict(i)) for i in qas]})
         elif get_type=='user_answers':
             queryset = models.FunStuntUserAnswer.objects.filter(user=user)
-            user_score_per_level = dict()
+            user_score_per_level = []
             max_level = models.FunStuntQA.objects.aggregate(Max('level'))['level__max']
             for level in range(1, max_level+1):
                 questions_count_level = len(models.FunStuntQA.objects.filter(level=level))
                 correct_answers_count = sum([1 for i in models.FunStuntUserAnswer.objects.filter(question__level=level) if i.answer_is_correct])
-                user_score_per_level[level] = {'question_count_level': questions_count_level, 'correct_answers_count': correct_answers_count}
+                user_score_per_level.append({'question_count_level': questions_count_level, 'correct_answers_count': correct_answers_count, 'level': level})
             return JsonResponse({'user_answers': [model_to_dict(i) for i in queryset], 'user_score_per_level': user_score_per_level})
     
