@@ -7,7 +7,7 @@ def log(msg, end='\n'):
     print(msg+end)
 
 os_commands = [
-    # 'python3 manage.py makemigrations',
+    'python3 manage.py makemigrations',
     'python3 manage.py migrate',
     
 ]
