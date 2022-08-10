@@ -575,7 +575,7 @@ def fun_stunt_user(auth: ta_models.UserAuthentication, request: WSGIRequest):
             max_level = models.FunStuntQA.objects.aggregate(Max('level'))['level__max']
             for level in range(1, max_level+1):
                 questions_count_level = len(models.FunStuntQA.objects.filter(level=level))
-                correct_answers_count = sum([1 for i in models.FunStuntUserAnswer.objects.filter(question__level=level) if i.answer_is_correct])
+                correct_answers_count = sum([1 for i in models.FunStuntUserAnswer.objects.filter(question__level=level, user=user) if i.answer_is_correct])
                 user_score_per_level.append({'question_count_level': questions_count_level, 'correct_answers_count': correct_answers_count, 'level': level})
             return JsonResponse({'user_answers': [model_to_dict(i) for i in queryset], 'user_score_per_level': user_score_per_level})
         elif get_type=='levels_has_question':
