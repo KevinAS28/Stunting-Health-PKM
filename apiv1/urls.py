@@ -15,5 +15,5 @@ urlpatterns = [
     path('review', views.review),
     path('fun_stunt_admin', views.fun_stunt_admin),
     path('fun_stunt_user', views.fun_stunt_user),
-    path('children_management', views.children_management)
+    path('children_management', views.children_management),
 ]

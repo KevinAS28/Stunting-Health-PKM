@@ -578,6 +578,10 @@ def fun_stunt_user(auth: ta_models.UserAuthentication, request: WSGIRequest):
                 correct_answers_count = sum([1 for i in models.FunStuntUserAnswer.objects.filter(question__level=level) if i.answer_is_correct])
                 user_score_per_level.append({'question_count_level': questions_count_level, 'correct_answers_count': correct_answers_count, 'level': level})
             return JsonResponse({'user_answers': [model_to_dict(i) for i in queryset], 'user_score_per_level': user_score_per_level})
+        elif get_type=='levels_has_question':
+            return JsonResponse({'levels': [i['level'] for i in models.FunStuntQA.objects.all().values("level").distinct()]})
+
+            
     
 @token_auth(roles=['admin', 'user'], get_user=True)
 def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest):
