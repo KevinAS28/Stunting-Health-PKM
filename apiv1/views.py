@@ -5,6 +5,7 @@ from django.http import JsonResponse, HttpResponseNotFound
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Sum, Max
 
+import apiv1.stuntech_core as stcore
 from stunting_backend import secret_settings
 
 from token_authentication import models as ta_models
@@ -130,6 +131,11 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
         saved_traces = []
         for trace in data['all_traces']:
             profile = models.UserProfile.objects.get(authentication=user)
+        
+            children = models.Children.objects.get(id=data['child_id'])
+            age_month = round(trace['week']/4)
+            growth_level, z_score = stcore.stunting_classification(children.gender, age_month, float(trace['height']))
+
             trace_object = models.StuntingTrace(
                 user=profile,
                 week=trace['week'],
@@ -139,7 +145,9 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
                 exclusive_asi=trace['exclusive_asi'],
                 disease_history=trace['disease_history'],
                 immunization_history=trace['immunization_history'],
-                children=models.Children.objects.get(id=data['child_id'])
+                children=children,
+                z_score=z_score,
+                growth_level=growth_level
                 )
             trace_object.save()
             saved_traces.append(model_to_dict(trace_object))
@@ -150,6 +158,10 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
         data = json.loads(request.body)
         saved_traces = []
         for trace in data['all_traces']:
+            children = models.Children.objects.get(id=data['child_id'])
+            age_month = round(trace['week']/4)
+            growth_level, z_score = stcore.stunting_classification(children.gender, age_month, float(trace['height']))
+
             trace_object = models.StuntingTrace.objects.get(user=profile, week=trace['week'], children=models.Children.objects.get(id=data['child_id']))
             trace_object.height=trace['height']
             trace_object.weight=trace['weight']
@@ -157,7 +169,9 @@ def stunting_trace(user: ta_models.UserAuthentication, request: WSGIRequest):
             trace_object.exclusive_asi=trace['exclusive_asi']
             trace_object.disease_history=trace['disease_history']
             trace_object.immunization_history=trace['immunization_history']
-            trace_object.children=models.Children.objects.get(id=data['child_id'])
+            trace_object.children=children
+            trace_object.growth_level=growth_level
+            trace_object.z_score=z_score
             trace_object.save()
             saved_traces.append(model_to_dict(trace_object))
         return JsonResponse({'updated': saved_traces})

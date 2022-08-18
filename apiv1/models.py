@@ -37,6 +37,8 @@ class StuntingTrace(models.Model):
     disease_history = models.BooleanField(default=True)
     immunization_history = models.CharField(max_length=60)
     children = models.ForeignKey(Children, on_delete=models.SET_NULL, null=True, blank=True)
+    z_score = models.FloatField()
+    growth_level = models.IntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
