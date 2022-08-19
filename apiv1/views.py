@@ -603,8 +603,12 @@ def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest
         all_childrens = user.children_set.all()
         childrens_traces = []
         for child in all_childrens:
-            last_child_trace = models.StuntingTrace.objects.filter(children=child).order_by('-week')[0]
-            childrens_traces.append({'last_child_trace': model_to_dict(last_child_trace), 'children': model_to_dict(child)})
+            last_child_trace = models.StuntingTrace.objects.filter(children=child).order_by('-week')
+            if len(last_child_trace)==0:
+                last_child_trace = None
+            else:
+                last_child_trace = model_to_dict(last_child_trace[0])
+            childrens_traces.append({'last_child_trace': last_child_trace, 'children': model_to_dict(child)})
         return JsonResponse({'all_childrens': childrens_traces})
     elif request.method == 'POST':
         data = json.loads(request.body)
