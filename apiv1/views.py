@@ -596,12 +596,16 @@ def fun_stunt_user(auth: ta_models.UserAuthentication, request: WSGIRequest):
             return JsonResponse({'levels': [i['level'] for i in models.FunStuntQA.objects.all().values("level").distinct()]})
 
             
-    
 @token_auth(roles=['admin', 'user'], get_user=True)
 def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest):
     user = models.UserProfile.objects.get(authentication=auth)
     if request.method == 'GET':
-        return JsonResponse({'childrens': [model_to_dict(i) for i in user.children_set.all()]})
+        all_childrens = user.children_set.all()
+        childrens_traces = []
+        for child in all_childrens:
+            last_child_trace = models.StuntingTrace.objects.filter(children=child).order_by('-week')[0]
+            childrens_traces.append({'last_child_trace': model_to_dict(last_child_trace), 'children': model_to_dict(child)})
+        return JsonResponse({'all_childrens': childrens_traces})
     elif request.method == 'POST':
         data = json.loads(request.body)
         
