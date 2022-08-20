@@ -600,7 +600,13 @@ def fun_stunt_user(auth: ta_models.UserAuthentication, request: WSGIRequest):
 def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest):
     user = models.UserProfile.objects.get(authentication=auth)
     if request.method == 'GET':
-        all_childrens = user.children_set.all()
+        get_type = request.GET['get_type']
+        
+        if get_type=='all':
+            all_childrens = user.children_set.all()
+        else:
+            all_childrens = user.children_set.filter(id=int(request.GET['child_id']))
+            
         childrens_traces = []
         for child in all_childrens:
             last_child_trace = models.StuntingTrace.objects.filter(children=child).order_by('-week')
