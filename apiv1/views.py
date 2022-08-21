@@ -518,7 +518,7 @@ def fun_stunt_admin(auth: ta_models.UserAuthentication, request: WSGIRequest):
             return JsonResponse({'succcess': False, 'error': 'Permission Denied'})
 
         last_question_index = models.GeneralConfig.objects.get(key='last_question_index')
-        title = utils.valid_filename(f'question_{last_question_index}')
+        title = utils.valid_filename(f'question_{last_question_index.value}')
         qa_parsed, qa_parsed_path, tags_urls = utils.process_content_items('fun_stunt_questions', title, data['question_content'], data['question_items'], request.get_host())
         last_question_index.value = str(int(last_question_index.value)+1)
         last_question_index.save()
@@ -540,6 +540,8 @@ def fun_stunt_admin(auth: ta_models.UserAuthentication, request: WSGIRequest):
         utils.delete_file(to_delete_qa.question_file)
         utils.delete_file(to_delete_qa.answers_file)
         return JsonResponse({'qa_deleted': model_to_dict(to_delete_qa)})
+    
+    return HttpResponseNotFound()
 
 @token_auth(roles=['admin', 'user'], get_user=True)
 def fun_stunt_user(auth: ta_models.UserAuthentication, request: WSGIRequest):
@@ -606,7 +608,7 @@ def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest
             all_childrens = user.children_set.all()
         else:
             all_childrens = user.children_set.filter(id=int(request.GET['child_id']))
-            
+
         childrens_traces = []
         for child in all_childrens:
             last_child_trace = models.StuntingTrace.objects.filter(children=child).order_by('-week')
