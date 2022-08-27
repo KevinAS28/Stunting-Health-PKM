@@ -625,7 +625,7 @@ def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest
             'parent': user,
             **data['child_info']
         }
-        child_info['born_date'] = datetime.date(*child_info['born_date'])
+        child_info['born_date'] = datetime.date(**child_info['born_date'])
         
         child = models.Children(**child_info)
         child.save()
