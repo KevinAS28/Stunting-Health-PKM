@@ -14,7 +14,7 @@ class UserProfile(models.Model):
     profile_file = models.CharField(max_length=40)
 
 class Children(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
     born_date = models.DateField()
     gender = models.IntegerField()
     active = models.BooleanField(default=True)

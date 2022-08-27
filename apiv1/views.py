@@ -620,12 +620,12 @@ def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest
         return JsonResponse({'all_childrens': childrens_traces})
     elif request.method == 'POST':
         data = json.loads(request.body)
-        
+        # data['child_info']['name'] = str(data['child_info']['name']).capitalize
         child_info = {
             'parent': user,
             **data['child_info']
         }
-        child_info['born_date'] = datetime.date(**child_info['born_date'])
+        child_info['born_date'] = datetime.date(*child_info['born_date'])
         
         child = models.Children(**child_info)
         child.save()
