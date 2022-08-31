@@ -654,12 +654,14 @@ def data_stats(request: WSGIRequest):
     #get all final trace from child
     all_childs = models.Children.objects.all()
     childs_trace = dict()
+    availble_trace = 0
     for child in all_childs:
         the_traces = models.StuntingTrace.objects.filter(children=child).order_by('-week')
         child = child.id
         if len(the_traces)==0:
             childs_trace[child] = None
             continue
+        availble_trace += 1
         childs_trace[child] = model_to_dict(the_traces[0])
     
     #stunting bar
@@ -678,6 +680,6 @@ def data_stats(request: WSGIRequest):
         else:
             growth_agemonth_stunting[growth_level][age_in_month] += 1
         
-    return JsonResponse({'child_traces': childs_trace, 'growth_agemonth_stunting': growth_agemonth_stunting})
+    return JsonResponse({'child_traces': childs_trace, 'growth_agemonth_stunting': growth_agemonth_stunting, 'availble_trace': availble_trace})
 
     
