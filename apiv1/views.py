@@ -626,7 +626,7 @@ def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest
             'parent': user,
             **data['child_info']
         }
-        child_info['born_date'] = datetime.date(*child_info['born_date'])
+        child_info['born_date'] = datetime.date(**child_info['born_date'])
         
         child = models.Children(**child_info)
         child.save()
@@ -638,7 +638,7 @@ def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest
             'parent': user,
             **data['child_info']
         }
-        child_info['born_date'] = datetime.date(*child_info['born_date'])        
+        child_info['born_date'] = datetime.date(**child_info['born_date'])        
         child = utils.auto_set_obj_attrs(existing_child, child_info)
         child.save()
         return JsonResponse({'updated_child': model_to_dict(child)})
