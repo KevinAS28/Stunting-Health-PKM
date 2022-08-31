@@ -697,7 +697,7 @@ def data_stats(request: WSGIRequest):
         if not (growth_level in growth_date_trends):
             growth_date_trends[growth_level] = dict()
 
-        if not (trace_updated_at in growth_date_trends):
+        if not (trace_updated_at in growth_date_trends[growth_level]):
             growth_date_trends[growth_level][trace_updated_at] = 1
         else:
             growth_date_trends[growth_level][trace_updated_at] += 1
