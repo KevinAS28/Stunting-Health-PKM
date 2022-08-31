@@ -1,4 +1,5 @@
 import json, datetime, requests, re, os, base64
+from pty import CHILD
 
 from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseNotFound
@@ -649,4 +650,18 @@ def children_management(auth: ta_models.UserAuthentication, request: WSGIRequest
     return HttpResponseNotFound()
 
         
+def data_stats(request: WSGIRequest):
+    #get all final trace from child
+    all_childs = models.Children.objects.all()
+    childs_trace = dict()
+    for child in all_childs:
+        the_traces = models.StuntingTrace.objects.filter(children=child).order_by('-week')
+        child = child.id
+        if len(the_traces)==0:
+            childs_trace[child] = None
+            continue
+        childs_trace[child] = model_to_dict(the_traces[0])
     
+    return JsonResponse({'child_traces': childs_trace})
+
+    #stunting bar
