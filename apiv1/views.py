@@ -665,6 +665,8 @@ def data_stats(request: WSGIRequest):
     #stunting bar
     growth_agemonth_stunting = dict()
     for child_id, trace in childs_trace.items():
+        if trace is None:
+            continue
         child = all_childs.filter(id=child_id)
         age_in_month = trace['week']%4
         growth_level = trace['growth_level']
