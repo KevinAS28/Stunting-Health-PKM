@@ -664,14 +664,22 @@ def data_stats(request: WSGIRequest):
         availble_trace += 1
         childs_trace[child] = model_to_dict(the_traces[0])
     
-    #stunting bar
+    #stunting bar and percentage
     growth_agemonth_stunting = dict()
+    growth_group_count = dict()
+
     for child_id, trace in childs_trace.items():
         if trace is None:
             continue
         child = all_childs.filter(id=child_id)
         age_in_month = trace['week']%4
         growth_level = trace['growth_level']
+
+        if not (growth_level in growth_group_count):
+            growth_group_count[growth_level] = 1
+        else:
+            growth_group_count[growth_level] += 1
+            
         if not (growth_level in growth_agemonth_stunting):
             growth_agemonth_stunting[growth_level] = dict()
 
@@ -679,7 +687,8 @@ def data_stats(request: WSGIRequest):
             growth_agemonth_stunting[growth_level][age_in_month] = 1
         else:
             growth_agemonth_stunting[growth_level][age_in_month] += 1
-        
-    return JsonResponse({'child_traces': childs_trace, 'growth_agemonth_stunting': growth_agemonth_stunting, 'availble_trace': availble_trace})
+    
+    #
+    return JsonResponse({'child_traces': childs_trace, 'growth_agemonth_stunting': growth_agemonth_stunting, 'availble_trace': availble_trace, 'growth_group_count': growth_group_count, 'growth_group_total': sum(growth_group_count.values())})
 
     
