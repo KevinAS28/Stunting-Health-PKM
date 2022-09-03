@@ -1,13 +1,13 @@
 import os
 import pandas as pd
 import math
-from django.conf import settings
+# from django.conf import settings
 
-tb = pd.read_csv(os.path.join(settings.BASE_DIR, 'apiv1', 'stunt_boy.csv'))
-tg = pd.read_csv(os.path.join(settings.BASE_DIR, 'apiv1', 'stunt_girl.csv'))
+# tb = pd.read_csv(os.path.join(settings.BASE_DIR, 'apiv1', 'stunt_boy.csv'))
+# tg = pd.read_csv(os.path.join(settings.BASE_DIR, 'apiv1', 'stunt_girl.csv'))
 
-# tb = pd.read_csv('stunt_boy.csv')
-# tg = pd.read_csv('stunt_girl.csv')
+tb = pd.read_csv('stunt_boy.csv')
+tg = pd.read_csv('stunt_girl.csv')
 
 def stunting_classification(sex, age_month, height):
     if sex==0:
@@ -26,7 +26,7 @@ def stunting_classification(sex, age_month, height):
     elif height > median:
         sd = float(data['3_SD'])
     else:
-        return 0, 0
+        return 1, 0
 
     # print('trace sd: ', sd)
 
@@ -61,7 +61,7 @@ def stunting_classification(sex, age_month, height):
     # elif -2 <= z_score <= 2:
     #     return 1, z_score
     # else:
-    #     return 2, z_score\
+    #     return 2, z_score
 
     if height < data['-3_SD']:
         return -2, z_score
@@ -75,6 +75,7 @@ def stunting_classification(sex, age_month, height):
 if __name__=='__main__':
     #1: cewe, 0: cowo.
     test_table = [
+        ([0, 0, 60], 2),
         ([1, 0, 53], 2),
         ([1, 0, 43.6], -1),
         ([1, 0, 43.7], -1),
