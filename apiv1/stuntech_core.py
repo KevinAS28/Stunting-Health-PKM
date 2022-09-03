@@ -8,8 +8,11 @@ tg = pd.read_csv(os.path.join(settings.BASE_DIR, 'apiv1', 'stunt_girl.csv'))
 def stunting_classification(sex, age_month, height):
     if sex==0:
         table = tb
+        print('trace: boy table')
     else:
         table = tg
+        print('trace: girl table')
+
     data = table.loc[table['age_month']==age_month].iloc[0]
 
     median = float(data['Median'])
@@ -19,7 +22,7 @@ def stunting_classification(sex, age_month, height):
     elif height > median:
         sd = float(data['3_SD'])
     else:
-        return 0, z_score
+        return 0, 0
 
     z_score = ((height-median)/abs(median-sd))
 
@@ -27,7 +30,7 @@ def stunting_classification(sex, age_month, height):
     if z_score < -3:
         return -2, z_score
     elif -3 <= z_score < -2:
-        return -1, z_score
+        return -1, z_score      
     elif -2 <= z_score <= 2:
         return 1, z_score
     else:

@@ -678,7 +678,7 @@ def data_stats(request: WSGIRequest):
         age_in_month = trace['week']%4
         growth_level = trace['growth_level']
 
-        # Percentage
+        # Percentage / pie
         if not (growth_level in growth_group_count):
             growth_group_count[growth_level] = 1
         else:
