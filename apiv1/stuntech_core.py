@@ -27,14 +27,23 @@ def stunting_classification(sex, age_month, height):
     z_score = ((height-median)/abs(median-sd))
 
     print('trace:', z_score)
-    if z_score < -3:
-        return -2, z_score
-    elif -3 <= z_score < -2:
-        return -1, z_score      
-    elif -2 <= z_score <= 2:
-        return 1, z_score
+    if sex==0:
+        if z_score < -3:
+            return -2, z_score
+        elif -3 <= z_score < -2:
+            return -1, z_score      
+        elif -2 <= z_score <= 2:
+            return 1, z_score
+        else:
+            return 2, z_score
     else:
-        return 2, z_score
-
+        if z_score <= -3:
+            return -2, z_score
+        elif -3 < z_score < -2:
+            return -1, z_score      
+        elif -2 <= z_score <= 2:
+            return 1, z_score
+        else:
+            return 2, z_score        
 if __name__=='__main__':
     print(stunting_classification(0, 26, 90))
