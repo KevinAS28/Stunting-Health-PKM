@@ -35,33 +35,42 @@ def stunting_classification(sex, age_month, height):
     # z_score = float(str(z_score)[:3]) if z_score < 0 else float(str(z_score)[:2])
     # print('trace z_score ROUNDED:', z_score)
     
-    if sex==0:
-        if z_score < -3:
-            return -2, z_score
-        elif -3 <= z_score < -2:
-            return -1, z_score      
-        elif -2 <= z_score <= 2:
-            return 1, z_score
-        else:
-            return 2, z_score
-    else:
-        if z_score <= -3.1: # Beda tipis
-            return -2, z_score
-        elif (-3.1 < z_score < -2):
-            return -1, z_score      
-        elif -2 <= z_score <= 2:
-            return 1, z_score
-        else:
-            return 2, z_score       
+    # if sex==0:
+    #     if z_score < -3.05:
+    #         return -2, z_score
+    #     elif -3.05 <= z_score < -2:
+    #         return -1, z_score      
+    #     elif -2 <= z_score <= 2:
+    #         return 1, z_score
+    #     else:
+    #         return 2, z_score
+    # else:
+    #     if z_score <= -3.05:    # Beda tipis
+    #         return -2, z_score
+    #     elif (-3.05 < z_score < -2):
+    #         return -1, z_score      
+    #     elif -2 <= z_score <= 2:
+    #         return 1, z_score
+    #     else:
+    #         return 2, z_score       
 
-    # if z_score < -3:
+    # if z_score < -3.1:
     #     return -2, z_score
-    # elif -3 <= z_score < -2:
+    # elif -3.1 <= z_score < -2:
     #     return -1, z_score      
     # elif -2 <= z_score <= 2:
     #     return 1, z_score
     # else:
-    #     return 2, z_score
+    #     return 2, z_score\
+
+    if height < data['-3_SD']:
+        return -2, z_score
+    elif data['-3_SD'] <= height < data['-2_SD']:
+        return -1, z_score
+    elif data['-2_SD'] <= height < data['2_SD']:
+        return 1, z_score
+    else:
+        return 2, z_score
 
 if __name__=='__main__':
     #1: cewe, 0: cowo.
@@ -73,12 +82,19 @@ if __name__=='__main__':
         ([0, 0, 46.1], 1),
 
         ([0, 52, 110], 1),
+        ([1, 24, 76], -1),
+        ([1, 52, 91.6], -2),
+        ([1, 52, 91.7], -1),
+        ([0, 24, 78], -1),
+        ([0, 24, 77.9], -2),
     ]
+    #FORMAT: gender, bulan, tinggi, hasil
+
     salah = False
     for test in test_table:
         status, z_score = stunting_classification(*test[0])
         if status!=test[1]:
-            print(f'SALAH: {test}, {status}')
+            print(f'SALAH: {test}, {status}, {z_score}')
             salah = True
     if not salah:
         print('TESTING SMUA BERHASIL')
