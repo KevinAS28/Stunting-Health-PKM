@@ -16,17 +16,17 @@ def stunting_classification(sex, age_month, height):
     data = table.loc[table['age_month']==age_month].iloc[0]
 
     median = float(data['Median'])
-    
+    print('trace: median: ', median)
     if height < median:
         sd = float(data['-1_SD'])
     elif height > median:
         sd = float(data['3_SD'])
     else:
         return 0, 0
-
+    print('trace sd: ', sd)
     z_score = ((height-median)/abs(median-sd))
 
-    print(z_score)
+    print('trace:', z_score)
     if z_score < -3:
         return -2, z_score
     elif -3 <= z_score < -2:
