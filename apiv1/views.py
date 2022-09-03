@@ -703,6 +703,8 @@ def data_stats(request: WSGIRequest):
             growth_date_trends[growth_level][trace_updated_at] += 1
         
     growth_date_trends = {key1:{f'{key.year}-{key.month}-{key.day}':growth_date_trends[key1][key] for key in sorted(growth_date_trends[key1].keys())} for key1 in growth_date_trends}
+    growth_agemonth_stunting = {key1:{f'{key.year}-{key.month}-{key.day}':growth_agemonth_stunting[key1][key] for key in sorted(growth_agemonth_stunting[key1].keys())} for key1 in growth_agemonth_stunting}
+    
 
     return JsonResponse({'child_traces': childs_trace, 'growth_agemonth_stunting': growth_agemonth_stunting, 'availble_trace': availble_trace, 'growth_group_count': growth_group_count, 'growth_group_total': sum(growth_group_count.values()), 'growth_date_trends': growth_date_trends})
 

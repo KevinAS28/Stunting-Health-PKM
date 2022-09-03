@@ -1,13 +1,13 @@
 import os
 import pandas as pd
 import math
-# from django.conf import settings
+from django.conf import settings
 
-# tb = pd.read_csv(os.path.join(settings.BASE_DIR, 'apiv1', 'stunt_boy.csv'))
-# tg = pd.read_csv(os.path.join(settings.BASE_DIR, 'apiv1', 'stunt_girl.csv'))
+tb = pd.read_csv(os.path.join(settings.BASE_DIR, 'apiv1', 'stunt_boy.csv'))
+tg = pd.read_csv(os.path.join(settings.BASE_DIR, 'apiv1', 'stunt_girl.csv'))
 
-tb = pd.read_csv('stunt_boy.csv')
-tg = pd.read_csv('stunt_girl.csv')
+# tb = pd.read_csv('stunt_boy.csv')
+# tg = pd.read_csv('stunt_girl.csv')
 
 def stunting_classification(sex, age_month, height):
     if sex==0:
@@ -26,7 +26,7 @@ def stunting_classification(sex, age_month, height):
     elif height > median:
         sd = float(data['3_SD'])
     else:
-        return 1, 0
+        return 1, 0 # for now, we still assume it's normal
 
     # print('trace sd: ', sd)
 
