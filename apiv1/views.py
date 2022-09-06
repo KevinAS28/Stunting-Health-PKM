@@ -677,7 +677,7 @@ def data_stats(request: WSGIRequest):
         if trace is None:
             continue
         child = all_childs.filter(id=child_id)
-        age_in_month = trace['week']%4
+        age_in_month = int(trace['week']/4)
         growth_level = trace['growth_level']
 
         # Percentage / pie
