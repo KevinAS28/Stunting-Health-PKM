@@ -1,8 +1,12 @@
-import os, base64, re, json
-from datetime import datetime as dt
+import os, base64, re, json, random
+from datetime import (datetime as dt, time as tm)
+import time
 
 from django.core.handlers.wsgi import WSGIRequest
 from django.conf import settings
+from django.db import models
+
+import xlsxwriter
 import requests
 
 
@@ -180,12 +184,64 @@ def process_article(request: WSGIRequest):
 
     return article_parsed_path, title, cover_path, tags_urls, article_parsed
 
+def is_jsonable(x):
+    try:
+        json.dumps(x)
+        return True
+    except (TypeError, OverflowError):
+        return False
+
+
 def auto_set_obj_attrs(obj, attrs: dict, ignore_not_found=True):
     for key, value in attrs.items():
         if (not hasattr(obj, key)) and (not ignore_not_found):
             raise AttributeError(f'attribute {key} not found in selected object {str(obj)} and has been not ignored')
         setattr(obj, key, value)
     return obj
+
+def queryset_to_excel(queryset_list):
+    # Create a workbook and add a worksheet.
+    file_path = f'/tmp/{time.time()}_{random.random()}.xlsx'
+    workbook = xlsxwriter.Workbook(file_path)
     
+    for queryset in queryset_list:
+        if len(queryset)==0:
+            continue
+        sample_object = queryset[0]
+        columns = [i for i in sample_object._meta.get_fields()]
+        # print(columns)
+        worksheet = workbook.add_worksheet(sample_object._meta.db_table) 
+
+        for i, col in enumerate(columns):
+            worksheet.write(0, i, col.verbose_name.lower())
+        
+        for i0, data_obj in enumerate(queryset):
+            for i1, col in enumerate(columns):
+                col = col.attname
+                cell_data = getattr(data_obj, col)
+
+                if isinstance(cell_data, models.Model):
+                    cell_data = cell_data.id
+                
+                if not is_jsonable(cell_data):
+                    cell_data = str(cell_data)
+                    
+                worksheet.write(i0+1, i1, cell_data)
+
+        workbook.close()  
+
+    
+    # # Iterate over the data and write it out row by row.
+    # for item, cost in (expenses):
+    #     worksheet.write(row, col,     item)
+    #     worksheet.write(row, col + 1, cost)
+    #     row += 1
+
+    # # Write a total using a formula.
+    # worksheet.write(row, 0, 'Total')
+    # worksheet.write(row, 1, '=SUM(B1:B4)')
+    return file_path
+    
+
 if __name__=='__main__':
     print(valid_filename('r4u191rd  u58cb@$RF&^NU(!N&U(#!C.jp3eg'))

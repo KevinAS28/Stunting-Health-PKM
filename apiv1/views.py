@@ -1,10 +1,11 @@
-import json, datetime, requests, re, os, base64
-from pty import CHILD
+import json, datetime, requests, os, base64
 
 from django.forms import model_to_dict
-from django.http import JsonResponse, HttpResponseNotFound
+from django.http import JsonResponse, HttpResponseNotFound, HttpResponse
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Sum, Max
+from django.apps import apps
+import apiv1
 
 import apiv1.stuntech_core as stcore
 from stunting_backend import secret_settings
@@ -15,6 +16,7 @@ from apiv1 import models, utils
 
 from geopy import distance
 
+apiv1_config = apps.get_app_config("apiv1")
 
 # Create your views here.
 @token_auth(roles=['user'], get_user=True)
@@ -705,7 +707,16 @@ def data_stats(request: WSGIRequest):
     growth_date_trends = {key1:{f'{key.year}-{key.month}-{key.day}':growth_date_trends[key1][key] for key in sorted(growth_date_trends[key1].keys())} for key1 in growth_date_trends}
     growth_agemonth_stunting = {key1:{key:growth_agemonth_stunting[key1][key] for key in sorted(growth_agemonth_stunting[key1].keys())} for key1 in growth_agemonth_stunting}
     
-
     return JsonResponse({'child_traces': childs_trace, 'growth_agemonth_stunting': growth_agemonth_stunting, 'availble_trace': availble_trace, 'growth_group_count': growth_group_count, 'growth_group_total': sum(growth_group_count.values()), 'growth_date_trends': growth_date_trends})
 
-    
+# @token_auth(roles=['admin'])
+def download_excel(request: WSGIRequest):
+    if request.method=='GET':        
+        
+        file_path = utils.queryset_to_excel([apiv1_config.get_model(i).objects.all() for i in json.loads(request.GET['json_body'])['model_names']])
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+
+    return HttpResponseNotFound()
