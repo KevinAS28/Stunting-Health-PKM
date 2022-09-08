@@ -714,9 +714,11 @@ def download_excel(request: WSGIRequest):
     if request.method=='GET':        
         
         file_path = utils.queryset_to_excel([apiv1_config.get_model(i).objects.all() for i in json.loads(request.GET['json_body'])['model_names']])
+        response = None
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-            return response
+        os.remove(file_path)
+        return response
 
     return HttpResponseNotFound()
