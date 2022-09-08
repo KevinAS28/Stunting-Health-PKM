@@ -9,6 +9,8 @@ from django.db import models
 import xlsxwriter
 import requests
 
+from apiv1.models import UserProfile
+
 
 if settings.DEBUG:
     STATIC_DIR = settings.STATICFILES_DIRS[0]
@@ -217,11 +219,22 @@ def queryset_to_excel(queryset_list):
         
         for i0, data_obj in enumerate(queryset):
             for i1, col in enumerate(columns):
-                col = col.attname
+                col = col.name
                 cell_data = getattr(data_obj, col)
+                # print('do:', cell_data, ' ', type(cell_data))
+                # handle special data
 
+                # if isinstance(cell_data, UserProfile):
+                #     print('userprofile: ', col)
+                #     cell_data = cell_data.name
+                    
                 if isinstance(cell_data, models.Model):
-                    cell_data = cell_data.id
+                    # print('model: ', col)
+                    if hasattr(cell_data, 'name'):
+                        # print('has attribute name: ', cell_data.name)
+                        cell_data = cell_data.name
+                    else:
+                        cell_data = cell_data.id
                 
                 if not is_jsonable(cell_data):
                     cell_data = str(cell_data)
