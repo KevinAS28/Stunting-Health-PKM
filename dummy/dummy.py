@@ -23,7 +23,7 @@ for index, row in df.iterrows():
     child.save()
     all_childs.append(child)
     all_parents.append(parent)
-    week = int(random.choice(list(range(0, 60, 4))))
+    week = int(random.choice(list(range(0, 60*4, 4))))
     height = random.randrange(40, 160)
     try:
         growth_level, z_score = stcore.stunting_classification(row['sex'], int(week/4), height)
