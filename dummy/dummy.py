@@ -12,7 +12,7 @@ for i in range(25):
 all_childs = []
 all_parents = []
 for index, row in df.iterrows():
-    parent_name = f'par_{index+1}'
+    parent_name = f'parent{index+1}'
     role = ta_models.UserRole.objects.get(role_name='user')
     # role.save()
     auth = ta_models.UserAuthentication(username=parent_name, password=parent_name, role=role)
