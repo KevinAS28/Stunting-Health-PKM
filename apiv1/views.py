@@ -91,7 +91,11 @@ def user(request: WSGIRequest):
         return JsonResponse({'profile': model_to_dict(profile), 'user': model_to_dict(user)})
     elif request.method=='DELETE':
         data = json.loads(request.body)
-        user: ta_models.UserAuthentication = token_auth_core(request.headers['token'], ['*'])
+        delete_type = data['delete_type']
+        if delete_type=='self':
+            user: ta_models.UserAuthentication = token_auth_core(request.headers['token'], ['*'])
+        else:
+            user: ta_models.UserAuthentication = ta_models.UserAuthentication.objects.get(username=data['username'])
         profile: models.UserProfile = models.UserProfile.objects.get(authentication=user)
         user.delete()
         profile.delete()
